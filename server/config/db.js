@@ -3,11 +3,12 @@ require('dotenv').config({ path: './envFiles/.env' });
 
 const connectToDB = async () => {
     try {
-        await mongoose.connect(`mongodb+srv://${process.env.user}:${process.env.userKey}@cluster0.i9wanvz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
+        await mongoose.connect(process.env.MONGO_URI)
         console.log("Connected To MongoDB")
     }
     catch (error) {
         console.log("Failed to Connect", error)
+        process.exit(1)
     }
 }
 
