@@ -11,4 +11,24 @@ const getData = async (req, res) => {
     }
 
 }
-module.exports = getData
+
+const postData = async (req, res) => {
+    const newPost = new projectModel({
+        title: req.body.title,
+        description: req.body.description,
+        tags: req.body.tags,
+        contributors: req.body.contributors,
+        status: req.body.status,
+        projectOwner: req.body.projectOwner,
+    })
+    try {
+        const savedPost = await newPost.save()
+        res.json(savedPost)
+    }
+    catch (error) {
+        console.log('Error Posting data: ', error.message)
+        res.status(500).json({ message: "Failed to Post. Could not Post data" })
+    }
+}
+
+module.exports = {getData, postData}

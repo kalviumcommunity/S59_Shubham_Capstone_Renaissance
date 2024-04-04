@@ -25,10 +25,13 @@ const projectSchema = mongoose.Schema({
         type : String,
         required : true
     },
-    chapters :[{
-        type : Schema.Types.ObjectId,
-        ref : 'Chapter'
-    }]
+    chapters :{
+        type : [{
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'Chapter'
+        }],
+        default : []
+    }
 })
 
 const projects = mongoose.model('project', projectSchema)
