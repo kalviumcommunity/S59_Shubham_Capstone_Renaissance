@@ -23,7 +23,6 @@ const postData = async (req, res) => {
         status: req.body.status,
         projectOwner: req.body.projectOwner,
     })
-    console.log(newPost)
     if (!checkValidation(req.body, projectStruc)) {
         return res.status(400).json({ message: "Validation Failed" })
     }
