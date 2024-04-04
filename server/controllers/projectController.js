@@ -1,4 +1,6 @@
 const projectModel = require('../models/projectSchema')
+const checkValidation = require('../validation/checkValidation')
+const projectStruc = require('../validation/projectValidation')
 
 const getData = async (req, res) => {
     try {
@@ -21,6 +23,10 @@ const postData = async (req, res) => {
         status: req.body.status,
         projectOwner: req.body.projectOwner,
     })
+    console.log(newPost)
+    if (!checkValidation(req.body, projectStruc)) {
+        return res.status(400).json({ message: "Validation Failed" })
+    }
     try {
         const savedPost = await newPost.save()
         res.json(savedPost)
@@ -31,4 +37,4 @@ const postData = async (req, res) => {
     }
 }
 
-module.exports = {getData, postData}
+module.exports = { getData, postData }
