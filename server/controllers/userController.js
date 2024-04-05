@@ -41,7 +41,7 @@ const updateUser = async (req, res) => {
         }
         findUser.username = req.body.username
         findUser.email = req.body.email
-        findUser.occupations = req.body.occupations
+        findUser.occupation = req.body.occupations
         findUser.password = req.body.password
 
         await findUser.save()
@@ -49,7 +49,7 @@ const updateUser = async (req, res) => {
     }
     catch (error) {
         console.log(error)
-        res.status(500).json({ message: "Registration Failed" })
+        res.status(500).json({ message: "Updation failed. Try again later" })
     }
 }
 
