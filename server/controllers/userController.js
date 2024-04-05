@@ -12,14 +12,14 @@ const registerUser = async (req, res) => {
         console.log("Data Failed the validation")
         return res.status(400).json({ message: "Data validation failed. Please add data as per the norms" })
     }
-    const newUser = {
-        username: req.body.username,
-        email: req.body.email,
-        occupation: req.body.occupation,
-        password: req.body.password
-    }
     try {
-        const user = await userModel.signup(newUser)
+        const newUser = new userModel({
+            username: req.body.username,
+            email: req.body.email,
+            occupation: req.body.occupation,
+            password: req.body.password
+        })
+        const user = await newUser.save()
         res.status(201).json(user)
     }
     catch (error) {
@@ -28,4 +28,29 @@ const registerUser = async (req, res) => {
     }
 }
 
-module.exports = registerUser
+const updateUser = async (req, res) => {
+    try {
+        if (!checkValidation(req.body, userStruc)) {
+            console.log("Data Failed the validation")
+            return res.status(400).json({ message: "Data validation failed. Please add data as per the norms" })
+        }
+        const findUser = await userModel.findOne({ email: req.body.email })
+        if (!findUser) {
+            console.log("User doesn't exist")
+            return res.status(404).json({ message: "User doesn't exist" })
+        }
+        findUser.username = req.body.username
+        findUser.email = req.body.email
+        findUser.occupations = req.body.occupations
+        findUser.password = req.body.password
+
+        await findUser.save()
+        res.status(200).json(findUser)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Registration Failed" })
+    }
+}
+
+module.exports = {registerUser, updateUser}

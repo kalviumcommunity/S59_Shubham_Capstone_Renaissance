@@ -24,28 +24,19 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-userSchema.statics.signup = async function (newUser) {
+userSchema.pre('save', async function (next) {
     try {
-        const userExists = await this.findOne({ email: newUser.email })
-        if (userExists) {
-            throw new Error("User already exists")
+        if (!this.isModified('password')) {
+            return next()
         }
         const salt = await bcrypt.genSalt(10)
-        const hash = await bcrypt.hash(newUser.password, salt)
-        const user = this.create({
-            username: newUser.username,
-            email: newUser.email,
-            projects: newUser.projects,
-            occupation: newUser.occupation,
-            password: hash
-        })
-        return user
+        const hash = await bcrypt.hash(this.password, salt)
+        this.password = hash
+        next()
     }
     catch (error) {
-        throw error
+        next(error)
     }
-
-}
-
+})
 const user = mongoose.model('user', userSchema)
 module.exports = user
