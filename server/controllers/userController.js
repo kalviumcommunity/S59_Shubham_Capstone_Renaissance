@@ -53,4 +53,22 @@ const updateUser = async (req, res) => {
     }
 }
 
-module.exports = {registerUser, updateUser}
+const deleteUser = async (req, res) => {
+    try {
+        const userMail = req.params.mail
+        const userToDelete = await userModel.deleteOne({ email: userMail })
+        if (userToDelete.deletedCount == 0) {
+            console.log("User does not exist")
+            return res.status(404).json({ message: "User not found. Check mail" })
+        }
+        console.log("User deleted successfully")
+        res.status(200).json({ message: "User deleted successfully" })
+
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Deletion failed. Try again later." })
+    }
+}
+
+module.exports = { registerUser, updateUser, deleteUser }
