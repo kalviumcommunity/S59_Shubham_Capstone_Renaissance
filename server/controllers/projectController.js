@@ -36,4 +36,22 @@ const postData = async (req, res) => {
     }
 }
 
-module.exports = { getData, postData }
+const deleteData = async (req, res) => {
+    try {
+        const projectId = req.params.id
+        const projectToDelete = await projectModel.findByIdAndDelete(projectId);
+        if (!projectToDelete) {
+            console.log("Project does not exist")
+            return res.status(404).json({ message: "Project not found. Check the id" })
+        }
+        console.log("Project deleted successfully")
+        res.status(200).json({ message: "Project deleted successfully" })
+
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Deletion failed. Try again later." })
+    }
+}
+
+module.exports = { getData, postData, deleteData }
