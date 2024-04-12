@@ -4,11 +4,12 @@ import searchIcon from '../assets/search-icon.png'
 import johnKeats from '../assets/john_keats.jpg'
 import HelpDesk from './HelpDesk'
 import SecondarySlider from './SecondarySlider'
+import Footer from './Footer'
 function Home() {
     return (
         <>
             <div className='flex'>
-                <div className='my-5 pl-10 h-[62vh] w-[80vw] bg-cover ' style={{ backgroundImage: `url(${greenBg})` }}>
+                <div className='my-5 pl-10 h-[400px] w-[80%] bg-cover ' style={{ backgroundImage: `url(${greenBg})` }}>
                     <div className='mt-5'>
                         <input type="text" placeholder="Search Here" className="pl-16 py-5 text-3 w-[50vw] my-5 absolute left-[-15px] h-[30px] rounded-3xl border-transparent" />
                         <button className="z-[10] absolute bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] border-2 py-1.5 px-3 left-[46vw] mt-[20px] rounded-3xl rounded-l-none" ><img src={searchIcon} className='w-[24px]' /></button>
@@ -30,6 +31,7 @@ function Home() {
             <p className='text-center mt-[10px] mb-[60px]'>In timeless verse, their ancient souls still breathe.</p>
             <SecondarySlider />
             <HelpDesk/>
+            <Footer/>
         </>
     )
 }
