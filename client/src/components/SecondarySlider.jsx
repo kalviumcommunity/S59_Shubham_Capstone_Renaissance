@@ -74,7 +74,7 @@ function SecondarySlider() {
 
             </Slider>
             {selectedArtist != null &&
-                <div className="w-[80vw] py-8 px-5 rounded m-auto bg-white absolute left-[10%] top-0 border shadow-xl border-[#3F5F4F]">
+                <div className="w-[80vw] py-8 px-5 rounded m-auto bg-white absolute left-[10%]  border shadow-xl border-[#3F5F4F]">
                     <button onClick={() => setPopUp(null)} className=" absolute right-3 top-3">Close</button>
                     <h1 className="font-bold text-center text-lg">{imageArray[selectedArtist].artistName}</h1>
                     <h1 className="text-center">{imageArray[selectedArtist].birth}</h1>
