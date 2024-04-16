@@ -58,15 +58,15 @@ function SecondarySlider() {
     }
 
     return (
-        <div className="h-[400px] bg-cover" style={{ backgroundImage: `url(${bgSemiGreen})` }}>
+        <div className="h-[400px] bg-cover relative" style={{ backgroundImage: `url(${bgSemiGreen})` }}>
             <div ref={modalRef} />
-            <Slider {...settings} className="slider-container w-[70vw] m-auto h-[60vh]">
+            <Slider {...settings} className="slider-container w-[70vw] m-auto h-[350px]">
                 {imageArray.map((image, index) => (
                     <div key={image._id} className={index == imageIndex ? "scale-[1.1] transition-transform px-5 py-8 rounded shadow-xl bg-white" : "shadow-xl p-5 scale-[0.8] bg-[#97D4A6] rounded"}>
                         <img src={image.artistImageSrc} alt={image.artistName} className="rounded w-[800px] object-contain" />
                         {index == imageIndex && <div className="absolute bottom-[15%] w-[90%] m-auto" onClick={() => setPopUp(index)}>
                             <img src={downChevron} className="w-5 m-auto animate-bounce cursor-pointer" alt="" />
-                            <p className="text-[15px] text-white text-shadow text-center mb-1.5 cursor-pointer">{image.artistName}</p>
+                            {selectedArtist == null && <p className="text-[15px] text-white text-shadow text-center mb-1.5 cursor-pointer">{image.artistName}</p>}
                         </div>}
                     </div>
 
@@ -74,7 +74,7 @@ function SecondarySlider() {
 
             </Slider>
             {selectedArtist != null &&
-                <div className="w-[80vw] py-8 px-5 rounded m-auto bg-white absolute left-[10%]  border shadow-xl border-[#3F5F4F]">
+                <div className="w-[80vw] py-8 px-5 rounded m-auto bg-white absolute left-[10%] top-[350px] shadow-xl pt-0 ">
                     <button onClick={() => setPopUp(null)} className=" absolute right-3 top-3">Close</button>
                     <h1 className="font-bold text-center text-lg">{imageArray[selectedArtist].artistName}</h1>
                     <h1 className="text-center">{imageArray[selectedArtist].birth}</h1>
