@@ -1,14 +1,16 @@
 import React from 'react'
-import SimpleSlider from './components/Slider'
+import { Routes, Route, Router } from 'react-router-dom'
 import Home from './components/Home'
 import './index.css'
-
+import Register from './components/Register'
 import './App.css'
 function App() {
   return (
     <>
-      <SimpleSlider />
-      <Home />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/Register' element={<Register />} />
+      </Routes>
     </>
   )
 }

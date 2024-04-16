@@ -20,7 +20,7 @@ function SecondarySlider() {
     const modalRef = useRef(null)
 
     const fetchArtists = () => {
-        fetch("http://localhost:8080/artist")
+        fetch("https://renaissance-server.onrender.com/artist")
             .then(response => response.json())
             .then(result => {
                 console.log(result)

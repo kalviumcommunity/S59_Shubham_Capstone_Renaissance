@@ -3,11 +3,13 @@ import greenBg from '../assets/bg-green.png'
 import searchIcon from '../assets/search-icon.png'
 import johnKeats from '../assets/john_keats.jpg'
 import HelpDesk from './HelpDesk'
+import SimpleSlider from './Slider'
 import SecondarySlider from './SecondarySlider'
 import Footer from './Footer'
 function Home() {
     return (
         <>
+            <SimpleSlider />
             <div className='flex'>
                 <div className='my-5 pl-10 h-[400px] w-[80%] bg-cover ' style={{ backgroundImage: `url(${greenBg})` }}>
                     <div className='mt-5'>
@@ -24,14 +26,14 @@ function Home() {
 
                     </div>
                 </div>
-                <div className = "w-[350px] bg-cover absolute h-[350px] right-[80px] mt-[30px] border-[#97D4A6] rounded-full border-[30px] shadow-lg" style={{ backgroundImage: `url(${johnKeats})`}}>
+                <div className="w-[350px] bg-cover absolute h-[350px] right-[80px] mt-[30px] border-[#97D4A6] rounded-full border-[30px] shadow-lg" style={{ backgroundImage: `url(${johnKeats})` }}>
                 </div>
             </div >
             <h1 className='text-7xl font-extrabold text-center mt-[60px]'>Discover Personalities</h1>
             <p className='text-center mt-[10px] mb-[60px]'>In timeless verse, their ancient souls still breathe.</p>
             <SecondarySlider />
-            <HelpDesk/>
-            <Footer/>
+            <HelpDesk />
+            <Footer />
         </>
     )
 }
