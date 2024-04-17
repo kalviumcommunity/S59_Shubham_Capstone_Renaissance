@@ -11,6 +11,14 @@ function Register() {
         }))
     }
 
+    const getButtonClassName = (trait) => {
+        return `mx-3 my-1.5 w-fit bg-[${getButtonBg(trait)}] text-sm px-3 py-1.5 rounded text-[#3F5F4F]`
+    }
+
+    const getButtonBg = (trait) => {
+        return traits[trait] ? `#97D4A6` : `#e6faeb`
+    }
+
     return (
         <div className='flex'>
             <div className='w-[50vw] h-[100vh] bg-cover' style={{ backgroundImage: `url(${deDanteWall})` }}>
@@ -29,10 +37,11 @@ function Register() {
                             <input type="text" className='w-[400px] bg-gray-300 py-2 px-3.5 rounded m-1.5 placeholder-slate-800 text-sm' placeholder='Enter your mail' />
                             <p className='text-sm mt-3 mb-1.5 w-[380px] text-left'>I love writing and I am a</p>
                             <div className='flex items-center w-[400px] flex-wrap mb-1.5'>
-                                <button className={`mx-3 my-1.5 w-fit bg-[${traits['student'] ? '#97D4A6' : '#e6faeb'}] text-sm px-3 py-1.5 rounded text-[#3F5F4F]`} onClick={() => handleTraitsChange('student')}>Student</button>
-                                <button className={`mx-3 my-1.5 w-fit bg-[${traits['professional'] ? '#97D4A6' : '#e6faeb'}] text-sm px-3 py-1.5 rounded text-[#3F5F4F]`}
+                                <button className={getButtonClassName('student')}
+                                    onClick={() => handleTraitsChange('student')}>Student</button>
+                                <button className={getButtonClassName('professional')}
                                     onClick={() => handleTraitsChange('professional')}>Professional</button>
-                                <button className={`mx-3 my-1.5 w-fit bg-[${traits['amateur'] ? '#97D4A6' : '#e6faeb'}] text-sm px-3 py-1.5 rounded text-[#3F5F4F]`}
+                                <button className={getButtonClassName('amateur')}
                                     onClick={() => handleTraitsChange('amateur')}>Amateur Author</button>
                             </div>
                         </>}

@@ -36,10 +36,10 @@ export default function SimpleSlider() {
                 <div style={{ color: "rgb(240, 250, 250)", width: "32vw", textAlign: "center", display: "flex", justifyContent: "center", margin: "20px auto", fontSize: "12px" }}>"What spirit is so empty and blind, that it cannot recognize the fact that the foot is more noble than the shoe, and skin more beautiful than the garment with which it is clothed?"  Michelangelo</div>
             </div>
             <Slider {...settings}>
-                <img src={carouselOne} alt="" />
-                <img src={carouselTwo} alt="" />
-                <img src={carouselThree} alt="" />
-                <img src={carouselFour} alt="" />
+                <img src={carouselOne} alt="renaissance-carousel" />
+                <img src={carouselTwo} alt="last-supper-carousel" />
+                <img src={carouselThree} alt="primavera-carousel" />
+                <img src={carouselFour} alt="creation-of-adam-carousel" />
             </Slider>
         </div>)
 }
