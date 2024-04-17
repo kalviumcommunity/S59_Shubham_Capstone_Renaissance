@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    occupation: {
+    occupations: {
         type: Array,
         required: true
     },
