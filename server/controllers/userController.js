@@ -16,7 +16,7 @@ const registerUser = async (req, res) => {
         const newUser = new userModel({
             username: req.body.username,
             email: req.body.email,
-            occupation: req.body.occupation,
+            occupations: req.body.occupations,
             password: req.body.password
         })
         const user = await newUser.save()
@@ -41,7 +41,7 @@ const updateUser = async (req, res) => {
         }
         findUser.username = req.body.username
         findUser.email = req.body.email
-        findUser.occupation = req.body.occupations
+        findUser.occupations = req.body.occupations
         findUser.password = req.body.password
 
         await findUser.save()
