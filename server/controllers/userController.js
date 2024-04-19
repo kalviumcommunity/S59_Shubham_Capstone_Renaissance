@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt')
 const userModel = require('../models/userSchema')
+const projectModel = require('../models/projectSchema')
+
 const checkValidation = require('../validation/checkValidation')
 const userStruc = require('../validation/userValidation')
 
@@ -72,6 +74,21 @@ const deleteUser = async (req, res) => {
     }
 }
 
+const getUserProjects = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const userProjects = await projectModel.find({ projectOwner: userId })
+        if (!userProjects || userProjects.length == 0) {
+            return res.status(404).json({ message: "There are no projects" })
+        }
+        res.status(200).json(userProjects)
+    }
+    catch (error) {
+        console.log("Error finding projects:", error)
+        res.status(500).json({ message: "Trouble finding the projects. Try again later." })
+    }
+}
+
 const loginUser = async (req, res) => {
     try {
         const findUser = await userModel.findOne({ email: req.body.email })
@@ -92,4 +109,4 @@ const loginUser = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, updateUser, deleteUser, loginUser }
+module.exports = { registerUser, updateUser, deleteUser, loginUser, getUserProjects }
