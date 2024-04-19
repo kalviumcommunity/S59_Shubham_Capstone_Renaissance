@@ -1,4 +1,5 @@
 const projectModel = require('../models/projectSchema')
+const userModel = require('../models/userSchema')
 const checkValidation = require('../validation/checkValidation')
 const projectStruc = require('../validation/projectValidation')
 
@@ -28,6 +29,7 @@ const postData = async (req, res) => {
     }
     try {
         const savedPost = await newPost.save()
+        await userModel.findByIdAndUpdate(req.body.projectOwner, { $push: { projects: savedPost._id } })
         res.json(savedPost)
     }
     catch (error) {
