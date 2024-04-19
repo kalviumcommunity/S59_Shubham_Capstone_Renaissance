@@ -5,6 +5,7 @@ const { registerUser, updateUser, deleteUser, getUserProjects } = require('../co
 router.post('/register', registerUser)
 router.put('/update', updateUser)
 router.delete('/delete/:mail', deleteUser)
+router.post('/login', loginUser)
 router.get('/userProjects/:id', getUserProjects)
 
 module.exports = router

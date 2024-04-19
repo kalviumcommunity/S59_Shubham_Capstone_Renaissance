@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 const userModel = require('../models/userSchema')
 const projectModel = require('../models/projectSchema')
 
@@ -88,4 +89,24 @@ const getUserProjects = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, updateUser, deleteUser, getUserProjects }
+const loginUser = async (req, res) => {
+    try {
+        const findUser = await userModel.findOne({ email: req.body.email })
+        if (!findUser) {
+            console.log("User not found")
+            return res.status(404).json({ message: "User not found" })
+        }
+        const isMatch = await bcrypt.compare(req.body.password, findUser.password)
+        if (!isMatch) {
+            console.log("Wrong credentials.")
+            return res.status(401).json({ message: "The credentials you added were wrong." })
+        }
+        res.status(200).json(findUser)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(401).json({ message: "Registration Failed" })
+    }
+}
+
+module.exports = { registerUser, updateUser, deleteUser, loginUser, getUserProjects }
