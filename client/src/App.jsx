@@ -1,8 +1,9 @@
 import React from 'react'
-import { Routes, Route, Router } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Home from './components/Home'
-import './index.css'
+import Dashboard from './components/Dashboard'
 import Register from './components/Register'
+import './index.css'
 import './App.css'
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/Register' element={<Register />} />
+        <Route path='/Dashboard' element={<Dashboard />} />
       </Routes>
     </>
   )
