@@ -23,7 +23,7 @@ function Home() {
                     <p className='text-base ml-2'>Movement that changed the fate of a continent sunken
                         into backwaters</p>
                     <div className='mt-8 pl-2'>
-                        <button className="bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" ><Link to = 'Dashboard'>Dashboard</Link></button>
+                        <Link to='Dashboard'><button className="bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" >Dashboard</button></Link>
                         <button className="bg-transparent text-[[#3F5F4F] border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" >How to Start?</button>
 
                     </div>

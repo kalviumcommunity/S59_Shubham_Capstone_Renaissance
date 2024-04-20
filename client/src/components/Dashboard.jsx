@@ -12,7 +12,7 @@ function Dashboard() {
   }, [])
 
   const fetchUserProjects = (userID) => {
-    axios.get(`http://localhost:8080/user/user-project/${userID}`)
+    axios.get(`https://renaissance-server.onrender.com/user/user-project/${userID}`)
       .then(response => {
         setUserProjects(response.data)
         console.log("Fetched Data: ", response.data)
