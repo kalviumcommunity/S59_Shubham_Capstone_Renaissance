@@ -19,7 +19,7 @@ function Dashboard() {
     setFilter(prevFilter => ({
       ...prevFilter,
       filteredProjects: projects.filter(project => {
-        if (filter.filterVal == "All") {
+        if (filter.filterVal === "All") {
           return true
         }
         else {
