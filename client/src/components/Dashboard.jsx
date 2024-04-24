@@ -81,7 +81,7 @@ function Dashboard() {
       </header>
 
       <div className="fixed bg-[#97D4A6] w-[240px] h-full">
-        <button className="bg-[#3F5F4F] text-[13px] text-slate-100 border-solid border-[#3F5F4F] mt-10 ml-3 rounded border-2 py-0.5 px-1.5" >+ New</button>
+        <Link to="/NewProject"><button className="bg-[#3F5F4F] text-[13px] text-slate-100 border-solid border-[#3F5F4F] mt-10 ml-3 rounded border-2 py-0.5 px-1.5" >+ New</button></Link>
         <h1 className='text-sm ml-3 mb-2 mt-5 text-slate-800 font-semibold'>Your contributions:</h1>
         <div>
           <input type="text" placeholder="Search Here" className="pl-7 py-1.5 text-sm w-[240px] absolute left-[-15px] rounded-3xl border-transparent" />
@@ -129,8 +129,11 @@ function Dashboard() {
             <div className='w-[85%] h-[1.4px] bg-[#3F5F4F] m-auto mt-1.5' />
             <div className='flex flex-col w-fit mx-5 ml-8'>
               <h1 className='text-lg font-semibold text-[#3F5F4F] mt-1.5'>Genre</h1>
+              <button type="button" className="mt-1.5 text-left text-base hover:underline" value="All" onClick={(e) => setFilter(prevFilter => ({
+                ...prevFilter, filterVal: e.target.value
+              }))}>All</button>
               {allTags.map((tag, index) => (
-                <button className="mt-1.5 text-left text-base hover:underline" value={tag} key={index} onClick={(e) => setFilter(prevFilter => ({
+                <button type="button" className="mt-1.5 text-left text-base hover:underline" value={tag} key={index} onClick={(e) => setFilter(prevFilter => ({
                   ...prevFilter, filterVal: e.target.value
                 }))}>{tag}</button>
               ))}
