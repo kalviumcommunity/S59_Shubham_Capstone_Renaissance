@@ -3,6 +3,7 @@ import searchIcon from '../assets/search-icon.png'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import deBonaparte from '../assets/deBonaparte.jpg'
+import Loader from './Loaders/Loader'
 
 function Dashboard() {
   const [userProjects, setUserProjects] = useState([])
@@ -68,7 +69,7 @@ function Dashboard() {
   }
 
   return (
-    <>
+    projects.length > 0 ? <div>
       <header className="sticky top-0 w-full flex justify-between bg-[#3F5F4F] p-5 items-center shadow-lg">
         <div className="text-white">
           <Link to='/'>
@@ -141,7 +142,9 @@ function Dashboard() {
           </div>
         </div>
       </div >
-    </>
+    </div>
+      :
+      <Loader />
   )
 }
 
