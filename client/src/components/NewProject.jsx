@@ -52,7 +52,7 @@ function NewProject() {
                             {...register("title", {
                                 required: "The title for the project is required",
                                 minLength: { value: 3, message: "Name should be of minimum 3 characters." },
-                                maxLength: { value: 100, message: "Name should be not more than 15 characters long" }
+                                maxLength: { value: 100, message: "Name should be not more than 100 characters long" }
                             })} />
                     </div>
                 </div>
@@ -63,7 +63,7 @@ function NewProject() {
                         {...register("description", {
                             required: "The description for the project is required",
                             minLength: { value: 3, message: "Description should be of minimum 3 characters." },
-                            maxLength: { value: 300, message: "Description should be not more than 70 characters long" }
+                            maxLength: { value: 300, message: "Description should be not more than 300 characters long" }
                         })}></textarea>
                 </div>
                 <hr className="my-5" />
