@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState, useEffect } from 'react'
 import greenBg from '../assets/bg-green.png'
 import searchIcon from '../assets/search-icon.png'
 import johnKeats from '../assets/john_keats.jpg'
@@ -7,10 +8,26 @@ import SimpleSlider from './Slider'
 import SecondarySlider from './SecondarySlider'
 import Footer from './Footer'
 import { Link } from 'react-router-dom'
+import WelcomeLoader from './Loaders/WelcomeLoader'
 
 function Home() {
+    const [imageArray, setImageArray] = useState([])
+
+    const fetchArtists = () => {
+        fetch("https://renaissance-server.onrender.com/artist")
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                setImageArray(result)
+            })
+    }
+
+    useEffect(() => {
+        fetchArtists()
+    }, [])
+
     return (
-        <>
+        imageArray.length > 0 ? <div>
             <SimpleSlider />
             <div className='flex'>
                 <div className='my-5 pl-10 h-[400px] w-[80%] bg-cover ' style={{ backgroundImage: `url(${greenBg})` }}>
@@ -33,10 +50,11 @@ function Home() {
             </div >
             <h1 className='text-7xl font-extrabold text-center mt-[60px]'>Discover Personalities</h1>
             <p className='text-center mt-[10px] mb-[60px]'>In timeless verse, their ancient souls still breathe.</p>
-            <SecondarySlider />
+            {imageArray && <SecondarySlider imageArray={imageArray} />}
             <HelpDesk />
             <Footer />
-        </>
+        </div>
+        : <WelcomeLoader />
     )
 }
 

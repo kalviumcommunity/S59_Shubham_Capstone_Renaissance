@@ -4,7 +4,7 @@ const projectStruc = Joi.object({
     title: Joi.string().required(),
     description: Joi.string().required(),
     tags: Joi.array().items(Joi.string()).required(),
-    contributors: Joi.array().items(Joi.string()).required(),
+    contributors: Joi.array().items(Joi.string()),
     status: Joi.string().required(),
     projectOwner: Joi.string().required()
 })

@@ -15,7 +15,7 @@ const projectSchema = mongoose.Schema({
     },
     contributors : {
         type : Array,
-        required : true
+        required : false
     },
     status : {
         type : String,

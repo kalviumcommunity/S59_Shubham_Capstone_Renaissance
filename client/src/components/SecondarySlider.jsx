@@ -13,25 +13,10 @@ const SamplePrevArrow = ({ className, style, onClick }) => {
     return <div className={className} style={{ ...style, display: "flex", alignItems: "center", justifyContent: "center" }} onClick={onClick} />
 }
 
-function SecondarySlider() {
+function SecondarySlider({imageArray}) {
     const [imageIndex, setImageIndex] = useState(0)
-    const [imageArray, setImageArray] = useState([])
     const [selectedArtist, setSelectedArtist] = useState(null)
-    const modalRef = useRef(null)
-
-    const fetchArtists = () => {
-        fetch("https://renaissance-server.onrender.com/artist")
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                setImageArray(result)
-            })
-    }
-
-    useEffect(() => {
-        fetchArtists()
-    }, [])
-
+    const modalRef = useRef(null)   
     const settings = {
         infinite: true,
         centerPadding: "0px",
@@ -71,7 +56,6 @@ function SecondarySlider() {
                     </div>
 
                 ))}
-
             </Slider>
             {selectedArtist != null &&
                 <div className="w-[80vw] py-8 px-5 rounded m-auto bg-white absolute left-[10%] top-[350px] shadow-xl pt-0 ">
