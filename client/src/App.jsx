@@ -5,6 +5,7 @@ import Loader from './components/Loaders/Loader'
 import Dashboard from './components/Dashboard'
 import Register from './components/Register'
 import WelcomeLoader from './components/Loaders/WelcomeLoader'
+import UserDashboard from './components/UserDashboard'
 import './index.css'
 import './App.css'
 import NewProject from './components/NewProject'
@@ -18,7 +19,7 @@ function App() {
         <Route path='/NewProject' element={<NewProject />} />
         <Route path='/Loader' element={<Loader />} />
         <Route path='/welcome' element={<WelcomeLoader />} />
-
+        <Route path='/userDashboard' element={<UserDashboard />} />
       </Routes>
     </>
   )
