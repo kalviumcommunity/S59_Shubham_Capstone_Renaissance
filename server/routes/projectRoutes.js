@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const { getData, postData, deleteData } = require('../controllers/projectController')
+const { getData, postData, deleteData, getLatestData } = require('../controllers/projectController')
 
 router.get('/', getData)
+router.get('/latest', getLatestData )
 router.post('/add-project', postData)
 router.delete('/delete/:id', deleteData)
 

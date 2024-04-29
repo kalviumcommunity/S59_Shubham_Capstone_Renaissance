@@ -31,12 +31,12 @@ function WelcomeLoader() {
     return (
         <div className='h-[100vh] w-full flex justify-center bg-gray-100'>
             <div className='flex flex-col items-center justify-center'>
-                <img src={images[fact.id]} alt="" className='w-[250px] rounded-lg' />
-                <h2 className='text-green-900 text-xl font-bold mt-3 text-center mt-3'>Did you know?</h2>
-                <h3 className='text-[#3F5F4F] text-[16px] w-[30vw] font-semibold text-center'>{fact.fact}</h3>
-                <h2 className='text-slate-700 text-xl font-bold mt-5 text-center my-3'>We're just there...</h2>
+                <h2 className='text-slate-700 text-xl font-bold mt-5 text-center mt-3'>Renaisaance is Loading..</h2>
+                <p className='text-slate-700 mb-3'>Meanwhile...</p>
                 <PulseLoader color='#454a46' size={15} />
-
+                <h2 className='text-green-900 text-xl font-bold mt-3 text-center mt-3'>Did you know?</h2>
+                <img src={images[fact.id]} alt="" className='w-[250px] rounded-lg' />
+                <h3 className='text-[#3F5F4F] text-[16px] w-[30vw] font-semibold text-center mt-3'>{fact.fact}</h3>
             </div>
         </div>
     )
