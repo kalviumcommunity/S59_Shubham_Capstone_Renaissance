@@ -11,14 +11,14 @@ function ProjectInterface() {
     const { projectID } = useParams()
 
     const fetchProject = () => {
-        axios.get(`https://renaissance-server.onrender.com/project/${projectID}`)
+        axios.get(`http://localhost:8080/project/${projectID}`)
             .then(response => {
                 setProject(response.data)
                 console.log("Fetched Data: ", response.data)
             })
             .catch(error => {
                 if (error.response) {
-                    console.log(error.response.data)
+                    console.log("Error fetching data", error.response.data)
                 }
                 else {
                     console.log("Some error occurred. Try Again Later", error)
@@ -42,10 +42,10 @@ function ProjectInterface() {
                 </header>
                 <div className='py-8 px-10'>
                     <div className='flex'>
-                        <h1 className='text-2xl font-bold text-slate-800 mr-3'>{project.title}</h1>
+                        <h1 className='text-2xl font-bold text-slate-800 mr-3'>{project && project.title}</h1>
                         <button className='bg-[#97D4A6] py-1.5 px-3 mr-5 rounded text-sm'>6 Branches</button>
                         <div>
-                            {project.tags.map(tag => <button className="bg-gray-200 py-1.5 px-3 rounded text-gray-900 text-sm mr-5">{tag}</button>)}
+                            {project.tags && project.tags.map(tag => <button className="bg-gray-200 py-1.5 px-3 rounded text-gray-900 text-sm mr-5">{tag}</button>)}
                         </div>
                         <button className='bg-[#3F5F4F] py-1.5 px-3 rounded text-gray-100 text-sm'>{project.status}</button>
                     </div>
@@ -66,7 +66,7 @@ function ProjectInterface() {
                         }
                         <div className='w-[500px] h-fit bg-[#97D4A6] py-8 rounded px-8 m-3'>
                             <h3 className='font-bold text-lg'>About</h3>
-                            <p className='text-sm rounded mt-3'>{project.description}</p>
+                            <p className='text-sm rounded mt-3'>{project.description && project.description}</p>
                         </div>
                     </div>
                 </div>
