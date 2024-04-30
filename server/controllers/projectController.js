@@ -15,6 +15,23 @@ const getData = async (req, res) => {
 
 }
 
+const getOneData = async (req, res) => {
+    try {
+        const dataID = req.params.dataID
+        const data = await projectModel.findById(dataID)
+        if(!data){
+            console.log("Project does not found")
+            return res.status(404).json({message : "Project does not found"})
+        }
+        res.status(200).json(data)
+    }
+    catch (error) {
+        console.log('Error fetching data: ', error.message)
+        res.status(500).json({ message: "Failed to fetch. Could not find data" })
+    }
+
+}
+
 const postData = async (req, res) => {
     const newPost = new projectModel({
         title: req.body.title,
@@ -68,4 +85,4 @@ const getLatestData = async (req, res) => {
 };
 
 
-module.exports = { getData, postData, deleteData, getLatestData }
+module.exports = { getData, getOneData, postData, deleteData, getLatestData }
