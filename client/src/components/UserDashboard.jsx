@@ -169,7 +169,7 @@ function UserDashboard() {
                     </div>
                     <div className='flex flex-col'>
                         {filter.filteredProjects && filter.filteredProjects.map(project => (
-                            <div className='bg-white m-3 rounded-xl px-5 py-8 shadow-lg flex flex-col justify-center'>
+                            <Link to={`/project/${project._id}`}> <div className='bg-white m-3 rounded-xl px-5 py-8 shadow-lg flex flex-col justify-center'>
                                 <div className='flex'>
                                     <img src={deBonaparte} alt="deBonaparte" className='rounded-full w-20 h-20 shadow-lg' />
                                     <div className='p-3'>
@@ -187,7 +187,7 @@ function UserDashboard() {
                                     <button className='bg-[#3F5F4F] w-fit h-fit text-[13px] px-3 py-1.5 rounded mt-2 text-white'>View Project</button>
                                     <button className='text-[#3F5F4F] font-semibold border border-[1.5px] border-[#3F5F4F] text-[13px] px-3 py-[5px] rounded mt-2 ml-1.5'>About organisation</button>
                                 </div>
-                            </div>
+                            </div> </Link>
                         ))
                         }
                     </div>

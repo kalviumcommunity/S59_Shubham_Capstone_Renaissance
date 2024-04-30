@@ -8,6 +8,8 @@ import UserDashboard from './components/UserDashboard'
 import './index.css'
 import './App.css'
 import NewProject from './components/NewProject'
+import ProjectInterface from './components/ProjectInterface'
+
 function App() {
   return (
     <>
@@ -18,6 +20,7 @@ function App() {
         <Route path='/NewProject' element={<NewProject />} />
         <Route path='/Loader' element={<Loader />} />
         <Route path='/welcome' element={<WelcomeLoader />} />
+        <Route path='/project/:projectID' element={<ProjectInterface />} />
       </Routes>
     </>
   )
