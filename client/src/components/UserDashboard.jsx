@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import searchIcon from '../assets/search-icon.png'
@@ -20,22 +20,21 @@ function UserDashboard() {
         fetchProjects()
     }, [])
 
+    const filterProjects = useMemo(() => {
+        if (filter.filterVal === "All") {
+            return projects
+        }
+        else {
+            return projects.filter(project => project.tags.includes(filter.filterVal))
+        }
+    }, [filter.filterVal])
+
     useEffect(() => {
         setFilter(prevFilter => ({
             ...prevFilter,
-            filteredProjects: projects.filter(project => {
-                if (filter.filterVal === "All") {
-                    return true
-                }
-                else {
-                    console.log(project.tags)
-                    console.log(filter.filterVal)
-                    return project.tags.includes(filter.filterVal)
-                }
-            })
-        })
-        )
-    }, [filter.filterVal])
+            filteredProjects: filterProjects
+        }))
+    }, [filterProjects])
 
     const fetchUserProjects = (userID) => {
         axios.get(`https://renaissance-server.onrender.com/user/user-project/${userID}`)
@@ -90,13 +89,14 @@ function UserDashboard() {
             })
     }
 
-    const extractAllTags = (projects) => {
+    const extractAllTags = useCallback((projects) => {
         const setOfTags = new Set()
         projects.forEach(project => {
             project.tags.forEach(tag => setOfTags.add(tag))
         })
         setTags(Array.from(setOfTags))
-    }
+    }, [])
+
     return (
         projects.length ?
             <div className='flex'>
