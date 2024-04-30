@@ -18,6 +18,7 @@ const getData = async (req, res) => {
 const postData = async (req, res) => {
     const newPost = new projectModel({
         title: req.body.title,
+        dateCreated : req.body.dateCreated,
         description: req.body.description,
         tags: req.body.tags,
         contributors: req.body.contributors,
@@ -56,4 +57,15 @@ const deleteData = async (req, res) => {
     }
 }
 
-module.exports = { getData, postData, deleteData }
+const getLatestData = async (req, res) => {
+    try {
+        const latest = await projectModel.find().sort({ dateCreated: -1 }).limit(3).exec();
+        res.status(200).json(latest);
+    } catch (error) {
+        console.log("Error fetching the latest items", error);
+        res.status(500).json({ message: "Failed to Fetch Data" });
+    }
+};
+
+
+module.exports = { getData, postData, deleteData, getLatestData }

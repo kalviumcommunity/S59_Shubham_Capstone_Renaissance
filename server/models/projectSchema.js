@@ -5,6 +5,10 @@ const projectSchema = mongoose.Schema({
         type : String,
         required : true
     },
+    dateCreated : {
+        type : Date,
+        required : true
+    },
     description : {
         type : String,
         required : true
