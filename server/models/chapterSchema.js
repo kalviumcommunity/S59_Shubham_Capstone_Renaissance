@@ -8,6 +8,10 @@ const chapterSchema = mongoose.Schema({
     content : {
         type : String,
         default : "My first chapter!"
+    },
+    dateCreated : {
+        type : Date,
+        required : true
     }
 })
 

@@ -9,6 +9,7 @@ import './index.css'
 import './App.css'
 import NewProject from './components/NewProject'
 import ProjectInterface from './components/ProjectInterface'
+import AddChapter from './components/AddChapter'
 
 function App() {
   return (
