@@ -29,6 +29,8 @@ const addNewChapter = async (req, res) => {
     }
     const projectID = req.params.projectID
     try {
+        const project = await projectModel.findById(projectID)
+        if (!project) return res.status(404).json({ message: "Project does not exist. Check again later" })
         const savedChapter = await newChapter.save()
         await projectModel.findByIdAndUpdate(projectID, { $push: { chapters: savedChapter._id } })
         res.status(201).json(savedChapter)
