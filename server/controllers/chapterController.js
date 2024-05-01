@@ -43,4 +43,52 @@ const addNewChapter = async (req, res) => {
 
 }
 
-module.exports = { getAllChaptersForProject, addNewChapter }
+const updateChapter = async (req, res) => {
+    try {
+        if (!checkValidation(req.body, chapterStruc)) {
+            console.log("Data Failed the validation")
+            return res.status(400).json({ message: "Data validation failed. Please add data as per the norms" })
+        }
+        const chapterID = req.params.chapterID;
+        const findChapter = await chapterModel.findById(chapterID)
+        if (!findChapter) {
+            console.log("Chapter doesn't exist")
+            return res.status(404).json({ message: "Chapter doesn't exist" })
+        }
+        findChapter.title = req.body.title
+        findChapter.content = req.body.content
+        findChapter.dateCreated = req.body.dateCreated
+
+        await findChapter.save()
+        res.status(200).json(findChapter)
+    }
+    catch (error) {
+        console.log("Updation failed:", error)
+        res.status(500).json({ message: "Updation failed. Try again later" })
+    }
+}
+
+const deleteChapter = async (req, res) => {
+    try {
+        const chapterID = req.params.chapterID
+        const projects = await projectModel.find({ chapters: chapterID })
+        console.log(projects)
+        const findChapter = await chapterModel.findById(chapterID)
+        if (!findChapter) return res.status(404).json({ message: "Chapter not found" })
+        for (const project of projects) {
+            const indexOfChapter = project.chapters.indexOf(chapterID)
+            if (indexOfChapter != -1) {
+                project.chapters.splice(indexOfChapter, 1)
+                await project.save()
+            }
+        }
+        const deletedChapter = await chapterModel.findByIdAndDelete(chapterID)
+        res.status(200).json({ message: "Chapter deleted successfully!" })
+    }
+    catch (error) {
+        console.log("Failed to delete the project", error)
+        res.status(500).json({ message: "Failed to to delete the project. Try again later " })
+    }
+}
+
+module.exports = { getAllChaptersForProject, addNewChapter, updateChapter, deleteChapter }
