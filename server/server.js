@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 8080
 const projectRoutes = require('./routes/projectRoutes')
 const userRoutes = require('./routes/userRoutes')
 const artistRoutes = require('./routes/artistRoutes')
+const chapterRoutes = require('./routes/chapterRoutes')
 
 connectToDB()
 
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use('/project', projectRoutes)
 app.use('/user', userRoutes)
 app.use('/artist', artistRoutes)
+app.use('/chapter', chapterRoutes)
 
 app.listen(PORT, () => {
     console.log("Listening at Port", PORT)

@@ -48,9 +48,10 @@ const postData = async (req, res) => {
     try {
         const savedPost = await newPost.save()
         await userModel.findByIdAndUpdate(req.body.projectOwner, { $push: { projects: savedPost._id } })
-        res.json(savedPost)
+        res.status(201).json(savedPost)
     }
     catch (error) {
+        await newPost.remove()
         console.log('Error Posting data: ', error.message)
         res.status(500).json({ message: "Failed to Post. Could not Post data" })
     }
@@ -83,6 +84,5 @@ const getLatestData = async (req, res) => {
         res.status(500).json({ message: "Failed to Fetch Data" });
     }
 };
-
 
 module.exports = { getData, getOneData, postData, deleteData, getLatestData }

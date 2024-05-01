@@ -11,7 +11,7 @@ function ProjectInterface() {
     const { projectID } = useParams()
 
     const fetchProject = () => {
-        axios.get(`http://localhost:8080/project/${projectID}`)
+        axios.get(`https://renaissance-server.onrender.com/project/get-project/${projectID}`)
             .then(response => {
                 setProject(response.data)
                 console.log("Fetched Data: ", response.data)
