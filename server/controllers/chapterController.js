@@ -50,17 +50,13 @@ const updateChapter = async (req, res) => {
             return res.status(400).json({ message: "Data validation failed. Please add data as per the norms" })
         }
         const chapterID = req.params.chapterID;
-        const findChapter = await chapterModel.findById(chapterID)
-        if (!findChapter) {
+        delete req.body.dateCreated
+        const updatedChapter = await chapterModel.findByIdAndUpdate(chapterID, req.body, { new: true })
+        if (!updatedChapter) {
             console.log("Chapter doesn't exist")
             return res.status(404).json({ message: "Chapter doesn't exist" })
         }
-        findChapter.title = req.body.title
-        findChapter.content = req.body.content
-        findChapter.dateCreated = req.body.dateCreated
-
-        await findChapter.save()
-        res.status(200).json(findChapter)
+        res.status(200).json(updatedChapter)
     }
     catch (error) {
         console.log("Updation failed:", error)

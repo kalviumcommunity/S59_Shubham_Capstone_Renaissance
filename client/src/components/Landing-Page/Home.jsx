@@ -1,14 +1,14 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import greenBg from '../assets/bg-green.png'
-import searchIcon from '../assets/search-icon.png'
-import johnKeats from '../assets/john_keats.jpg'
+import greenBg from '../../assets/bg-green.png'
+import searchIcon from '../../assets/search-icon.png'
+import johnKeats from '../../assets/john_keats.jpg'
 import HelpDesk from './HelpDesk'
-import SimpleSlider from './Slider'
-import SecondarySlider from './SecondarySlider'
-import Footer from './Footer'
+import SimpleSlider from '../Sliders/Slider'
+import SecondarySlider from '../Sliders/SecondarySlider'
+import Footer from '../Footer'
 import { Link } from 'react-router-dom'
-import WelcomeLoader from './Loaders/WelcomeLoader'
+import WelcomeLoader from '../Loaders/WelcomeLoader'
 
 function Home() {
     const [imageArray, setImageArray] = useState([])

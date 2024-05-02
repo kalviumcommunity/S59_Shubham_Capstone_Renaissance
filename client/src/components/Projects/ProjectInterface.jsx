@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import emilySearchDoodle from '../assets/emily-doodle.jpeg'
-import deBonaparte from '../assets/deBonaparte.jpg'
+import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
+import deBonaparte from '../../assets/deBonaparte.jpg'
 import { useEffect, useState } from 'react'
-import Loader from './Loaders/Loader'
+import Loader from '../Loaders/Loader'
 
 function ProjectInterface() {
     const [project, setProject] = useState(null)

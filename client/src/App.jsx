@@ -1,14 +1,14 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Home from './components/Home'
+import Home from './components/Landing-Page/Home'
 import Loader from './components/Loaders/Loader'
-import Register from './components/Register'
+import Register from './components/Auth-UI/Register'
 import WelcomeLoader from './components/Loaders/WelcomeLoader'
 import UserDashboard from './components/UserDashboard'
 import './index.css'
 import './App.css'
-import NewProject from './components/NewProject'
-import ProjectInterface from './components/ProjectInterface'
+import NewProject from './components/Projects/NewProject'
+import ProjectInterface from './components/Projects/ProjectInterface'
 
 function App() {
   return (

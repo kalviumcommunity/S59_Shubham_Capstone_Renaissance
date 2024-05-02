@@ -1,5 +1,5 @@
 import React from 'react'
-import registerUtil from '../utils/registerUtil'
+import registerUtil from '../../utils/registerUtil'
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
