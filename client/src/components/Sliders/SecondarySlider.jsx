@@ -1,9 +1,9 @@
 import React, { Component, lazy, useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
-import bgSemiGreen from '../assets/bg-semi-2.png'
+import bgSemiGreen from '../../assets/bg-semi-2.png'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import downChevron from '../assets/arrow.png'
+import downChevron from '../../assets/arrow.png'
 
 const SampleNextArrow = ({ className, style, onClick }) => {
     return <div className={className} style={{ ...style, display: "flex", alignItems: "center", justifyContent: "center" }} onClick={onClick} />

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Login from './Login'
 import Signup from './Signup'
-import deDanteWall from '../assets/Dante-wall.png'
+import deDanteWall from '../../assets/Dante-wall.png'
 
 function Register() {
     const [isRegistered, setRegStatus] = useState(true)

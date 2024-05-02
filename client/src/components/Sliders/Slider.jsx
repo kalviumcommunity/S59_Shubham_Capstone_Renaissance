@@ -3,10 +3,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import carouselOne from "../assets/carousel-bg/renaissance-carousel-i.jpg"
-import carouselTwo from "../assets/carousel-bg/renaissance-carousel-ii.jpg"
-import carouselThree from "../assets/carousel-bg/renaissance-carousel-iii.jpg"
-import carouselFour from "../assets/carousel-bg/renaissance-carousel-iv.jpg"
+import carouselOne from "../../assets/carousel-bg/renaissance-carousel-i.jpg"
+import carouselTwo from "../../assets/carousel-bg/renaissance-carousel-ii.jpg"
+import carouselThree from "../../assets/carousel-bg/renaissance-carousel-iii.jpg"
+import carouselFour from "../../assets/carousel-bg/renaissance-carousel-iv.jpg"
 
 const SampleNextArrow = ({ className, style, onClick }) => {
     return <div className={className} style={{ ...style, display: "flex", alignItems: "center", justifyContent: "center", position: "absolute", right: "20px", zIndex: 5 }} onClick={onClick} />

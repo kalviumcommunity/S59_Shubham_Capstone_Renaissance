@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import loginUtil from '../utils/loginUtil'
+import loginUtil from '../../utils/loginUtil'
 
 function Login({ setRegStatus }) {
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
@@ -9,7 +9,7 @@ function Login({ setRegStatus }) {
     return (
         <form className='flex justify-center items-center w-[50vw]'
             onSubmit={handleSubmit((data) => {
-                loginUtil({email: data.email, password: data.password})
+                loginUtil({ email: data.email, password: data.password })
             })}>
             <div>
                 <h1 className='font-extrabold text-6xl text-center'>Hello Again!</h1>

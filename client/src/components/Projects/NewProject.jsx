@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import padLock from '../assets/padlock.png'
-import open from '../assets/open.png'
+import padLock from '../../assets/padlock.png'
+import open from '../../assets/open.png'
 import { useForm } from 'react-hook-form'
 
 function NewProject() {

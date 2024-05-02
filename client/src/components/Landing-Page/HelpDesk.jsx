@@ -1,6 +1,6 @@
-import loginIcon from '../assets/login.png'
-import dashIcon from '../assets/dashboard.png'
-import exploreIcon from '../assets/contract.png'
+import loginIcon from '../../assets/login.png'
+import dashIcon from '../../assets/dashboard.png'
+import exploreIcon from '../../assets/contract.png'
 import { Link } from 'react-router-dom'
 
 function HelpDesk() {
