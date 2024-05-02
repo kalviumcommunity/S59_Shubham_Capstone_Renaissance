@@ -82,8 +82,8 @@ const deleteChapter = async (req, res) => {
         res.status(200).json({ message: "Chapter deleted successfully!" })
     }
     catch (error) {
-        console.log("Failed to delete the project", error)
-        res.status(500).json({ message: "Failed to to delete the project. Try again later " })
+        console.log("Failed to delete the chapter", error)
+        res.status(500).json({ message: "Failed to to delete the chapter. Try again later " })
     }
 }
 
