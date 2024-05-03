@@ -16,7 +16,7 @@ function NewChapter() {
         <>
             <header className="sticky top-0 w-full flex justify-between bg-[#3F5F4F] p-5 items-center shadow-lg z-10">
                 <div className="text-white flex justify-center items-center">
-                    <img src={deBonaparte} alt="" className='w-[60px] h-[60px] rounded-full' />
+                    <img src={deBonaparte} alt="profile-image" className='w-[60px] h-[60px] rounded-full' />
                     <h3 className='ml-5'>Shubhh_Thakur / </h3>
                     <h3>The Last Letter</h3>
                 </div>
