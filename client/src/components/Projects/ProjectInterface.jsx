@@ -8,6 +8,7 @@ import Loader from '../Loaders/Loader'
 
 function ProjectInterface() {
     const [project, setProject] = useState(null)
+    const [chapters, setChapters] = useState([])
     const { projectID } = useParams()
 
     const fetchProject = () => {
@@ -25,9 +26,25 @@ function ProjectInterface() {
                 }
             })
     }
+    const fetchChapters = () => {
+        axios.get(`https://renaissance-server.onrender.com/chapter/project-chapters/${projectID}`)
+            .then(response => {
+                setChapters(response.data)
+                console.log("Fetched Chapter: ", response.data)
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.log("Error fetching data", error.response.data)
+                }
+                else {
+                    console.log("Some error occurred. Try Again Later", error)
+                }
+            })
+    }
 
     useEffect(() => {
         fetchProject()
+        fetchChapters()
     }, [])
     return (
         project ?
@@ -51,19 +68,24 @@ function ProjectInterface() {
                     </div>
                     <div className='flex items-center py-5 px-8 bg-[#97D4A6] mt-8 text-slate-900 text-sm rounded '>Shubham Thakur updated 8 months ago</div>
                     <div className='flex mt-3 justify-between'>
-                        <Link to='/NewProject'><button className="bg-[#3F5F4F] mt-5 text-sm text-white px-2 py-1.5 rounded">Add a new Chapter</button></Link>
-                        {project.chapters.length ?
-                            <div className='w-full'>
-                                <div className='flex items-center py-5 px-8 bg-[#E0D4CD] mt-3 w-full text-[slate-900] text-sm rounded'>Chapter 1</div>
-                                <div className='flex items-center py-5 px-8 bg-[#E0D4CD] mt-3 w-full text-slate-900 text-sm rounded'>Chapter 2</div>
-                                <div className='flex items-center py-5 px-8 bg-[#E0D4CD] mt-3 w-full text-slate-900 text-sm rounded'>Chapter 3</div>
-                            </div>
-                            :
-                            <div className='text-center text-gray-700 mt-10'>
-                                <img src={emilySearchDoodle} alt="No Chapters yet" className='w-[200px] rounded' />
-                                <p className='mt-5'>No Chapters yet!</p>
-                            </div>
-                        }
+                        <div className='w-full'>
+                            <Link to={`/newChapter/${projectID}`}><button className="bg-[#3F5F4F] mt-5 text-sm text-white px-2 py-1.5 rounded">Add a new Chapter</button></Link>
+                            {project.chapters.length ?
+                                <div>
+                                    {chapters.map((chapter, index) => (
+                                        <div className='flex items-center py-5 px-8 bg-[#E0D4CD] mt-3 w-full text-slate-900 text-sm rounded'>
+                                            <p className='mr-8'>{index + 1}.</p>
+                                            <p>{chapter.title}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                :
+                                <div className='text-center text-gray-700 mt-10'>
+                                    <img src={emilySearchDoodle} alt="No Chapters yet" className='w-[200px] rounded' />
+                                    <p className='mt-5'>No Chapters yet!</p>
+                                </div>
+                            }
+                        </div>
                         <div className='w-[500px] h-fit bg-[#97D4A6] py-8 rounded px-8 m-3'>
                             <h3 className='font-bold text-lg'>About</h3>
                             <p className='text-sm rounded mt-3'>{project.description && project.description}</p>

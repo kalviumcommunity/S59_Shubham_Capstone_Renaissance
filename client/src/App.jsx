@@ -22,7 +22,7 @@ function App() {
         <Route path='/Loader' element={<Loader />} />
         <Route path='/welcome' element={<WelcomeLoader />} />
         <Route path='/project/:projectID' element={<ProjectInterface />} />
-        <Route path='/newChapter' element={<NewChapter />} />
+        <Route path='/newChapter/:projectID' element={<NewChapter />} />
       </Routes>
     </>
   )
