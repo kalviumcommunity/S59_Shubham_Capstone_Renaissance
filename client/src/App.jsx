@@ -5,10 +5,11 @@ import Loader from './components/Loaders/Loader'
 import Register from './components/Auth-UI/Register'
 import WelcomeLoader from './components/Loaders/WelcomeLoader'
 import UserDashboard from './components/UserDashboard'
-import './index.css'
-import './App.css'
 import NewProject from './components/Projects/NewProject'
 import ProjectInterface from './components/Projects/ProjectInterface'
+import NewChapter from './components/Projects/NewChapter'
+import './index.css'
+import './App.css'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/Loader' element={<Loader />} />
         <Route path='/welcome' element={<WelcomeLoader />} />
         <Route path='/project/:projectID' element={<ProjectInterface />} />
+        <Route path='/newChapter' element={<NewChapter />} />
       </Routes>
     </>
   )

@@ -81,7 +81,7 @@ function NewProject() {
                         </select>
                         <div>
                             {selectedTags && selectedTags.map(tag => (
-                                <button type="button" className='mx-3 my-1.5 w-fit bg-[#97D4A6] text-sm px-3 py-1.5 rounded text-slate-900'>{tag} <button onClick={() => handleDeleteTag(tag)}>X</button></button>
+                                <button type="button" key = {tag} className='mx-3 my-1.5 w-fit bg-[#97D4A6] text-sm px-3 py-1.5 rounded text-slate-900'>{tag} <button onClick={() => handleDeleteTag(tag)}>X</button></button>
                             ))}
                         </div>
                     </div>
