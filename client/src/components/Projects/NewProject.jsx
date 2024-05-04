@@ -16,7 +16,7 @@ function NewProject() {
     }
 
     const postProject = (data) => {
-        axios.post('http://localhost:8080/project/add-project', data)
+        axios.post('https://renaissance-server.onrender.com/project/add-project', data)
             .then(response => {
                 console.log("Response", response.data)
             })

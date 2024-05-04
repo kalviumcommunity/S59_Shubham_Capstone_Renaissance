@@ -2,7 +2,7 @@ import React from "react";
 import 'quill/dist/quill.snow.css'
 import ReactQuill from 'react-quill'
 
-function ChapterEditor() {
+function ChapterEditor({ setContent }) {
     var modules = {
         toolbar: [
             [{ size: ["small", false, "large", "huge"] }],
@@ -26,7 +26,7 @@ function ChapterEditor() {
         "link", "image", "align", "size",
     ];
     const handleProcedureContentChange = (content) => {
-        console.log("content---->", content);
+        setContent(content)
     };
     return (
         <>
