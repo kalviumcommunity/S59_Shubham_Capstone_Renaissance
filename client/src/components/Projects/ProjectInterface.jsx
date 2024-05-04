@@ -62,7 +62,7 @@ function ProjectInterface() {
                         <h1 className='text-2xl font-bold text-slate-800 mr-3'>{project && project.title}</h1>
                         <button className='bg-[#97D4A6] py-1.5 px-3 mr-5 rounded text-sm'>6 Branches</button>
                         <div>
-                            {project.tags && project.tags.map(tag => <button key = {tag} className="bg-gray-200 py-1.5 px-3 rounded text-gray-900 text-sm mr-5">{tag}</button>)}
+                            {project.tags && project.tags.map(tag => <button key={tag} className="bg-gray-200 py-1.5 px-3 rounded text-gray-900 text-sm mr-5">{tag}</button>)}
                         </div>
                         <button className='bg-[#3F5F4F] py-1.5 px-3 rounded text-gray-100 text-sm'>{project.status}</button>
                     </div>
@@ -73,10 +73,12 @@ function ProjectInterface() {
                             {project.chapters.length ?
                                 <div>
                                     {chapters.map((chapter, index) => (
-                                        <div className='flex items-center py-5 px-8 bg-[#E0D4CD] mt-3 w-full text-slate-900 text-sm rounded'>
-                                            <p className='mr-8'>{index + 1}.</p>
-                                            <p>{chapter.title}</p>
-                                        </div>
+                                        <Link to={`/chapter/${chapter._id}`}>
+                                            <div className='flex items-center py-5 px-8 bg-[#E0D4CD] mt-3 w-full text-slate-900 text-sm rounded'>
+                                                <p className='mr-8'>{index + 1}.</p>
+                                                <p>{chapter.title}</p>
+                                            </div>
+                                        </Link>
                                     ))}
                                 </div>
                                 :

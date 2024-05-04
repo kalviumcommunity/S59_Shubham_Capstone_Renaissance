@@ -18,6 +18,19 @@ const getAllChaptersForProject = async (req, res) => {
 
 }
 
+const getChapter = async (req, res) => {
+    try {
+        const chapterID = req.params.chapterID
+        const chapter = await chapterModel.findById(chapterID)
+        if (!chapter) return res.status(404).json({ message: "Chapter does not exist" })
+        res.status(200).json(chapter)
+    }
+    catch (error) {
+        console.log("Failed to fetch the chapter:", error)
+        res.status(500).json({ message: "Failed to fetch. Try again later." })
+    }
+}
+
 const addNewChapter = async (req, res) => {
     const newChapter = new chapterModel({
         title: req.body.title,
@@ -87,4 +100,4 @@ const deleteChapter = async (req, res) => {
     }
 }
 
-module.exports = { getAllChaptersForProject, addNewChapter, updateChapter, deleteChapter }
+module.exports = { getAllChaptersForProject, getChapter, addNewChapter, updateChapter, deleteChapter }
