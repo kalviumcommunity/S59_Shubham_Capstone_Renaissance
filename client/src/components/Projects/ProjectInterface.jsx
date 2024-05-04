@@ -76,7 +76,7 @@ function ProjectInterface() {
                                         <Link to={`/chapter/${chapter._id}`}>
                                             <div className='flex items-center py-5 px-8 bg-[#E0D4CD] mt-3 w-full text-slate-900 text-sm rounded'>
                                                 <p className='mr-8'>{index + 1}.</p>
-                                                <p>{chapter.title}</p>
+                                                <p>{chapter.title }</p>
                                             </div>
                                         </Link>
                                     ))}
