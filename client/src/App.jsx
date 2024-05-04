@@ -8,6 +8,7 @@ import UserDashboard from './components/UserDashboard'
 import NewProject from './components/Projects/NewProject'
 import ProjectInterface from './components/Projects/ProjectInterface'
 import NewChapter from './components/Projects/NewChapter'
+import ChapterInterface from './components/Chapters/ChapterInterface'
 import './index.css'
 import './App.css'
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/welcome' element={<WelcomeLoader />} />
         <Route path='/project/:projectID' element={<ProjectInterface />} />
         <Route path='/newChapter/:projectID' element={<NewChapter />} />
+        <Route path='/chapter/:chapterID' element={<ChapterInterface />} />
       </Routes>
     </>
   )
