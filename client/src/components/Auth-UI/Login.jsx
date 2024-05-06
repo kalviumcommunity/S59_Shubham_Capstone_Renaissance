@@ -1,22 +1,26 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import loginUtil from '../../utils/loginUtil'
+import { MoonLoader } from 'react-spinners'
+import { useNavigate } from 'react-router-dom'
 
 function Login({ setRegStatus }) {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
-
+    const { register, handleSubmit, formState: { errors } } = useForm()
+    const [loggingIn, setLoginStatus] = useState(false)
+    const navigate = useNavigate()
     return (
         <form className='flex justify-center items-center w-[50vw]'
             onSubmit={handleSubmit((data) => {
-                loginUtil({ email: data.email, password: data.password })
+                setLoginStatus(true)
+                loginUtil({ email: data.email, password: data.password }, setLoginStatus)
             })}>
             <div>
                 <h1 className='font-extrabold text-6xl text-center'>Hello Again!</h1>
                 <p className='text-center mt-3'>Imagine. Write. Collaborate.</p>
                 <p className='text-center'>Welcome to a community that loves litreature!</p>
-                <div className=' flex flex-col justify-center items-center mt-5'>
-                    {errors.mail && <p className='text-sm m-0.5 text-red-500'>{errors.mail.message}</p>}
+                <div className='flex flex-col justify-center items-center mt-5'>
+                    {errors.email && <p className='text-sm m-0.5 text-red-500'>{errors.email.message}</p>}
                     <input
                         type="text"
                         className={`w-[400px] bg-gray-300 py-2 px-3.5 rounded m-1.5 placeholder-slate-800 text-sm ${errors.email ? 'bg-red-100 border border-red-700' : ''}`}
@@ -38,7 +42,10 @@ function Login({ setRegStatus }) {
                                 message: "The password should be at least 10 characters long",
                             }
                         })} />
-                    <button className='w-[400px] bg-[#97D4A6] py-2 px-3.5 rounded m-1.5 text-sm' type='submit'>Let me in!</button>
+                    {loggingIn ?
+                        <MoonLoader color='#3F5F4F' size={30} />
+                        :
+                        <button className='w-[400px] bg-[#97D4A6] py-2 px-3.5 rounded m-1.5 text-sm' type='submit'>Let me in!</button>}
                 </div>
 
                 <p className='text-center text-sm m-3'>or</p>

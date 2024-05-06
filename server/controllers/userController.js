@@ -1,9 +1,12 @@
 const bcrypt = require('bcrypt')
 const userModel = require('../models/userSchema')
 const projectModel = require('../models/projectSchema')
-
 const checkValidation = require('../validation/checkValidation')
 const userStruc = require('../validation/userValidation')
+const jwt = require('jsonwebtoken')
+require('dotenv').config({ path: '../envFiles/.env' });
+
+const SECRET = process.env.SECRET
 
 const registerUser = async (req, res) => {
     const findUser = await userModel.findOne({ email: req.body.email })
@@ -101,11 +104,12 @@ const loginUser = async (req, res) => {
             console.log("Wrong credentials.")
             return res.status(401).json({ message: "The credentials you added were wrong." })
         }
-        res.status(200).json(findUser)
+        const accessToken = jwt.sign({ userID: findUser._id, userName: findUser.username, email: findUser.email }, SECRET, { expiresIn: '6h' })
+        res.status(200).json({ message: "Login Sucessfull", accessToken: accessToken })
     }
     catch (error) {
         console.log(error)
-        res.status(401).json({ message: "Registration Failed" })
+        res.status(401).json({ message: "Login Failed" })
     }
 }
 

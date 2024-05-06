@@ -1,4 +1,6 @@
 import React from 'react'
+import {ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from 'react-router-dom'
 import Home from './components/Landing-Page/Home'
 import Loader from './components/Loaders/Loader'
@@ -26,6 +28,7 @@ function App() {
         <Route path='/newChapter/:projectID' element={<NewChapter />} />
         <Route path='/chapter/:chapterID' element={<ChapterInterface />} />
       </Routes>
+      <ToastContainer/>
     </>
   )
 }
