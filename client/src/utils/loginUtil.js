@@ -1,15 +1,15 @@
 import axios from 'axios'
 import setCookie from './setCookie'
 import { toast } from 'react-toastify'
-import getUserDetails from './getUserDetails'
 
-const loginUtil = (data, setLoginStatus) => {
+const loginUtil = (data, setLoginStatus, setLogin) => {
     axios.post('http://localhost:8080/user/login', data)
         .then(response => {
             try {
                 setCookie('accessToken', response.data.accessToken, 1)
                 toast.success("Login Successful!")
                 setLoginStatus(false)
+                setLogin(true)
             }
             catch (error) {
                 toast.error(response.message)
