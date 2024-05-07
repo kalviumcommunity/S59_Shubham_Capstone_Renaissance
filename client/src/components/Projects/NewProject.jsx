@@ -5,6 +5,8 @@ import open from '../../assets/open.png'
 import { useForm } from 'react-hook-form'
 import getDate from '../../utils/getDate'
 import getUserDetails from '../../utils/getUserDetails'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 function NewProject() {
     const [allTags, setAllTags] = useState(["Fantasy", "Crime & Thriller", "Wartime", "Mystery", "Kids", "Self-Help", "Fiction", "RomCom", "Comedy", "Myth", "Drama", "Historical", "Adventure", "Fairies"])
@@ -12,17 +14,23 @@ function NewProject() {
     const [status, setStatus] = useState('Open')
     const [typeOfProject, setType] = useState('')
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const navigate = useNavigate()
 
     const handleDeleteTag = (tagToDelete) => {
         setSelectedTags(prevTags => prevTags.filter(tag => tag != tagToDelete))
     }
 
     const postProject = (data) => {
-        axios.post('https://renaissance-server.onrender.com/project/add-project', data)
+        data.projectOwnerName = getUserDetails('userName')
+        console.log(data)
+        axios.post('http://localhost:8080/project/add-project', data)
             .then(response => {
                 console.log("Response", response.data)
+                toast.success(`${response.data.title} Successfully created!`)
+                navigate('/Dashboard')
             })
             .catch(error => {
+                toast.error(error.response.message)
                 console.log(error.response.data)
             })
     }

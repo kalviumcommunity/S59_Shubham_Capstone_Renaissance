@@ -29,6 +29,10 @@ const projectSchema = mongoose.Schema({
         type : String,
         required : true
     },
+    projectOwnerName : {
+        type : String,
+        required : true
+    },
     chapters :{
         type : [{
             type : mongoose.Schema.Types.ObjectId,

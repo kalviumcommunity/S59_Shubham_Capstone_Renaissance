@@ -47,7 +47,7 @@ function Home({ isLogin }) {
                         {isLogin ? <Link to='Dashboard'><button className="bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" >Dashboard</button></Link>
                             : <button className="bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" >Explore</button>
                         }
-                        <button className="bg-transparent text-[[#3F5F4F] border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" >How to Start?</button>
+                        <button className="bg-transparent text-[[#3F5F4F] border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" onClick={scrollToHelp} >How to Start?</button>
                     </div>
                 </div>
                 <div className="w-[350px] bg-cover absolute h-[350px] right-[80px] mt-[30px] border-[#97D4A6] rounded-full border-[30px] shadow-lg" style={{ backgroundImage: `url(${johnKeats})` }}>

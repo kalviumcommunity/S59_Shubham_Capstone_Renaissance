@@ -73,7 +73,7 @@ function ProjectInterface() {
                     <div className='flex items-center py-5 px-8 bg-[#97D4A6] mt-8 text-slate-900 text-sm rounded '>Shubham Thakur updated 8 months ago</div>
                     <div className='flex mt-3 justify-between'>
                         <div className='w-full'>
-                            <Link to={`/newChapter/${projectID}`}><button className="bg-[#3F5F4F] mt-5 text-sm text-white px-2 py-1.5 rounded">Add a new Chapter</button></Link>
+                            <Link to={`/newChapter/${project.title}/${projectID}`}><button className="bg-[#3F5F4F] mt-5 text-sm text-white px-2 py-1.5 rounded">Add a new Chapter</button></Link>
                             {project.chapters.length ?
                                 <div>
                                     {chapters.map((chapter, index) => (

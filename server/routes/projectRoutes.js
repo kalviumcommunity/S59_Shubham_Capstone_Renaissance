@@ -4,7 +4,7 @@ const { getData, getOneData, postData, deleteData, getLatestData } = require('..
 
 router.get('/', getData)
 router.get('/get-project/:dataID', getOneData)
-router.get('/latest', getLatestData )
+router.get('/latest/:userID', getLatestData )
 router.post('/add-project', postData)
 router.delete('/delete/:id', deleteData)
 
