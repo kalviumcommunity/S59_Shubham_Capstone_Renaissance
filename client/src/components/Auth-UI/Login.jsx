@@ -1,19 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import loginUtil from '../../utils/loginUtil'
 import { MoonLoader } from 'react-spinners'
 import { useNavigate } from 'react-router-dom'
 
-function Login({ setRegStatus }) {
+function Login({ isLogin, setRegStatus, setLogin }) {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [loggingIn, setLoginStatus] = useState(false)
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (isLogin) {
+            navigate('/')
+        }
+    }, [isLogin])
+
     return (
         <form className='flex justify-center items-center w-[50vw]'
             onSubmit={handleSubmit((data) => {
                 setLoginStatus(true)
-                loginUtil({ email: data.email, password: data.password }, setLoginStatus)
+                loginUtil({ email: data.email, password: data.password }, setLoginStatus, setLogin)
             })}>
             <div>
                 <h1 className='font-extrabold text-6xl text-center'>Hello Again!</h1>
