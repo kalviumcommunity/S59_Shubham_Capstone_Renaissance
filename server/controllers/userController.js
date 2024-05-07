@@ -113,4 +113,22 @@ const loginUser = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, updateUser, deleteUser, loginUser, getUserProjects }
+const getForkedProjects = async (req, res) => {
+    const userID = req.params.userID
+    try {
+        const findUser = await userModel.findById(userID)
+        if (!findUser) {
+            console.log("User not found")
+            return res.status(404).json({ message: "User not found" })
+        }
+        const forkedProjects = findUser.forkedProjects
+        res.status(200).json(forkedProjects)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Failed to find forked projects. Try again later." })
+    }
+
+}
+
+module.exports = { registerUser, updateUser, deleteUser, loginUser, getUserProjects, getForkedProjects }

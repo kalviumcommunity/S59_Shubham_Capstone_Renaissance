@@ -19,9 +19,9 @@ const getOneData = async (req, res) => {
     try {
         const dataID = req.params.dataID
         const data = await projectModel.findById(dataID)
-        if(!data){
+        if (!data) {
             console.log("Project not found")
-            return res.status(404).json({message : "Project does not found"})
+            return res.status(404).json({ message: "Project does not found" })
         }
         res.status(200).json(data)
     }
@@ -35,13 +35,13 @@ const getOneData = async (req, res) => {
 const postData = async (req, res) => {
     const newPost = new projectModel({
         title: req.body.title,
-        dateCreated : req.body.dateCreated,
+        dateCreated: req.body.dateCreated,
         description: req.body.description,
         tags: req.body.tags,
         contributors: req.body.contributors,
         status: req.body.status,
         projectOwner: req.body.projectOwner,
-        projectOwnerName : req.body.projectOwnerName
+        projectOwnerName: req.body.projectOwnerName
     })
     if (!checkValidation(req.body, projectStruc)) {
         return res.status(400).json({ message: "Validation Failed" })
@@ -79,7 +79,7 @@ const deleteData = async (req, res) => {
 const getLatestData = async (req, res) => {
     const userID = req.params.userID
     try {
-        const latest = await projectModel.find({projectOwner : userID}).sort({ dateCreated: -1 }).limit(3).exec();
+        const latest = await projectModel.find({ projectOwner: userID }).sort({ dateCreated: -1 }).limit(3).exec();
         res.status(200).json(latest);
     } catch (error) {
         console.log("Error fetching the latest items", error);
@@ -87,4 +87,17 @@ const getLatestData = async (req, res) => {
     }
 };
 
-module.exports = { getData, getOneData, postData, deleteData, getLatestData }
+const forkProject = async (req, res) => {
+    const projectID = req.params.projectID
+    const userID = req.params.userID
+    try {
+        await userModel.findByIdAndUpdate(userID, { $push: { forkedProjects: projectID } })
+        res.status(200).json({ message: "Project Forked Successfully" })
+    }
+    catch (error) {
+        console.log("Error forking project", error)
+        res.status(500).json({ message: "Failed to fork Project. Try again later." })
+    }
+}
+
+module.exports = { getData, getOneData, postData, deleteData, getLatestData, forkProject }

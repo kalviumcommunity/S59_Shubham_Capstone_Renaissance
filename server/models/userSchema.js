@@ -11,7 +11,17 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     projects: {
-        type: Array,
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Project'
+        }],
+        default: []
+    },
+    forkedProjects: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Project'
+        }],
         default: []
     },
     occupations: {
