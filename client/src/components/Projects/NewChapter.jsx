@@ -4,7 +4,8 @@ import axios from 'axios'
 import getDate from '../../utils/getDate'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import {toast} from 'react-toastify'
+import { postChapter } from '../../utils/apiUtils'
+import { toast } from 'react-toastify'
 
 function NewChapter() {
     const [chapterName, setChapterName] = useState("New Chapter")
@@ -20,11 +21,8 @@ function NewChapter() {
     const handleSubmit = (e) => {
         e.preventDefault()
         const data = { title: chapterName, content: content, dateCreated: currentDate }
-        postChapter(data)
-    }
-
-    const postChapter = (data) => {
-        axios.post(`https://renaissance-server.onrender.com/chapter/add-chapter/${projectID}`, data)
+        console.log(data)
+        postChapter(projectID, data)
             .then(response => {
                 console.log("Response", response.data)
                 toast.success("Chapter Added!")

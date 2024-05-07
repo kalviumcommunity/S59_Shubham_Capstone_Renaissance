@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
+import { fetchUserProjects, fetchLatestProjects, fetchProjects, getForkedProject, fetchProject } from '../utils/apiUtils'
 import axios from 'axios'
-import { Link, useAsyncError } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import searchIcon from '../assets/search-icon.png'
 import deVanGoghDoodle from '../assets/van-gogh.png'
 import keatsDoodle from '../assets/keats-doodle.jpeg'
@@ -12,7 +13,8 @@ import getUserDetails from '../utils/getUserDetails'
 function UserDashboard() {
     const [userProjects, setUserProjects] = useState([])
     const [latestProjects, setLatestProjects] = useState([])
-    const [projects, setProjects] = useState([])
+    const [forkedProjects, setForkedProjects] = useState([])
+    const [projects, setProjects] = useState(null)
     const [allTags, setTags] = useState([])
     const [username, setUserName] = useState("")
     const exploreRef = useRef()
@@ -21,9 +23,72 @@ function UserDashboard() {
     useEffect(() => {
         const userID = getUserDetails('userID')
         setUserName(getUserDetails("userName"))
+
         fetchLatestProjects(userID)
+            .then(response => {
+                console.log(response.data)
+                setLatestProjects(response.data)
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.log(error.response.data)
+                }
+                else {
+                    console.log("Some error occurred. Try Again Later", error)
+                }
+            })
+
         fetchUserProjects(userID)
+            .then(response => {
+                setUserProjects(response.data)
+                console.log("Fetched Data: ", response.data)
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.log(error.response.data)
+                }
+                else {
+                    console.log("Some error occurred. Try Again Later", error)
+                }
+            })
+
+        getForkedProject(userID)
+            .then(async response => {
+                const arr = []
+                for (const projectID of response.data) {
+                    try {
+                        const resp = await fetchProject(projectID)
+                        console.log(resp.data)
+                        arr.push({ title: resp.data.title, id: projectID })
+                    }
+                    catch (error) {
+                        console.log(error)
+                    }
+                }
+                setForkedProjects(arr)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
         fetchProjects()
+            .then(response => {
+                setFilter(prevFilter => ({
+                    ...prevFilter,
+                    filteredProjects: response.data
+                }))
+                setProjects(response.data)
+                extractAllTags(response.data)
+                console.log("Fetched Data: ", response.data)
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.log(error.response.data)
+                }
+                else {
+                    console.log("Some error occurred. Try Again Later", error)
+                }
+            })
     }, [])
 
     const filterProjects = useMemo(() => {
@@ -42,60 +107,6 @@ function UserDashboard() {
         }))
     }, [filterProjects])
 
-    const fetchUserProjects = (userID) => {
-        axios.get(`https://renaissance-server.onrender.com/user/user-project/${userID}`)
-            .then(response => {
-                setUserProjects(response.data)
-                console.log("Fetched Data: ", response.data)
-            })
-            .catch(error => {
-                if (error.response) {
-                    console.log(error.response.data)
-                }
-                else {
-                    console.log("Some error occurred. Try Again Later", error)
-                }
-            })
-    }
-
-    const fetchLatestProjects = (userID) => {
-        axios.get(`https://renaissance-server.onrender.com/latest/${userID}`)
-            .then(response => {
-                console.log(1, response.data)
-                setLatestProjects(response.data)
-            })
-            .catch(error => {
-                if (error.response) {
-                    console.log(error.response.data)
-                }
-                else {
-                    console.log("Some error occurred. Try Again Later", error)
-                }
-            })
-    }
-
-    const fetchProjects = () => {
-        axios.get(`https://renaissance-server.onrender.com/project`)
-            .then(response => {
-                setFilter(prevFilter => ({
-                    ...prevFilter,
-                    filteredProjects: response.data
-                })
-                )
-                setProjects(response.data)
-                extractAllTags(response.data)
-                console.log("Fetched Data: ", response.data)
-            })
-            .catch(error => {
-                if (error.response) {
-                    console.log(error.response.data)
-                }
-                else {
-                    console.log("Some error occurred. Try Again Later", error)
-                }
-            })
-    }
-
     const extractAllTags = useCallback((projects) => {
         const setOfTags = new Set()
         projects.forEach(project => {
@@ -109,7 +120,7 @@ function UserDashboard() {
     }
 
     return (
-        projects.length ?
+        projects ?
             <div className='flex'>
                 <div className="pt-20 shadow-xl h-[100vh] fixed w-[19%]">
                     <Link to='/NewProject'><button className="bg-[#3F5F4F] ml-3 text-sm text-white px-2 py-1.5 rounded">+ New</button></Link>
@@ -118,10 +129,18 @@ function UserDashboard() {
                         <button className="z-[10] absolute bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] border-2 py-1.5 px-3 left-[200px] mt-[20px] rounded-3xl rounded-l-none" ><img src={searchIcon} className='w-[15px]' /></button>
                     </form>
                     <p className='ml-3 mt-20 text-base text-slate-800 font-semibold'>Your Contributions:</p>
-                    <div className='m-3 w-[240px] w-fit'>
-                        {userProjects && userProjects.map(ele => (
-                            <p key={ele._id} className='pb-0.5 ml-2 text-sm text-slate-800 hover:underline cursor-pointer'>{username}/<span>{ele.title}</span></p>
-                        ))}
+                    <div className='m-1.5 w-[220px]'>
+                        {userProjects.length ? userProjects.map(ele => (
+                            <p key={ele._id} className='pb-0.5 ml-2 text-[14px] text-slate-800 hover:underline cursor-pointer'>{username}/<span>{ele.title}</span></p>
+                        )) :
+                            <p className='m-3 text-[14px] text-gray-500'>No Project to show</p>}
+                    </div>
+                    <p className='ml-3 mt-20 text-base text-slate-800 font-semibold'>Your Forked Projects:</p>
+                    <div className='m-1.5 w-[220px] w-fit'>
+                        {forkedProjects.length ? forkedProjects.map(ele => (
+                            <p key={ele._id} className='pb-0.5 ml-2 text-[14px] text-slate-800 hover:underline cursor-pointer'>{username}/<span>{ele.title}</span></p>
+                        )) :
+                            <p className='m-3 text-[14px] text-gray-500'>No Project to show</p>}
                     </div>
                 </div>
                 <div className='bg-[#F4F4F4] w-[81%] ml-[19%] px-10 pt-20'>
@@ -169,8 +188,8 @@ function UserDashboard() {
 
                     </div>
                     <hr className="mt-5" />
-                    <div className='flex justify-between items-center' ref={exploreRef}>
-                        <h1 className='font-bold text-2xl mt-8'>Explore</h1>
+                    <div className='flex justify-between items-center mt-8 mb-5' ref={exploreRef}>
+                        <h1 className='font-bold text-2xl'>Explore</h1>
                         <div className='flex'>
                             <select className='py-0.5 px-3 rounded h-fit' onChange={(e) => setFilter(prevFilter => ({
                                 ...prevFilter, filterVal: e.target.value

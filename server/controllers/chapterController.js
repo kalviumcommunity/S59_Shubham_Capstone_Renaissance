@@ -37,6 +37,7 @@ const addNewChapter = async (req, res) => {
         content: req.body.content,
         dateCreated: req.body.dateCreated
     })
+    console.log(newChapter)
     if (!checkValidation(req.body, chapterStruc)) {
         return res.status(400).json({ message: "Validation Failed" })
     }
