@@ -3,12 +3,14 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Loader from '../Loaders/Loader'
+import getUserDetails from '../../utils/getUserDetails'
 
 function ProjectInterface() {
     const [project, setProject] = useState(null)
     const [chapters, setChapters] = useState([])
+    const [username, setUserName] = useState("")
     const { projectID } = useParams()
 
     const fetchProject = () => {
@@ -43,6 +45,8 @@ function ProjectInterface() {
     }
 
     useEffect(() => {
+        const username = getUserDetails('userName')
+        setUserName(username)
         fetchProject()
         fetchChapters()
     }, [])
@@ -52,10 +56,10 @@ function ProjectInterface() {
                 <header className="sticky top-0 w-full flex justify-between bg-[#3F5F4F] p-5 items-center shadow-lg">
                     <div className="text-white flex justify-center items-center">
                         <img src={deBonaparte} alt="" className='w-[60px] h-[60px] rounded-full' />
-                        <h3 className='ml-5'>Shubhh_Thakur / </h3>
-                        <h3>The Last Letter</h3>
+                        <h3 className='ml-5'>{username} / </h3>
+                        <h3>{project.title}</h3>
                     </div>
-                    <div className="text-white">Shubham Thakur</div>
+                    <div className="text-white">{username}</div>
                 </header>
                 <div className='py-8 px-10'>
                     <div className='flex'>
@@ -73,10 +77,10 @@ function ProjectInterface() {
                             {project.chapters.length ?
                                 <div>
                                     {chapters.map((chapter, index) => (
-                                        <Link to={`/chapter/${chapter._id}`}>
+                                        <Link to={`/chapter/${project.title}/${chapter._id}`}>
                                             <div className='flex items-center py-5 px-8 bg-[#E0D4CD] mt-3 w-full text-slate-900 text-sm rounded'>
                                                 <p className='mr-8'>{index + 1}.</p>
-                                                <p>{chapter.title }</p>
+                                                <p>{chapter.title}</p>
                                             </div>
                                         </Link>
                                     ))}

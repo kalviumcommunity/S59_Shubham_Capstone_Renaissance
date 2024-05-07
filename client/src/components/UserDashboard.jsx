@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import searchIcon from '../assets/search-icon.png'
@@ -6,17 +6,20 @@ import deVanGoghDoodle from '../assets/van-gogh.png'
 import statsIcon from '../assets/stats-icon.png'
 import deBonaparte from '../assets/deBonaparte.jpg'
 import Loader from './Loaders/Loader'
+import getUserDetails from '../utils/getUserDetails'
 
 function UserDashboard() {
     const [userProjects, setUserProjects] = useState([])
     const [latestProjects, setLatestProjects] = useState([])
     const [projects, setProjects] = useState([])
     const [allTags, setTags] = useState([])
+    const exploreRef = useRef()
     const [filter, setFilter] = useState({ filterVal: "All", filteredProjects: [] })
 
     useEffect(() => {
+        const userID = getUserDetails('userID')
         fetchLatestProjects()
-        fetchUserProjects("661f606b57b3c69e28a03516")
+        fetchUserProjects(userID)
         fetchProjects()
     }, [])
 
@@ -97,6 +100,10 @@ function UserDashboard() {
         setTags(Array.from(setOfTags))
     }, [])
 
+    const scrollToExplore = () => {
+        exploreRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+
     return (
         projects.length ?
             <div className='flex'>
@@ -138,7 +145,7 @@ function UserDashboard() {
                     <hr className="mt-5" />
                     <h1 className='font-bold text-2xl mt-8'>Your Latest Projects</h1>
                     <Link to={'/NewProject'}><button className="bg-[#3F5F4F] text-slate-100 text-sm border-solid border-[#3F5F4F] my-5 rounded border-2 py-1.5 px-3" >Add a new Project</button></Link>
-                    <button className="text-[#3F5F4F] font-semibold text-sm border-solid border-[#3F5F4F] mx-3 my-5 rounded border py-1.5 px-3" >Contribute</button>
+                    <button className="text-[#3F5F4F] font-semibold text-sm border-solid border-[#3F5F4F] mx-3 my-5 rounded border py-1.5 px-3" onClick={scrollToExplore}>Contribute</button>
                     <div className='flex flex-wrap'>
                         {latestProjects.map(project => (
                             <div className='bg-white m-3 rounded-xl w-[30%] px-5 py-8 shadow-lg flex flex-col justify-center'>
@@ -156,7 +163,7 @@ function UserDashboard() {
                         }
                     </div>
                     <hr className="mt-5" />
-                    <div className='flex justify-between items-center'>
+                    <div className='flex justify-between items-center' ref={exploreRef}>
                         <h1 className='font-bold text-2xl mt-8'>Explore</h1>
                         <div className='flex'>
                             <select className='py-0.5 px-3 rounded h-fit' onChange={(e) => setFilter(prevFilter => ({

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import greenBg from '../../assets/bg-green.png'
 import searchIcon from '../../assets/search-icon.png'
 import johnKeats from '../../assets/john_keats.jpg'
@@ -12,7 +12,7 @@ import WelcomeLoader from '../Loaders/WelcomeLoader'
 
 function Home() {
     const [imageArray, setImageArray] = useState([])
-
+    const helpDeskRef = useRef()
     const fetchArtists = () => {
         fetch("https://renaissance-server.onrender.com/artist")
             .then(response => response.json())
@@ -20,6 +20,10 @@ function Home() {
                 console.log(result)
                 setImageArray(result)
             })
+    }
+
+    const scrollToHelp = () => {
+        helpDeskRef.current.scrollIntoView({ behavior: "smooth" })
     }
 
     useEffect(() => {
@@ -41,7 +45,7 @@ function Home() {
                         into backwaters</p>
                     <div className='mt-8 pl-2'>
                         <Link to='Dashboard'><button className="bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" >Dashboard</button></Link>
-                        <button className="bg-transparent text-[[#3F5F4F] border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" >How to Start?</button>
+                        <button className="bg-transparent text-[[#3F5F4F] border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" onClick={scrollToHelp}>How to Start?</button>
                     </div>
                 </div>
                 <div className="w-[350px] bg-cover absolute h-[350px] right-[80px] mt-[30px] border-[#97D4A6] rounded-full border-[30px] shadow-lg" style={{ backgroundImage: `url(${johnKeats})` }}>
@@ -50,10 +54,12 @@ function Home() {
             <h1 className='text-7xl font-extrabold text-center mt-[60px]'>Discover Personalities</h1>
             <p className='text-center mt-[10px] mb-[60px]'>In timeless verse, their ancient souls still breathe.</p>
             {imageArray && <SecondarySlider imageArray={imageArray} />}
-            <HelpDesk />
+            <div ref={helpDeskRef}>
+                <HelpDesk />
+            </div>
             <Footer />
         </div>
-        : <WelcomeLoader />
+            : <WelcomeLoader />
     )
 }
 
