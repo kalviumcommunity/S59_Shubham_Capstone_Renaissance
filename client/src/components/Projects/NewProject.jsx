@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import getDate from '../../utils/getDate'
 import getUserDetails from '../../utils/getUserDetails'
 import { toast } from 'react-toastify'
+import { postProject } from '../../utils/apiUtils'
 import { useNavigate } from 'react-router-dom'
 
 function NewProject() {
@@ -20,10 +21,8 @@ function NewProject() {
         setSelectedTags(prevTags => prevTags.filter(tag => tag != tagToDelete))
     }
 
-    const postProject = (data) => {
-        data.projectOwnerName = getUserDetails('userName')
-        console.log(data)
-        axios.post('https://renaissance-server.onrender.com/project/add-project', data)
+    const handlePostProject = (data) => {
+        postProject(data)
             .then(response => {
                 console.log("Response", response.data)
                 toast.success(`${response.data.title} Successfully created!`)
@@ -44,8 +43,8 @@ function NewProject() {
                     data.status = status
                     const dateCreated = getDate()
                     data.dateCreated = dateCreated
-                    console.log(data)
-                    postProject(data)
+                    data.projectOwnerName = getUserDetails('userName')
+                    handlePostProject(data)
                 })}>
                 <h1 className="text-3xl font-bold">Start a New Project</h1>
                 <p className="text-[13px] text-gray-700 mt-1.5">A new project can be anything from a the meters of poems to prose of Stories! Novels, Poems, lyrics and stories anything you wish</p>

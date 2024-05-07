@@ -1,4 +1,5 @@
 import { useParams } from 'react-router-dom'
+import { getForkedProject, fetchChapters, fetchProject, forkProject} from '../../utils/apiUtils'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
@@ -18,8 +19,19 @@ function ProjectInterface() {
     const { projectID } = useParams()
     const userID = getUserDetails("userID")
 
-    const fetchProject = () => {
-        axios.get(`https://renaissance-server.onrender.com/project/get-project/${projectID}`)
+    useEffect(() => {
+        const username = getUserDetails('userName')
+        setUserName(username)
+        getForkedProject(userID)
+            .then(response => {
+                setForkedProjects(response.data)
+                console.log(response.data.message)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+        fetchProject(projectID)
             .then(response => {
                 setProject(response.data)
                 console.log("Fetched Data: ", response.data)
@@ -32,9 +44,7 @@ function ProjectInterface() {
                     console.log("Some error occurred. Try Again Later", error)
                 }
             })
-    }
-    const fetchChapters = () => {
-        axios.get(`https://renaissance-server.onrender.com/chapter/project-chapters/${projectID}`)
+        fetchChapters(projectID)
             .then(response => {
                 setChapters(response.data)
                 console.log("Fetched Chapter: ", response.data)
@@ -47,9 +57,10 @@ function ProjectInterface() {
                     console.log("Some error occurred. Try Again Later", error)
                 }
             })
-    }
-    const forkProject = () => {
-        axios.post(`http://localhost:8080/project/fork-project/${userID}/${projectID}`)
+    }, [])
+
+    const handleFork = () => {
+        forkProject(userID, projectID)
             .then(response => {
                 setFork(true)
                 console.log(response.data.message)
@@ -59,16 +70,6 @@ function ProjectInterface() {
             })
     }
 
-    const getForkedProjects = () => {
-        axios.get(`http://localhost:8080/user/forkedProjects/${userID}`)
-            .then(response => {
-                setForkedProjects(response.data)
-                console.log(response.data.message)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
     const checkForked = (projectID) => {
         if (fork == true) {
             return true
@@ -81,13 +82,6 @@ function ProjectInterface() {
         return false
     }
 
-    useEffect(() => {
-        const username = getUserDetails('userName')
-        setUserName(username)
-        getForkedProjects(userID)
-        fetchProject()
-        fetchChapters()
-    }, [])
     return (
         project ?
             <>
@@ -116,7 +110,7 @@ function ProjectInterface() {
                                     <img className="w-[25px]" src={forkedIcon} alt="forked" />
                                 </div>
                                 :
-                                <div className='flex border bg-gray-100 py-1.5 px-3 rounded' onClick={() => forkProject()}>
+                                <div className='flex border bg-gray-100 py-1.5 px-3 rounded' onClick={() => handleFork()}>
                                     <p className='text-[15px] text-semibold text-[#3F5F4F] mr-1.5'>Fork</p>
                                     <img className="w-[25px]" src={forkIcon} alt="forkit" />
                                 </div>}

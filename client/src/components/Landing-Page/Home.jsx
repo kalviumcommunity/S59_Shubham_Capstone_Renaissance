@@ -9,18 +9,11 @@ import SecondarySlider from '../Sliders/SecondarySlider'
 import Footer from '../Footer'
 import { Link } from 'react-router-dom'
 import WelcomeLoader from '../Loaders/WelcomeLoader'
+import { fetchArtists } from '../../utils/apiUtils'
 
 function Home({ isLogin }) {
     const [imageArray, setImageArray] = useState([])
     const helpDeskRef = useRef()
-    const fetchArtists = () => {
-        fetch("https://renaissance-server.onrender.com/artist")
-            .then(response => response.json())
-            .then(result => {
-                console.log(result)
-                setImageArray(result)
-            })
-    }
 
     const scrollToHelp = () => {
         helpDeskRef.current.scrollIntoView({ behavior: "smooth" })
@@ -28,6 +21,12 @@ function Home({ isLogin }) {
 
     useEffect(() => {
         fetchArtists()
+            .then(response => {
+                setImageArray(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }, [])
 
     return (

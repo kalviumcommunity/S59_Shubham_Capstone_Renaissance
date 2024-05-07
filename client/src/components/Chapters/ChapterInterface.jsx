@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { fetchChapter } from '../../utils/apiUtils'
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import { useParams } from 'react-router-dom'
 import ReactHtmlParser from 'html-react-parser'
@@ -11,8 +12,10 @@ function ChapterInterface() {
     const [chapter, setChapter] = useState(null)
     const [userName, setUserName] = useState("")
 
-    const fetchChapter = () => {
-        axios.get(`http://localhost:8080/chapter/get-chapter/${chapterID}`)
+    useEffect(() => {
+        const username = getUserDetails("userName")
+        setUserName(username)
+        fetchChapter(chapterID)
             .then(response => {
                 setChapter(response.data)
                 console.log("Fetched Data: ", response.data)
@@ -25,12 +28,6 @@ function ChapterInterface() {
                     console.log("Some error occurred. Try Again Later", error)
                 }
             })
-    }
-
-    useEffect(() => {
-        const username = getUserDetails("userName")
-        setUserName(username)
-        fetchChapter()
     }, [])
 
     return (
