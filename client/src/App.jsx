@@ -22,7 +22,7 @@ function App() {
     if (getCookie('accessToken')) {
       setLogin(true)
     }
-  })
+  }, [])
 
   return (
     <>
