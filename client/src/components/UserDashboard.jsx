@@ -59,8 +59,9 @@ function UserDashboard() {
     }
 
     const fetchLatestProjects = (userID) => {
-        axios.get(`http://localhost:8080/project/latest/${userID}`)
+        axios.get(`https://renaissance-server.onrender.com/latest/${userID}`)
             .then(response => {
+                console.log(1, response.data)
                 setLatestProjects(response.data)
             })
             .catch(error => {

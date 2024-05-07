@@ -23,7 +23,7 @@ function NewProject() {
     const postProject = (data) => {
         data.projectOwnerName = getUserDetails('userName')
         console.log(data)
-        axios.post('http://localhost:8080/project/add-project', data)
+        axios.post('https://renaissance-server.onrender.com/project/add-project', data)
             .then(response => {
                 console.log("Response", response.data)
                 toast.success(`${response.data.title} Successfully created!`)
