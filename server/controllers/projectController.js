@@ -52,6 +52,7 @@ const postData = async (req, res) => {
         res.status(201).json(savedPost)
     }
     catch (error) {
+        await newPost.deleteOne()
         console.log('Error Posting data: ', error.message)
         res.status(500).json({ message: "Failed to Post. Could not Post data" })
     }
