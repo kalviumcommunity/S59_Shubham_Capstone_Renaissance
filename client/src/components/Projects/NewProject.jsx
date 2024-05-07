@@ -3,24 +3,34 @@ import { useState, useEffect } from 'react'
 import padLock from '../../assets/padlock.png'
 import open from '../../assets/open.png'
 import { useForm } from 'react-hook-form'
+import getDate from '../../utils/getDate'
+import getUserDetails from '../../utils/getUserDetails'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 function NewProject() {
     const [allTags, setAllTags] = useState(["Fantasy", "Crime & Thriller", "Wartime", "Mystery", "Kids", "Self-Help", "Fiction", "RomCom", "Comedy", "Myth", "Drama", "Historical", "Adventure", "Fairies"])
     const [selectedTags, setSelectedTags] = useState([])
     const [status, setStatus] = useState('Open')
     const [typeOfProject, setType] = useState('')
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
+    const navigate = useNavigate()
 
     const handleDeleteTag = (tagToDelete) => {
         setSelectedTags(prevTags => prevTags.filter(tag => tag != tagToDelete))
     }
 
     const postProject = (data) => {
+        data.projectOwnerName = getUserDetails('userName')
+        console.log(data)
         axios.post('https://renaissance-server.onrender.com/project/add-project', data)
             .then(response => {
                 console.log("Response", response.data)
+                toast.success(`${response.data.title} Successfully created!`)
+                navigate('/Dashboard')
             })
             .catch(error => {
+                toast.error(error.response.message)
                 console.log(error.response.data)
             })
     }
@@ -30,11 +40,13 @@ function NewProject() {
             <form className="w-[50vw] py-10 px-12 bg-white"
                 onSubmit={handleSubmit((data) => {
                     data.tags = selectedTags
-                    data.projectOwner = "661f606b57b3c69e28a03516"
+                    data.projectOwner = getUserDetails('userID')
                     data.status = status
+                    const dateCreated = getDate()
+                    data.dateCreated = dateCreated
                     console.log(data)
                     postProject(data)
-                })}> 
+                })}>
                 <h1 className="text-3xl font-bold">Start a New Project</h1>
                 <p className="text-[13px] text-gray-700 mt-1.5">A new project can be anything from a the meters of poems to prose of Stories! Novels, Poems, lyrics and stories anything you wish</p>
                 <hr className="my-1.5" />
@@ -81,7 +93,7 @@ function NewProject() {
                         </select>
                         <div>
                             {selectedTags && selectedTags.map(tag => (
-                                <button type="button" key = {tag} className='mx-3 my-1.5 w-fit bg-[#97D4A6] text-sm px-3 py-1.5 rounded text-slate-900'>{tag} <button onClick={() => handleDeleteTag(tag)}>X</button></button>
+                                <button type="button" key={tag} className='mx-3 my-1.5 w-fit bg-[#97D4A6] text-sm px-3 py-1.5 rounded text-slate-900'>{tag} <button onClick={() => handleDeleteTag(tag)}>X</button></button>
                             ))}
                         </div>
                     </div>

@@ -34,8 +34,8 @@ function App() {
         <Route path='/Loader' element={<Loader />} />
         <Route path='/welcome' element={<WelcomeLoader />} />
         <Route path='/project/:projectID' element={<ProjectInterface />} />
-        <Route path='/newChapter/:projectID' element={isLogin ? <NewChapter /> : <Register setLogin={setLogin} />} />
-        <Route path='/chapter/:chapterID' element={<ChapterInterface />} />
+        <Route path='/newChapter/:projectName/:projectID' element={<NewChapter />} />
+        <Route path='/chapter/:projectName/:chapterID' element={<ChapterInterface />} />
       </Routes>
       <ToastContainer />
     </>

@@ -41,6 +41,7 @@ const postData = async (req, res) => {
         contributors: req.body.contributors,
         status: req.body.status,
         projectOwner: req.body.projectOwner,
+        projectOwnerName : req.body.projectOwnerName
     })
     if (!checkValidation(req.body, projectStruc)) {
         return res.status(400).json({ message: "Validation Failed" })
@@ -51,7 +52,7 @@ const postData = async (req, res) => {
         res.status(201).json(savedPost)
     }
     catch (error) {
-        await newPost.remove()
+        await newPost.deleteOne()
         console.log('Error Posting data: ', error.message)
         res.status(500).json({ message: "Failed to Post. Could not Post data" })
     }
@@ -76,8 +77,9 @@ const deleteData = async (req, res) => {
 }
 
 const getLatestData = async (req, res) => {
+    const userID = req.params.userID
     try {
-        const latest = await projectModel.find().sort({ dateCreated: -1 }).limit(3).exec();
+        const latest = await projectModel.find({projectOwner : userID}).sort({ dateCreated: -1 }).limit(3).exec();
         res.status(200).json(latest);
     } catch (error) {
         console.log("Error fetching the latest items", error);

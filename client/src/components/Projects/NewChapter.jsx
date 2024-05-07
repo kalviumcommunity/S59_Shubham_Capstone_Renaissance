@@ -4,13 +4,14 @@ import axios from 'axios'
 import getDate from '../../utils/getDate'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import {toast} from 'react-toastify'
 
 function NewChapter() {
     const [chapterName, setChapterName] = useState("New Chapter")
     const [currentDate, setCurrentDate] = useState("")
     const [content, setContent] = useState("")
 
-    const { projectID } = useParams()
+    const { projectName, projectID } = useParams()
 
     useEffect(() => {
         setCurrentDate(getDate())
@@ -26,9 +27,11 @@ function NewChapter() {
         axios.post(`https://renaissance-server.onrender.com/chapter/add-chapter/${projectID}`, data)
             .then(response => {
                 console.log("Response", response.data)
+                toast.success("Chapter Added!")
             })
             .catch(error => {
-                console.log(error.response.data)
+                console.log(error.response)
+                toast.error("Something wrong happened. Try again later")
             })
     }
 
@@ -38,7 +41,7 @@ function NewChapter() {
                 <div className="text-white flex justify-center items-center">
                     <img src={deBonaparte} alt="profile image" className='w-[60px] h-[60px] rounded-full' />
                     <h3 className='ml-5'>Shubhh_Thakur / </h3>
-                    <h3>The Last Letter</h3>
+                    <h3>{projectName}</h3>
                 </div>
                 <div className="text-white">Shubham Thakur</div>
             </header>
