@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
         }],
         default: []
     },
+    commits: {
+        type: Array,
+        required: true
+    },
     occupations: {
         type: Array,
         required: true

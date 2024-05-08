@@ -8,7 +8,7 @@ const getAllChaptersForProject = async (req, res) => {
         const projectID = req.params.projectID
         const project = await projectModel.findById(projectID)
         if (!project) return res.status(404).json({ message: "Project does not exist" })
-        const chapters = await chapterModel.find({ _id: { $in: project.chapters } })
+        const chapters = await chapterModel.find({ _id: { $in: project.chapters }, isApproved : true  })
         res.status(200).json(chapters)
     }
     catch (error) {
@@ -82,7 +82,6 @@ const deleteChapter = async (req, res) => {
     try {
         const chapterID = req.params.chapterID
         const projects = await projectModel.find({ chapters: chapterID })
-        console.log(projects)
         const findChapter = await chapterModel.findById(chapterID)
         if (!findChapter) return res.status(404).json({ message: "Chapter not found" })
         for (const project of projects) {
