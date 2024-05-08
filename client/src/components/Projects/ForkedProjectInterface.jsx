@@ -69,12 +69,18 @@ function ForkedProjectInterface() {
                     <div className='flex items-center py-5 px-8 bg-[#97D4A6] mt-8 text-slate-900 text-sm rounded '>Shubham Thakur updated 8 months ago</div>
                     <div className='flex mt-3 justify-between'>
                         <div className='w-full'>
-                            <Link to={`/newChapter/${project.title}/${projectID}`}><button className="bg-[#3F5F4F] mt-5 text-sm text-white px-2 py-1.5 rounded">Add a new Chapter</button></Link>
+                            <div className='flex justify-between items-center mt-5'>
+                                <input type="text" className='border border-gray-300 rounded px-2 py-1.5 h-fit text-sm mr-5 bg-gray-100 w-[500px]' placeholder='Search chapter here' />
+                                <div className='flex'>
+                                    <Link to={`/newChapter/${project.title}/${projectID}`}><button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button></Link>
+                                    <button className="border border-[#3F5F4F] text-sm text-[#3F5F4F] px-3 py-1.5 rounded">Create Branch</button>
+                                </div>
+                            </div>
                             {project.chapters && project.chapters.length ?
                                 <div>
                                     {chapters.map((chapter, index) => (
                                         <Link to={`/chapter/${project.title}/${chapter._id}`}>
-                                            <div className='flex items-center py-5 px-8 bg-[#E0D4CD] mt-3 w-full text-slate-900 text-sm rounded'>
+                                            <div className='flex items-center py-5 px-8 border border-gray-300 bg-gray-100 mt-3 w-full text-slate-900 text-sm rounded'>
                                                 <p className='mr-8'>{index + 1}.</p>
                                                 <p>{chapter.title}</p>
                                             </div>
