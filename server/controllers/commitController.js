@@ -12,7 +12,7 @@ const setCommit = async (req, res) => {
     })
     try {
         const committedPost = await newCommit.save()
-        await userModel.findByIdAndUpdate(req.body.commits, { $push: { commits: committedPost._id } })
+        await userModel.findByIdAndUpdate(req.body.userID, { $push: { commits: committedPost._id } })
         res.status(201).json(committedPost)
     }
     catch (error) {
@@ -62,6 +62,11 @@ const clearCommit = async (req, res) => {
             return res.status(404).json({ message: "Commit not found. Check the id" })
         }
         await userModel.updateMany({ commits: commitID }, { $pull: { commits: commitID } })
+            .catch(async error => {
+                console.log("Error clearing commit from user's account:", error)
+                await commitModel.findByIdAndUpdate(commitID, { $set: { deleted: false } })
+                res.status(500).json({ message: "Commit failed. Try again later." })
+            })
         console.log("Commit cleared successfully")
         res.status(200).json({ message: "Commit cleared successfully" })
 
