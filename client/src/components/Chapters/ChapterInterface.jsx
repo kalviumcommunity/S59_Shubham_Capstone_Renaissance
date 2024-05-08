@@ -59,15 +59,17 @@ function ChapterInterface() {
                             <div>
                                 <h1 className='font-bold text-lg mt-8'>Upvote and Share it!</h1>
                                 <div className='mt-3 flex items-center ml-5'>
-                                    {!liked ?
-                                        <div className='mt-1.5 mr-8'>
-                                            <img src={likeButton} alt="" className='w-10 cursor-pointer' onClick={() => setLike(true)} />
-                                            <p className='text-[12px] mt-3'>3567 Likes</p>
-                                        </div> :
-                                        <div className='mt-1.5 mr-8' onClick={() => setLike(false)}>
+                                    {liked ?
+                                        (<div className='mt-1.5 mr-8' onClick={() => setLike(false)}>
                                             <img src={likedButton} alt="" className='w-10 cursor-pointer' />
                                             <p className='text-[12px] mt-3'>3567 Likes</p>
-                                        </div>}
+                                        </div>)
+                                        :
+                                        (<div className='mt-1.5 mr-8'>
+                                            <img src={likeButton} alt="" className='w-10 cursor-pointer' onClick={() => setLike(true)} />
+                                            <p className='text-[12px] mt-3'>3567 Likes</p>
+                                        </div>)
+                                    }
                                     <div>
                                         <img src={shareButton} alt="" className='h-8 mt-2 cursor-pointer' />
                                         <p className='text-[12px] mt-3'>357 shares</p>
