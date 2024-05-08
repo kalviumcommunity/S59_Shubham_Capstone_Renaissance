@@ -11,6 +11,7 @@ import NewProject from './components/Projects/NewProject'
 import ProjectInterface from './components/Projects/ProjectInterface'
 import NewChapter from './components/Projects/NewChapter'
 import ChapterInterface from './components/Chapters/ChapterInterface'
+import ForkedProjectInterface from './components/Projects/ForkedProjectInterface'
 import getCookie from './utils/getCookie'
 import './index.css'
 import './App.css'
@@ -36,6 +37,7 @@ function App() {
         <Route path='/project/:projectID' element={<ProjectInterface />} />
         <Route path='/newChapter/:projectName/:projectID' element={<NewChapter />} />
         <Route path='/chapter/:projectName/:chapterID' element={<ChapterInterface />} />
+        <Route path='/forkedProject/:projectID' element={<ForkedProjectInterface />} />
       </Routes>
       <ToastContainer />
     </>

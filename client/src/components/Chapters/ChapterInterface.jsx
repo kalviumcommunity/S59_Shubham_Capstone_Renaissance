@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { fetchChapter } from '../../utils/apiUtils'
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import { useParams } from 'react-router-dom'

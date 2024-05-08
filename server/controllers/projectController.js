@@ -21,7 +21,7 @@ const getOneData = async (req, res) => {
         const data = await projectModel.findById(dataID)
         if (!data) {
             console.log("Project not found")
-            return res.status(404).json({ message: "Project does not found" })
+            return res.status(404).json({ message: "Project not found" })
         }
         res.status(200).json(data)
     }

@@ -1,39 +1,26 @@
 import { useParams } from 'react-router-dom'
-import { getForkedProject, fetchChapters, fetchProject, forkProject} from '../../utils/apiUtils'
+import { fetchChapters, fetchProject } from '../../utils/apiUtils'
 import { Link } from 'react-router-dom'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import { useEffect, useState } from 'react'
 import Loader from '../Loaders/Loader'
 import getUserDetails from '../../utils/getUserDetails'
-import forkIcon from '../../assets/fork-icon.png'
-import forkedIcon from '../../assets/forked.png'
 
-function ProjectInterface() {
+function ForkedProjectInterface() {
     const [project, setProject] = useState(null)
     const [chapters, setChapters] = useState([])
-    const [forkedProjects, setForkedProjects] = useState([])
     const [username, setUserName] = useState("")
-    const [fork, setFork] = useState(false)
     const { projectID } = useParams()
     const userID = getUserDetails("userID")
 
     useEffect(() => {
         const username = getUserDetails('userName')
         setUserName(username)
-        getForkedProject(userID)
-            .then(response => {
-                setForkedProjects(response.data)
-                console.log(response.data.message)
-            })
-            .catch(error => {
-                console.log(error)
-            })
 
         fetchProject(projectID)
             .then(response => {
                 setProject(response.data)
-                console.log("Fetched Data: ", response.data)
             })
             .catch(error => {
                 if (error.response) {
@@ -46,7 +33,6 @@ function ProjectInterface() {
         fetchChapters(projectID)
             .then(response => {
                 setChapters(response.data)
-                console.log("Fetched Chapter: ", response.data)
             })
             .catch(error => {
                 if (error.response) {
@@ -57,29 +43,6 @@ function ProjectInterface() {
                 }
             })
     }, [])
-
-    const handleFork = () => {
-        forkProject(userID, projectID)
-            .then(response => {
-                setFork(true)
-                console.log(response.data.message)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
-
-    const checkForked = (projectID) => {
-        if (fork == true) {
-            return true
-        }
-        for (const project of forkedProjects) {
-            if (project == projectID) {
-                return true
-            }
-        }
-        return false
-    }
 
     return (
         project ?
@@ -102,23 +65,12 @@ function ProjectInterface() {
                             </div>
                             <button className='bg-[#3F5F4F] py-1.5 px-3 rounded text-gray-100 text-sm'>{project.status}</button>
                         </div>
-                        <button>
-                            {checkForked(project._id) ?
-                                <div className='flex border bg-gray-100 py-1.5 px-3 rounded'>
-                                    <p className='text-[15px] text-semibold text-[#3F5F4F] mr-1.5'>Forked</p>
-                                    <img className="w-[25px]" src={forkedIcon} alt="forked" />
-                                </div>
-                                :
-                                <div className='flex border bg-gray-100 py-1.5 px-3 rounded' onClick={() => handleFork()}>
-                                    <p className='text-[15px] text-semibold text-[#3F5F4F] mr-1.5'>Fork</p>
-                                    <img className="w-[25px]" src={forkIcon} alt="forkit" />
-                                </div>}
-                        </button>
                     </div>
                     <div className='flex items-center py-5 px-8 bg-[#97D4A6] mt-8 text-slate-900 text-sm rounded '>Shubham Thakur updated 8 months ago</div>
                     <div className='flex mt-3 justify-between'>
                         <div className='w-full'>
-                            {project.chapters.length ?
+                            <Link to={`/newChapter/${project.title}/${projectID}`}><button className="bg-[#3F5F4F] mt-5 text-sm text-white px-2 py-1.5 rounded">Add a new Chapter</button></Link>
+                            {project.chapters && project.chapters.length ?
                                 <div>
                                     {chapters.map((chapter, index) => (
                                         <Link to={`/chapter/${project.title}/${chapter._id}`}>
@@ -148,4 +100,4 @@ function ProjectInterface() {
     )
 }
 
-export default ProjectInterface
+export default ForkedProjectInterface
