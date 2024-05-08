@@ -122,7 +122,7 @@ function ProjectInterface() {
                                 <div>
                                     {chapters.map((chapter, index) => (
                                         <Link to={`/chapter/${project.title}/${chapter._id}`}>
-                                            <div className='flex items-center py-5 px-8 bg-[#E0D4CD] mt-3 w-full text-slate-900 text-sm rounded'>
+                                            <div className='flex items-center py-5 px-8 bg-gray-100 border border-gray-300 mt-3 w-full text-slate-900 text-sm rounded'>
                                                 <p className='mr-8'>{index + 1}.</p>
                                                 <p>{chapter.title}</p>
                                             </div>

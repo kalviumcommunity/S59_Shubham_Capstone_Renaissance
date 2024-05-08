@@ -5,11 +5,15 @@ import { useParams } from 'react-router-dom'
 import ReactHtmlParser from 'html-react-parser'
 import Loader from '../Loaders/Loader'
 import getUserDetails from '../../utils/getUserDetails'
+import likeButton from '../../assets/like-icon.png'
+import likedButton from '../../assets/liked-icon.png'
+import shareButton from '../../assets/share-icon.png'
 
 function ChapterInterface() {
     const { chapterID, projectName } = useParams()
     const [chapter, setChapter] = useState(null)
     const [userName, setUserName] = useState("")
+    const [liked, setLike] = useState(false)
 
     useEffect(() => {
         const username = getUserDetails("userName")
@@ -17,7 +21,6 @@ function ChapterInterface() {
         fetchChapter(chapterID)
             .then(response => {
                 setChapter(response.data)
-                console.log("Fetched Data: ", response.data)
             })
             .catch(error => {
                 if (error.response) {
@@ -43,17 +46,44 @@ function ChapterInterface() {
                 <div className='py-8 px-10'>
                     <h1 className='text-2xl font-bold text-slate-800 mr-3'>{projectName}/ {chapter.title}</h1>
                     <div className='flex items-center py-5 px-8 bg-[#97D4A6] mt-3 text-slate-900 text-sm rounded '>Shubham Thakur updated 8 months ago</div>
-                    <div className='flex justify-between'>
-                        <div className='w-[70vw] bg-gray-300 h-[100vh] mt-5 rounded py-8 px-8'>
-                            <h1 className='font-bold text-slate-800 text-2xl text-center'>{chapter.title}</h1>
-                            <p className='mt-5'>{chapter.content && ReactHtmlParser(chapter.content)}</p>
+                    <div className='flex justify-between mt-5'>
+                        <div className='w-[70vw] border border-gray-300 bg-gray-100 rounded h-[100vh] rounded py-10 px-8'>
+                            <h1 className='font-bold text-slate-800 text-3xl'>{chapter.title}</h1>
+                            <p className='mt-5 text-[15px]'>{chapter.content && ReactHtmlParser(chapter.content)}</p>
                         </div>
-                        <button className="bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] my-5 ml-3 rounded border-2 py-1.5 px-3 h-fit w-[20vw] mt-10">Edit the Chapter</button>
+                        <div className='w-[30vw] ml-5 pt-3'>
+                            <div>
+                                <h1 className='font-bold text-xl'>Summary</h1>
+                                <p className='text-sm mt-3 text-justify'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam neque veritatis laborum harum sed necessitatibus nostrum consequuntur. Eveniet nam expedita animi beatae quo rem deleniti praesentium voluptatem. Quae, et aut.</p>
+                            </div>
+                            <div>
+                                <h1 className='font-bold text-lg mt-8'>Upvote and Share it!</h1>
+                                <div className='mt-3 flex items-center ml-5'>
+                                    {liked ?
+                                        (<div className='mt-1.5 mr-8' onClick={() => setLike(false)}>
+                                            <img src={likedButton} alt="" className='w-10 cursor-pointer' />
+                                            <p className='text-[12px] mt-3'>3567 Likes</p>
+                                        </div>)
+                                        :
+                                        (<div className='mt-1.5 mr-8'>
+                                            <img src={likeButton} alt="" className='w-10 cursor-pointer' onClick={() => setLike(true)} />
+                                            <p className='text-[12px] mt-3'>3567 Likes</p>
+                                        </div>)
+                                    }
+                                    <div>
+                                        <img src={shareButton} alt="" className='h-8 mt-2 cursor-pointer' />
+                                        <p className='text-[12px] mt-3'>357 shares</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h1 className='font-bold text-lg mt-8'>Discussion</h1>
+                                <div className='w-full h-[500px] border border-gray-300 bg-gray-100 mt-5'></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </>
-            : <Loader />
+            </> : <Loader />
     )
 }
-
 export default ChapterInterface
