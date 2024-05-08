@@ -43,5 +43,3 @@ export const fetchArtists = () => {
 export const getForkedProject = (userID) => {
     return axios.get(`http://localhost:8080/user/forkedProjects/${userID}`);
 };
-
-

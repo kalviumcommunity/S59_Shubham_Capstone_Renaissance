@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { fetchUserProjects, fetchLatestProjects, fetchProjects, getForkedProject, fetchProject } from '../utils/apiUtils'
-import axios from 'axios'
 import { Link } from 'react-router-dom'
 import searchIcon from '../assets/search-icon.png'
 import deVanGoghDoodle from '../assets/van-gogh.png'
@@ -129,16 +128,16 @@ function UserDashboard() {
                         <button className="z-[10] absolute bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] border-2 py-1.5 px-3 left-[200px] mt-[20px] rounded-3xl rounded-l-none" ><img src={searchIcon} className='w-[15px]' /></button>
                     </form>
                     <p className='ml-3 mt-20 text-base text-slate-800 font-semibold'>Your Contributions:</p>
-                    <div className='m-1.5 w-[220px]'>
+                    <div className='m-1.5 w-[220px] overflow-auto'>
                         {userProjects.length ? userProjects.map(ele => (
-                            <p key={ele._id} className='pb-0.5 ml-2 text-[14px] text-slate-800 hover:underline cursor-pointer'>{username}/<span>{ele.title}</span></p>
+                            <Link to={`/project/${ele._id}`}><p key={ele._id} className='pb-0.5 ml-2 text-[14px] text-slate-800 hover:underline cursor-pointer'>{username}/<span>{ele.title}</span></p></Link>
                         )) :
                             <p className='m-3 text-[14px] text-gray-500'>No Project to show</p>}
                     </div>
                     <p className='ml-3 mt-20 text-base text-slate-800 font-semibold'>Your Forked Projects:</p>
-                    <div className='m-1.5 w-[220px] w-fit'>
+                    <div className='m-1.5 w-[200px] overflow-auto h-[300px]'>
                         {forkedProjects.length ? forkedProjects.map(ele => (
-                            <p key={ele._id} className='pb-0.5 ml-2 text-[14px] text-slate-800 hover:underline cursor-pointer'>{username}/<span>{ele.title}</span></p>
+                            <Link to={`/forkedProject/${ele.id}`}><p key={ele.id} className='pb-0.5 ml-2 text-[14px] text-slate-800 hover:underline cursor-pointer'>{username}/<span>{ele.title}</span></p></Link>
                         )) :
                             <p className='m-3 text-[14px] text-gray-500'>No Project to show</p>}
                     </div>

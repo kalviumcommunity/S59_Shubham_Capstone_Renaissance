@@ -1,6 +1,5 @@
 import ChapterEditor from '../Text-Editor/ChapterEditor'
 import deBonaparte from '../../assets/deBonaparte.jpg'
-import axios from 'axios'
 import getDate from '../../utils/getDate'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
