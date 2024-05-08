@@ -10,9 +10,7 @@ import getUserDetails from '../../utils/getUserDetails'
 function ForkedProjectInterface() {
     const [project, setProject] = useState(null)
     const [chapters, setChapters] = useState([])
-    const [forkedProjects, setForkedProjects] = useState([])
     const [username, setUserName] = useState("")
-    const [fork, setFork] = useState(false)
     const { projectID } = useParams()
     const userID = getUserDetails("userID")
 
@@ -20,11 +18,9 @@ function ForkedProjectInterface() {
         const username = getUserDetails('userName')
         setUserName(username)
 
-
         fetchProject(projectID)
             .then(response => {
                 setProject(response.data)
-                console.log("Fetched Data: ", response.data)
             })
             .catch(error => {
                 if (error.response) {
@@ -37,7 +33,6 @@ function ForkedProjectInterface() {
         fetchChapters(projectID)
             .then(response => {
                 setChapters(response.data)
-                console.log("Fetched Chapter: ", response.data)
             })
             .catch(error => {
                 if (error.response) {
@@ -75,7 +70,7 @@ function ForkedProjectInterface() {
                     <div className='flex mt-3 justify-between'>
                         <div className='w-full'>
                             <Link to={`/newChapter/${project.title}/${projectID}`}><button className="bg-[#3F5F4F] mt-5 text-sm text-white px-2 py-1.5 rounded">Add a new Chapter</button></Link>
-                            {project.chapters.length ?
+                            {project.chapters && project.chapters.length ?
                                 <div>
                                     {chapters.map((chapter, index) => (
                                         <Link to={`/chapter/${project.title}/${chapter._id}`}>
