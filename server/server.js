@@ -8,6 +8,7 @@ const userRoutes = require('./routes/userRoutes')
 const artistRoutes = require('./routes/artistRoutes')
 const chapterRoutes = require('./routes/chapterRoutes')
 const pullRoutes = require('./routes/pullRoutes')
+const forkRoutes = require('./routes/forkRoutes')
 
 connectToDB()
 
@@ -18,6 +19,7 @@ app.use('/user', userRoutes)
 app.use('/artist', artistRoutes)
 app.use('/chapter', chapterRoutes)
 app.use('/pull', pullRoutes)
+app.use('/fork', forkRoutes)
 
 app.listen(PORT, () => {
     console.log("Listening at Port", PORT)

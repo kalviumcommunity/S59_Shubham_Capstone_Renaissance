@@ -1,10 +1,12 @@
 import { useParams } from 'react-router-dom'
-import { getForkedProject, fetchChapters, fetchProject, forkProject} from '../../utils/apiUtils'
+import { getForkedProject, fetchChapters, fetchProject, forkProject } from '../../utils/apiUtils'
 import { Link } from 'react-router-dom'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import { useEffect, useState } from 'react'
 import Loader from '../Loaders/Loader'
+import {toast} from 'react-toastify'
+import getDate from '../../utils/getDate'
 import getUserDetails from '../../utils/getUserDetails'
 import forkIcon from '../../assets/fork-icon.png'
 import forkedIcon from '../../assets/forked.png'
@@ -59,12 +61,20 @@ function ProjectInterface() {
     }, [])
 
     const handleFork = () => {
-        forkProject(userID, projectID)
+        const currDate = getDate()
+        const chapters = project.chapters
+        const data = {
+            dateCreated: currDate,
+            chapters: chapters
+        }
+        forkProject(userID, projectID, data)
             .then(response => {
                 setFork(true)
-                console.log(response.data.message)
+                toast.success("Forked!")
+                console.log(response.data)
             })
             .catch(error => {
+                toast.error("Failed to fork. Try some time later")
                 console.log(error)
             })
     }
