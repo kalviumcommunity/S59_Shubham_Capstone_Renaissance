@@ -12,8 +12,8 @@ export const fetchProjects = () => {
     return axios.get(`https://renaissance-server.onrender.com/project`);
 };
 
-export const forkProject = (userID, projectID) => {
-    return axios.post(`http://localhost:8080/project/fork-project/${userID}/${projectID}`);
+export const forkProject = (userID, projectID, data) => {
+    return axios.post(`http://localhost:8080/fork/fork-project/${userID}/${projectID}`, data);
 };
 
 export const fetchProject = (projectID) => {

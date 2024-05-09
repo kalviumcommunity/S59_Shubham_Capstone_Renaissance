@@ -87,17 +87,4 @@ const getLatestData = async (req, res) => {
     }
 };
 
-const forkProject = async (req, res) => {
-    const projectID = req.params.projectID
-    const userID = req.params.userID
-    try {
-        await userModel.findByIdAndUpdate(userID, { $push: { forkedProjects: projectID } })
-        res.status(200).json({ message: "Project Forked Successfully" })
-    }
-    catch (error) {
-        console.log("Error forking project", error)
-        res.status(500).json({ message: "Failed to fork Project. Try again later." })
-    }
-}
-
-module.exports = { getData, getOneData, postData, deleteData, getLatestData, forkProject }
+module.exports = { getData, getOneData, postData, deleteData, getLatestData }
