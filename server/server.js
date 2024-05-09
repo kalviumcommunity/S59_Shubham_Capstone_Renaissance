@@ -7,7 +7,7 @@ const projectRoutes = require('./routes/projectRoutes')
 const userRoutes = require('./routes/userRoutes')
 const artistRoutes = require('./routes/artistRoutes')
 const chapterRoutes = require('./routes/chapterRoutes')
-const commitRoutes = require('./routes/commitRoutes')
+const pullRoutes = require('./routes/pullRoutes')
 
 connectToDB()
 
@@ -17,7 +17,7 @@ app.use('/project', projectRoutes)
 app.use('/user', userRoutes)
 app.use('/artist', artistRoutes)
 app.use('/chapter', chapterRoutes)
-app.use('/commit', commitRoutes)
+app.use('/pull', pullRoutes)
 
 app.listen(PORT, () => {
     console.log("Listening at Port", PORT)

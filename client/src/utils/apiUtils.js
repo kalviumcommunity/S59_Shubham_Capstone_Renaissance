@@ -48,6 +48,6 @@ export const getForkedProject = (userID) => {
     return axios.get(`http://localhost:8080/user/forkedProjects/${userID}`);
 };
 
-export const commitChapter = (data) => {
-    return axios.post('http://localhost:8080/commit/commit', data);
+export const pullChapter = (data) => {
+    return axios.post('http://localhost:8080/pull/pull', data);
 };
