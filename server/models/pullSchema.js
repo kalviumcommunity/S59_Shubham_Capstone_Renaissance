@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const commitSchema = mongoose.Schema({
+const pullSchema = mongoose.Schema({
     projectID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
@@ -19,5 +19,5 @@ const commitSchema = mongoose.Schema({
     }
 })
 
-const commits = mongoose.model('commit', commitSchema)
-module.exports = commits
+const pulls = mongoose.model('pull', pullSchema)
+module.exports = pulls
