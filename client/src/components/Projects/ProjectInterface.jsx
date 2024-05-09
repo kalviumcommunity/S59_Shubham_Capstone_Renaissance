@@ -5,6 +5,7 @@ import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import { useEffect, useState } from 'react'
 import Loader from '../Loaders/Loader'
+import {toast} from 'react-toastify'
 import getDate from '../../utils/getDate'
 import getUserDetails from '../../utils/getUserDetails'
 import forkIcon from '../../assets/fork-icon.png'
@@ -69,9 +70,11 @@ function ProjectInterface() {
         forkProject(userID, projectID, data)
             .then(response => {
                 setFork(true)
+                toast.success("Forked!")
                 console.log(response.data)
             })
             .catch(error => {
+                toast.error("Failed to fork. Try some time later")
                 console.log(error)
             })
     }
