@@ -13,6 +13,10 @@ const chapterSchema = mongoose.Schema({
         type: Date,
         required: true
     },
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     isApproved: {
         type: Boolean,
         default: false
