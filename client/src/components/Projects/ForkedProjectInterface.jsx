@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { fetchChapters, fetchProject } from '../../utils/apiUtils'
+import { fetchUserChapters, fetchProject } from '../../utils/apiUtils'
 import { Link } from 'react-router-dom'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
@@ -12,9 +12,9 @@ function ForkedProjectInterface() {
     const [chapters, setChapters] = useState([])
     const [username, setUserName] = useState("")
     const { projectID } = useParams()
-    const userID = getUserDetails("userID")
 
     useEffect(() => {
+        const userID = getUserDetails("userID")
         const username = getUserDetails('userName')
         setUserName(username)
 
@@ -30,7 +30,7 @@ function ForkedProjectInterface() {
                     console.log("Some error occurred. Try Again Later", error)
                 }
             })
-        fetchChapters(projectID)
+        fetchUserChapters(projectID, userID)
             .then(response => {
                 setChapters(response.data)
             })

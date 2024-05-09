@@ -3,8 +3,9 @@ import deBonaparte from '../../assets/deBonaparte.jpg'
 import getDate from '../../utils/getDate'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { postChapter } from '../../utils/apiUtils'
+import { postChapter, commitChapter } from '../../utils/apiUtils'
 import { toast } from 'react-toastify'
+import getUserDetails from '../../utils/getUserDetails'
 
 function NewChapter() {
     const [chapterName, setChapterName] = useState("New Chapter")
@@ -17,12 +18,27 @@ function NewChapter() {
         setCurrentDate(getDate())
     }, [])
 
+    const setCommit = (projectID, userID, updatedChapter) => {
+        const currDate = getDate()
+        const data = { projectID: projectID, userID: userID, updatedChapter: updatedChapter, timestamp: currDate }
+        commitChapter(data)
+            .then(response => {
+                console.log("Committed!", response.data)
+            })
+            .catch(error => {
+                console.log(error.response)
+                toast.error("Something wrong happened. Try again later")
+            })
+    }
+
     const handleSubmit = (e) => {
+        const userID = getUserDetails('userID')
         e.preventDefault()
-        const data = { title: chapterName, content: content, dateCreated: currentDate }
+        const data = { title: chapterName, content: content, dateCreated: currentDate, userID: userID }
         console.log(data)
         postChapter(projectID, data)
             .then(response => {
+                setCommit(projectID, userID, response.data._id)
                 console.log("Response", response.data)
                 toast.success("Chapter Added!")
             })

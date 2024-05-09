@@ -24,6 +24,10 @@ export const fetchChapters = (projectID) => {
     return axios.get(`https://renaissance-server.onrender.com/chapter/project-chapters/${projectID}`);
 };
 
+export const fetchUserChapters = (projectID, userID) => {
+    return axios.get(`http://localhost:8080/chapter/forked-chapters/${projectID}/${userID}`);
+};
+
 export const postChapter = (projectID, data) => {
     return axios.post(`http://localhost:8080/chapter/add-chapter/${projectID}`, data);
 };
@@ -42,4 +46,8 @@ export const fetchArtists = () => {
 
 export const getForkedProject = (userID) => {
     return axios.get(`http://localhost:8080/user/forkedProjects/${userID}`);
+};
+
+export const commitChapter = (data) => {
+    return axios.post('http://localhost:8080/commit/commit', data);
 };

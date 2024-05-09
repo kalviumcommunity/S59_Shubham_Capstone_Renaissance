@@ -8,7 +8,23 @@ const getAllChaptersForProject = async (req, res) => {
         const projectID = req.params.projectID
         const project = await projectModel.findById(projectID)
         if (!project) return res.status(404).json({ message: "Project does not exist" })
-        const chapters = await chapterModel.find({ _id: { $in: project.chapters }, isApproved : true  })
+        const chapters = await chapterModel.find({ _id: { $in: project.chapters }, isApproved: true })
+        res.status(200).json(chapters)
+    }
+    catch (error) {
+        console.log("Failed to fetch chapters:", error)
+        res.status(500).json({ message: "Failed to fetch. Try again later" })
+    }
+
+}
+
+const getAllChaptersForForkedProject = async (req, res) => {
+    try {
+        const projectID = req.params.projectID
+        const userID = req.params.userID
+        const project = await projectModel.findById(projectID)
+        if (!project) return res.status(404).json({ message: "Project does not exist" })
+        const chapters = await chapterModel.find({ _id: { $in: project.chapters }, userID: userID })
         res.status(200).json(chapters)
     }
     catch (error) {
@@ -35,7 +51,8 @@ const addNewChapter = async (req, res) => {
     const newChapter = new chapterModel({
         title: req.body.title,
         content: req.body.content,
-        dateCreated: req.body.dateCreated
+        dateCreated: req.body.dateCreated,
+        userID: req.body.userID
     })
     console.log(newChapter)
     if (!checkValidation(req.body, chapterStruc)) {
@@ -100,4 +117,4 @@ const deleteChapter = async (req, res) => {
     }
 }
 
-module.exports = { getAllChaptersForProject, getChapter, addNewChapter, updateChapter, deleteChapter }
+module.exports = { getAllChaptersForProject, getAllChaptersForForkedProject, getChapter, addNewChapter, updateChapter, deleteChapter }
