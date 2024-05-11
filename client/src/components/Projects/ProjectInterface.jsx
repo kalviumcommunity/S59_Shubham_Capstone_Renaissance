@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom'
-import { getForkedProject, fetchChapters, fetchProject, forkProject } from '../../utils/apiUtils'
+import { getForkedProject, fetchChapters, fetchProject, forkProject, checkForkDone } from '../../utils/apiUtils'
 import { Link } from 'react-router-dom'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import { useEffect, useState } from 'react'
 import Loader from '../Loaders/Loader'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import getDate from '../../utils/getDate'
 import getUserDetails from '../../utils/getUserDetails'
 import forkIcon from '../../assets/fork-icon.png'
@@ -25,6 +25,7 @@ function ProjectInterface() {
         setUserName(username)
         getForkedProject(userID)
             .then(response => {
+                console.log(response.data)
                 setForkedProjects(response.data)
                 console.log(response.data.message)
             })
@@ -79,16 +80,19 @@ function ProjectInterface() {
             })
     }
 
-    const checkForked = (projectID) => {
+    const checkForked = async (projectID) => {
+        const userID = getUserDetails("userID")
         if (fork == true) {
             return true
         }
-        for (const project of forkedProjects) {
-            if (project == projectID) {
-                return true
-            }
+        try {
+            await checkForkDone(userID, projectID)
+            return true
         }
-        return false
+        catch (error) {
+            console.log("Not forked!")
+            return false
+        }
     }
 
     return (
@@ -114,15 +118,15 @@ function ProjectInterface() {
                         </div>
                         <button>
                             {checkForked(project._id) ?
-                                <div className='flex border bg-gray-100 py-1.5 px-3 rounded'>
+                                <button className='flex border bg-gray-100 py-1.5 px-3 rounded' disable>
                                     <p className='text-[15px] text-semibold text-[#3F5F4F] mr-1.5'>Forked</p>
                                     <img className="w-[25px]" src={forkedIcon} alt="forked" />
-                                </div>
+                                </button>
                                 :
-                                <div className='flex border bg-gray-100 py-1.5 px-3 rounded' onClick={() => handleFork()}>
+                                <button className='flex border bg-gray-100 py-1.5 px-3 rounded' onClick={() => handleFork()}>
                                     <p className='text-[15px] text-semibold text-[#3F5F4F] mr-1.5'>Fork</p>
-                                    <img className="w-[25px]" src={forkIcon} alt="forkit" />
-                                </div>}
+                                    <img className="w-[25px]" src={forkIcon} alt="fork_it" />
+                                </button>}
                         </button>
                     </div>
                     <div className='flex items-center py-5 px-8 bg-[#97D4A6] mt-8 text-slate-900 text-sm rounded '>Shubham Thakur updated 8 months ago</div>

@@ -48,6 +48,14 @@ export const getForkedProject = (userID) => {
     return axios.get(`https://renaissance-server.onrender.com/user/forkedProjects/${userID}`);
 };
 
+export const getFork = (forkID) => {
+    return axios.get(`http://localhost:8080/fork/get-fork/${forkID}`);
+};
+
 export const pullChapter = (data) => {
     return axios.post('https://renaissance-server.onrender.com/pull/pull', data);
 };
+
+export const checkForkDone = (projectID, userID) => {
+    return axios.get(`http://localhost:8080/fork/check-fork/${projectID}/${userID}`)
+}

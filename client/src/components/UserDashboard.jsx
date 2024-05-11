@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
-import { fetchUserProjects, fetchLatestProjects, fetchProjects, getForkedProject, fetchProject } from '../utils/apiUtils'
+import { fetchUserProjects, fetchLatestProjects, fetchProjects, getForkedProject, fetchProject, getFork } from '../utils/apiUtils'
 import { Link } from 'react-router-dom'
 import searchIcon from '../assets/search-icon.png'
 import deVanGoghDoodle from '../assets/van-gogh.png'
@@ -54,11 +54,13 @@ function UserDashboard() {
         getForkedProject(userID)
             .then(async response => {
                 const arr = []
-                for (const projectID of response.data) {
+                console.log(response.data)
+                for (const forkID of response.data) {
                     try {
-                        const resp = await fetchProject(projectID)
-                        console.log(resp.data)
-                        arr.push({ title: resp.data.title, id: projectID })
+                        let resp = await getFork(forkID)
+                        resp = await fetchProject(resp.data.projectID)
+                        console.log("forks", resp.data)
+                        arr.push({ title: resp.data.title, id: forkID })
                     }
                     catch (error) {
                         console.log(error)
