@@ -45,10 +45,11 @@ const getOneFork = async (req, res) => {
 
 const checkForked = async (req, res) => {
     try {
-        const userID = req.params.dataID
+        const userID = req.params.userID
         const projectID = req.params.projectID
         const isForked = await forkModel.findOne({ userID: userID, projectID: projectID })
-        if (isForked) {
+        console.log(isForked)
+        if (!isForked) {
             return res.status(404).json({ message: "Not Forked" })
         }
         res.status(200).json({ message: "Already forked" })

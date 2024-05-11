@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { getForkedProject, fetchChapters, fetchProject, forkProject, checkForkDone } from '../../utils/apiUtils'
+import { fetchChapters, fetchProject, forkProject, checkForkDone } from '../../utils/apiUtils'
 import { Link } from 'react-router-dom'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
@@ -14,7 +14,6 @@ import forkedIcon from '../../assets/forked.png'
 function ProjectInterface() {
     const [project, setProject] = useState(null)
     const [chapters, setChapters] = useState([])
-    const [forkedProjects, setForkedProjects] = useState([])
     const [username, setUserName] = useState("")
     const [fork, setFork] = useState(false)
     const { projectID } = useParams()
@@ -23,16 +22,6 @@ function ProjectInterface() {
     useEffect(() => {
         const username = getUserDetails('userName')
         setUserName(username)
-        getForkedProject(userID)
-            .then(response => {
-                console.log(response.data)
-                setForkedProjects(response.data)
-                console.log(response.data.message)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
         fetchProject(projectID)
             .then(response => {
                 setProject(response.data)
@@ -59,6 +48,11 @@ function ProjectInterface() {
                     console.log("Some error occurred. Try Again Later", error)
                 }
             })
+        const checkForkedHelper = async () => {
+            const forked = await checkForked(projectID);
+            setFork(forked);
+        };
+        checkForkedHelper();
     }, [])
 
     const handleFork = () => {
@@ -86,8 +80,15 @@ function ProjectInterface() {
             return true
         }
         try {
-            await checkForkDone(userID, projectID)
-            return true
+            const response = await checkForkDone(projectID, userID)
+            if (response.status === 200) {
+                console.log("Already forked")
+                return true
+            }
+            else if (response.status === 404) {
+                console.log("Not forked!")
+                return false
+            }
         }
         catch (error) {
             console.log("Not forked!")
@@ -117,7 +118,7 @@ function ProjectInterface() {
                             <button className='bg-[#3F5F4F] py-1.5 px-3 rounded text-gray-100 text-sm'>{project.status}</button>
                         </div>
                         <button>
-                            {checkForked(project._id) ?
+                            {fork ?
                                 <button className='flex border bg-gray-100 py-1.5 px-3 rounded' disable>
                                     <p className='text-[15px] text-semibold text-[#3F5F4F] mr-1.5'>Forked</p>
                                     <img className="w-[25px]" src={forkedIcon} alt="forked" />

@@ -49,7 +49,7 @@ export const getForkedProject = (userID) => {
 };
 
 export const getFork = (forkID) => {
-    return axios.get(`http://localhost:8080/fork/get-fork/${forkID}`);
+    return axios.get(`https://renaissance-server.onrender.com/fork/get-fork/${forkID}`);
 };
 
 export const pullChapter = (data) => {
@@ -57,5 +57,5 @@ export const pullChapter = (data) => {
 };
 
 export const checkForkDone = (projectID, userID) => {
-    return axios.get(`http://localhost:8080/fork/check-fork/${projectID}/${userID}`)
+    return axios.get(`https://renaissance-server.onrender.com/fork/check-fork/${userID}/${projectID}`)
 }
