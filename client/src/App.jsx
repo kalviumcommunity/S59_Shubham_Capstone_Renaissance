@@ -37,7 +37,7 @@ function App() {
         <Route path='/project/:projectID' element={<ProjectInterface />} />
         <Route path='/newChapter/:projectName/:projectID' element={<NewChapter />} />
         <Route path='/chapter/:projectName/:chapterID' element={<ChapterInterface />} />
-        <Route path='/forkedProject/:projectID' element={<ForkedProjectInterface />} />
+        <Route path='/forkedProject/:forkID' element={<ForkedProjectInterface />} />
       </Routes>
       <ToastContainer />
     </>

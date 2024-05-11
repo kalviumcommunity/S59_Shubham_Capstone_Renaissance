@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom'
-import { getForkedProject, fetchChapters, fetchProject, forkProject } from '../../utils/apiUtils'
+import { fetchChapters, fetchProject, forkProject, checkForkDone } from '../../utils/apiUtils'
 import { Link } from 'react-router-dom'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import { useEffect, useState } from 'react'
 import Loader from '../Loaders/Loader'
-import {toast} from 'react-toastify'
+import { toast } from 'react-toastify'
 import getDate from '../../utils/getDate'
 import getUserDetails from '../../utils/getUserDetails'
 import forkIcon from '../../assets/fork-icon.png'
@@ -14,7 +14,6 @@ import forkedIcon from '../../assets/forked.png'
 function ProjectInterface() {
     const [project, setProject] = useState(null)
     const [chapters, setChapters] = useState([])
-    const [forkedProjects, setForkedProjects] = useState([])
     const [username, setUserName] = useState("")
     const [fork, setFork] = useState(false)
     const { projectID } = useParams()
@@ -23,41 +22,37 @@ function ProjectInterface() {
     useEffect(() => {
         const username = getUserDetails('userName')
         setUserName(username)
-        getForkedProject(userID)
-            .then(response => {
-                setForkedProjects(response.data)
-                console.log(response.data.message)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
         fetchProject(projectID)
             .then(response => {
                 setProject(response.data)
-                console.log("Fetched Data: ", response.data)
             })
             .catch(error => {
                 if (error.response) {
-                    console.log("Error fetching data", error.response.data)
+                    toast.error("Some error occurred fetching the project. Try again later.")
                 }
                 else {
                     console.log("Some error occurred. Try Again Later", error)
+                    toast.error("Some error occurred fetching the project. Try again later.")
                 }
             })
         fetchChapters(projectID)
             .then(response => {
                 setChapters(response.data)
-                console.log("Fetched Chapter: ", response.data)
             })
             .catch(error => {
                 if (error.response) {
-                    console.log("Error fetching data", error.response.data)
+                    toast.error("Some error occurred fetching the project. Try again later.")
                 }
                 else {
                     console.log("Some error occurred. Try Again Later", error)
+                    toast.error("Some error occurred fetching the project. Try again later.")
                 }
             })
+        const checkForkedHelper = async () => {
+            const forked = await checkForked(projectID);
+            setFork(forked);
+        };
+        checkForkedHelper();
     }, [])
 
     const handleFork = () => {
@@ -79,16 +74,24 @@ function ProjectInterface() {
             })
     }
 
-    const checkForked = (projectID) => {
+    const checkForked = async (projectID) => {
+        const userID = getUserDetails("userID")
         if (fork == true) {
             return true
         }
-        for (const project of forkedProjects) {
-            if (project == projectID) {
+        try {
+            const response = await checkForkDone(projectID, userID)
+            if (response.status === 200) {
                 return true
             }
+            else if (response.status === 404) {
+                return false
+            }
         }
-        return false
+        catch (error) {
+            toast.error("Some error checking the fork. Try again later.")
+            return false
+        }
     }
 
     return (
@@ -113,16 +116,16 @@ function ProjectInterface() {
                             <button className='bg-[#3F5F4F] py-1.5 px-3 rounded text-gray-100 text-sm'>{project.status}</button>
                         </div>
                         <button>
-                            {checkForked(project._id) ?
-                                <div className='flex border bg-gray-100 py-1.5 px-3 rounded'>
+                            {fork ?
+                                <button className='flex border bg-gray-100 py-1.5 px-3 rounded' disable>
                                     <p className='text-[15px] text-semibold text-[#3F5F4F] mr-1.5'>Forked</p>
                                     <img className="w-[25px]" src={forkedIcon} alt="forked" />
-                                </div>
+                                </button>
                                 :
-                                <div className='flex border bg-gray-100 py-1.5 px-3 rounded' onClick={() => handleFork()}>
+                                <button className='flex border bg-gray-100 py-1.5 px-3 rounded' onClick={() => handleFork()}>
                                     <p className='text-[15px] text-semibold text-[#3F5F4F] mr-1.5'>Fork</p>
-                                    <img className="w-[25px]" src={forkIcon} alt="forkit" />
-                                </div>}
+                                    <img className="w-[25px]" src={forkIcon} alt="fork_it" />
+                                </button>}
                         </button>
                     </div>
                     <div className='flex items-center py-5 px-8 bg-[#97D4A6] mt-8 text-slate-900 text-sm rounded '>Shubham Thakur updated 8 months ago</div>
