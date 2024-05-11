@@ -89,7 +89,7 @@ function ProjectInterface() {
             }
         }
         catch (error) {
-            toast.error("Some error checking the fork. Try again later.")
+            console.log("Not forked")
             return false
         }
     }

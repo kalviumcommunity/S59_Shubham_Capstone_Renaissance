@@ -1,0 +1,61 @@
+import React from 'react'
+import deBonaparte from '../../assets/deBonaparte.jpg'
+import { useState } from 'react'
+function Account() {
+    const [isOverview, setIsOverview] = useState(true)
+    const [isProjects, setIsProjects] = useState(false)
+    const [isContacts, setIsContacts] = useState(false)
+
+    return (
+        <div className='flex py-5 px-8 justify-between'>
+            <div className='w-[30%]'>
+                <img src={deBonaparte} alt="" className='rounded-full h-[350px] w-[350px] ' />
+                <div className='pt-5'>
+                    <h1 className='text-2xl font-bold text-center'>Shubhh_Thakur</h1>
+                    <p className='py-1.5 px-3 bg-[#97D4A6] w-fit rounded text-sm mt-3'>Creative Writer</p>
+                </div>
+                <div className='mt-5'>
+                    <p className='text-sm text-slate-700 w-fit text-justify'>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis placeat vero saepe, impedit, beatae possimus dolore dolorum, deserunt itaque exercitationem id. Beatae, error perferendis. Quam reiciendis ipsa nostrum fugiat fuga.
+                    </p>
+                </div>
+            </div>
+            <div className='w-[65%] pt-8'>
+                <div className='w-[40%] flex justify-between'>
+                    <button className={isOverview ? `linkFocus` : `linkHover`} onClick={() => { setIsOverview(true); setIsContacts(false); setIsProjects(false) }}>Overview</button>
+                    <button className={isProjects ? `linkFocus` : `linkHover`} onClick={() => { setIsOverview(false); setIsContacts(false); setIsProjects(true) }} >Projects</button>
+                    <button className={isContacts ? `linkFocus` : `linkHover`} onClick={() => { setIsOverview(false); setIsContacts(true); setIsProjects(false) }}>Contacts</button>
+                </div>
+                {isOverview &&
+                    <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10'>
+                        <h1 className='text-2xl font-bold text-slate-700'>Overview</h1>
+                        <p className='text-justify text-sm text-slate-700 mt-3'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In voluptate vel, necessitatibus cum omnis, quas ullam voluptates nemo reprehenderit suscipit similique blanditiis eos iste. Veritatis minima omnis a nemo rem?</p>
+                        <h1 className='text-2xl font-bold text-slate-700 mt-8'>Statistics</h1>
+                        <p className='text-justify text-sm text-slate-700 mt-1.5'>500 Likes</p>
+                        <p className='text-justify text-sm text-slate-700 mt-1.5'>1000 Projects</p>
+                        <p className='text-justify text-sm text-slate-700 mt-1.5'>20 Contributors</p>
+                    </div>
+                }
+                {isProjects &&
+                    <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10'>
+                        <h1 className='text-2xl font-bold text-slate-700'>Projects</h1>
+                        <p className='text-justify text-sm text-slate-400 mt-1.5'>Discover all of the projects here. Read and contribute.</p>
+                        <div className='bg-[#97D4A6] shadow rounded py-3 px-5 my-3'>The Last Letter</div>
+                    </div>
+                }
+                {isContacts &&
+                    <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10'>
+                        <h1 className='text-2xl font-bold text-slate-700'>Contacts</h1>
+                        <p className='text-justify text-sm text-slate-400 mt-1.5'>Contact the organization through here:</p>
+                        <div className='text-[15px] text-slate-600 mt-10'>
+                            <p>New Delhi, India</p>
+                            <p>Contact - 9876544173</p>
+                            <p>Questions? mail at thakur@gmail.com</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    )
+}
+export default Account
