@@ -25,27 +25,27 @@ function ProjectInterface() {
         fetchProject(projectID)
             .then(response => {
                 setProject(response.data)
-                console.log("Fetched Data: ", response.data)
             })
             .catch(error => {
                 if (error.response) {
-                    console.log("Error fetching data", error.response.data)
+                    toast.error("Some error occurred fetching the project. Try again later.")
                 }
                 else {
                     console.log("Some error occurred. Try Again Later", error)
+                    toast.error("Some error occurred fetching the project. Try again later.")
                 }
             })
         fetchChapters(projectID)
             .then(response => {
                 setChapters(response.data)
-                console.log("Fetched Chapter: ", response.data)
             })
             .catch(error => {
                 if (error.response) {
-                    console.log("Error fetching data", error.response.data)
+                    toast.error("Some error occurred fetching the project. Try again later.")
                 }
                 else {
                     console.log("Some error occurred. Try Again Later", error)
+                    toast.error("Some error occurred fetching the project. Try again later.")
                 }
             })
         const checkForkedHelper = async () => {
@@ -82,16 +82,14 @@ function ProjectInterface() {
         try {
             const response = await checkForkDone(projectID, userID)
             if (response.status === 200) {
-                console.log("Already forked")
                 return true
             }
             else if (response.status === 404) {
-                console.log("Not forked!")
                 return false
             }
         }
         catch (error) {
-            console.log("Not forked!")
+            toast.error("Some error checking the fork. Try again later.")
             return false
         }
     }
