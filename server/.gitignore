@@ -1,2 +1,3 @@
 node_modules
-/envFiles
+envFiles
+package-lock.json
