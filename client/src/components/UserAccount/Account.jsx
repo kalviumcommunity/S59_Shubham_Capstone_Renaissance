@@ -6,10 +6,17 @@ function Account() {
     const [isProjects, setIsProjects] = useState(false)
     const [isContacts, setIsContacts] = useState(false)
 
+    const toggleModal = (setter) => {
+        setIsOverview(false)
+        setIsContacts(false)
+        setIsProjects(false)
+        setter(true)
+    }
+
     return (
-        <div className='flex py-5 px-8 justify-between'>
-            <div className='w-[30%]'>
-                <img src={deBonaparte} alt="" className='rounded-full h-[350px] w-[350px] ' />
+        <div className='flex justify-between'>
+            <div className='w-[30%] bg-gray-100 h-[100vh] px-5 pt-8 border border-gray-300'>
+                <img src={deBonaparte} alt="profileImage" className='rounded-full h-[350px] w-[350px] ' />
                 <div className='pt-5'>
                     <h1 className='text-2xl font-bold text-center'>Shubhh_Thakur</h1>
                     <p className='py-1.5 px-3 bg-[#97D4A6] w-fit rounded text-sm mt-3'>Creative Writer</p>
@@ -20,11 +27,11 @@ function Account() {
                     </p>
                 </div>
             </div>
-            <div className='w-[65%] pt-8'>
+            <div className='w-[65%] mt-8 mx-8'>
                 <div className='w-[40%] flex justify-between'>
-                    <button className={isOverview ? `linkFocus` : `linkHover`} onClick={() => { setIsOverview(true); setIsContacts(false); setIsProjects(false) }}>Overview</button>
-                    <button className={isProjects ? `linkFocus` : `linkHover`} onClick={() => { setIsOverview(false); setIsContacts(false); setIsProjects(true) }} >Projects</button>
-                    <button className={isContacts ? `linkFocus` : `linkHover`} onClick={() => { setIsOverview(false); setIsContacts(true); setIsProjects(false) }}>Contacts</button>
+                    <button className={isOverview ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsOverview)}>Overview</button>
+                    <button className={isProjects ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsProjects)} >Projects</button>
+                    <button className={isContacts ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsContacts)}>Contacts</button>
                 </div>
                 {isOverview &&
                     <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10'>
@@ -33,7 +40,7 @@ function Account() {
                         <h1 className='text-2xl font-bold text-slate-700 mt-8'>Statistics</h1>
                         <p className='text-justify text-sm text-slate-700 mt-1.5'>500 Likes</p>
                         <p className='text-justify text-sm text-slate-700 mt-1.5'>1000 Projects</p>
-                        <p className='text-justify text-sm text-slate-700 mt-1.5'>20 Contributors</p>
+                        <p className='text-justify text-sm text-slate-700 mt-1.5'>20 Contributions</p>
                     </div>
                 }
                 {isProjects &&
