@@ -61,5 +61,5 @@ export const checkForkDone = (projectID, userID) => {
 }
 
 export const getOneUser = (userID) => {
-    return axios.get(`http://localhost:8080/user/getUser/${userID}`)
+    return axios.get(`https://renaissance-server.onrender.com/user/getUser/${userID}`)
 }

@@ -47,7 +47,7 @@ const getOneUser = async (req, res) => {
     }
     catch (error) {
         console.log(error)
-        res.status(500).json({ message: "Failed to find forked projects. Try again later." })
+        res.status(500).json({ message: "Failed to find user. Try again later." })
     }
 
 }
