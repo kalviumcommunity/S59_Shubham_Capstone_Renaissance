@@ -103,7 +103,9 @@ function ProjectInterface() {
                         <h3 className='ml-5'>{project.projectOwnerName} / </h3>
                         <h3>{project.title}</h3>
                     </div>
-                    <div className="text-white">{username}</div>
+                    <div className="text-white">
+                        <Link to={`/userAccount/${userID}`}>{username}</Link>
+                    </div>
                 </header>
                 <div className='py-8 px-10'>
                     <div className='flex items-center justify-between'>

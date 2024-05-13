@@ -34,6 +34,24 @@ const registerUser = async (req, res) => {
     }
 }
 
+const getOneUser = async (req, res) => {
+    const userID = req.params.userID
+    try {
+        const findUser = await userModel.findById(userID)
+        if (!findUser) {
+            console.log("User not found")
+            return res.status(404).json({ message: "User not found" })
+        }
+        const userdata = { email: findUser.email, projects: findUser.projects, occupations: findUser.occupations, username : findUser.username }
+        res.status(200).json(userdata)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Failed to find user. Try again later." })
+    }
+
+}
+
 const updateUser = async (req, res) => {
     try {
         if (!checkValidation(req.body, userStruc)) {
@@ -131,4 +149,4 @@ const getForkedProjects = async (req, res) => {
 
 }
 
-module.exports = { registerUser, updateUser, deleteUser, loginUser, getUserProjects, getForkedProjects }
+module.exports = { registerUser, updateUser, deleteUser, loginUser, getUserProjects, getForkedProjects, getOneUser }
