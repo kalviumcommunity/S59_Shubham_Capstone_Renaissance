@@ -59,3 +59,7 @@ export const pullChapter = (data) => {
 export const checkForkDone = (projectID, userID) => {
     return axios.get(`https://renaissance-server.onrender.com/fork/check-fork/${userID}/${projectID}`)
 }
+
+export const getOneUser = (userID) => {
+    return axios.get(`http://localhost:8080/user/getUser/${userID}`)
+}

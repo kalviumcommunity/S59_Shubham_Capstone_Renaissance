@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { getOneUser, fetchUserProjects } from '../../utils/apiUtils'
+
 function Account() {
     const [isOverview, setIsOverview] = useState(true)
     const [isProjects, setIsProjects] = useState(false)
     const [isContacts, setIsContacts] = useState(false)
-
+    const [userProjects, setUserProject] = useState([])
+    const [userData, setUserData] = useState([])
+    const { userID } = useParams()
     const toggleModal = (setter) => {
         setIsOverview(false)
         setIsContacts(false)
@@ -13,13 +18,29 @@ function Account() {
         setter(true)
     }
 
+    useEffect(() => {
+        getOneUser(userID)
+            .then(response => {
+                console.log(response.data)
+                setUserData(response.data)
+            })
+            .catch(error => console.log(error))
+        fetchUserProjects(userID)
+            .then(response => setUserProject(response.data))
+            .catch(error => console.log(error))
+    }, [])
+
     return (
         <div className='flex justify-between'>
-            <div className='w-[30%] bg-gray-100 h-[100vh] px-5 pt-8 border border-gray-300'>
+            <div className='w-[30%] bg-gray-100 px-5 py-8 border border-gray-300'>
                 <img src={deBonaparte} alt="profileImage" className='rounded-full h-[350px] w-[350px] ' />
                 <div className='pt-5'>
-                    <h1 className='text-2xl font-bold text-center'>Shubhh_Thakur</h1>
-                    <p className='py-1.5 px-3 bg-[#97D4A6] w-fit rounded text-sm mt-3'>Creative Writer</p>
+                    <h1 className='text-2xl font-bold text-center'>{userData.username}</h1>
+                    <div className='flex justify-center'>
+                        {userData.occupations && userData.occupations.map(occ => (
+                            <p className='py-1.5 m-3 px-3 bg-[#97D4A6] w-fit rounded text-sm mt-3'>{occ}</p>
+                        ))}
+                    </div>
                 </div>
                 <div className='mt-5'>
                     <p className='text-sm text-slate-700 w-fit text-justify'>
@@ -47,7 +68,9 @@ function Account() {
                     <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10'>
                         <h1 className='text-2xl font-bold text-slate-700'>Projects</h1>
                         <p className='text-justify text-sm text-slate-400 mt-1.5'>Discover all of the projects here. Read and contribute.</p>
-                        <div className='bg-[#97D4A6] shadow rounded py-3 px-5 my-3'>The Last Letter</div>
+                        {userProjects && userProjects.map(project => (
+                            <div className='bg-[#97D4A6] shadow rounded py-3 px-5 my-3'>{project.title}</div>
+                        ))}
                     </div>
                 }
                 {isContacts &&

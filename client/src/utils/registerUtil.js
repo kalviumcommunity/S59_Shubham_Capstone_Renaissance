@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const registerUtil = (data) => {
-    axios.post('https://renaissance-server.onrender.com/user/register', data)
+    axios.post('http://localhost:8080/user/register', data)
         .then(response => {
             console.log("Response", response.data)
         })

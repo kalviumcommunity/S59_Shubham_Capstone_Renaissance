@@ -39,7 +39,7 @@ function App() {
         <Route path='/newChapter/:projectName/:projectID' element={<NewChapter />} />
         <Route path='/chapter/:projectName/:chapterID' element={<ChapterInterface />} />
         <Route path='/forkedProject/:forkID' element={<ForkedProjectInterface />} />
-        <Route path = '/userAccount' element = {<Account/>} />
+        <Route path = '/userAccount/:userID' element = {<Account/>} />
       </Routes>
       <ToastContainer />
     </>
