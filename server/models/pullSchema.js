@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const pullSchema = mongoose.Schema({
     projectID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Project'
+        ref: 'Project',
+        required : true
     },
     timestamp: {
         type: Date,
@@ -15,7 +16,13 @@ const pullSchema = mongoose.Schema({
     },
     updatedChapter: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Chapter'
+        ref: 'Chapter',
+        required : true
+    },
+    message : {
+        type : String,
+        default : "No message provided",
+        required : false
     }
 })
 
