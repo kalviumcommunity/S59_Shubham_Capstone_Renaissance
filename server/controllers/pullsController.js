@@ -8,7 +8,8 @@ const setpull = async (req, res) => {
         projectID: req.body.projectID,
         timestamp: req.body.timestamp,
         userID: req.body.userID,
-        updatedChapter: req.body.chapterID
+        updatedChapter: req.body.updatedChapter,
+        message: req.body.message != null ? req.body.message : "Message not provided"
     })
     try {
         const pulledPost = await newpull.save()

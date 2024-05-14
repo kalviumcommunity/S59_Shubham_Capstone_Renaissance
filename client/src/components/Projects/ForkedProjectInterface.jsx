@@ -3,9 +3,11 @@ import { fetchProject, fetchUserChapters, getFork } from '../../utils/apiUtils'
 import { Link } from 'react-router-dom'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
+import upload from '../../assets/upload.png'
 import { useEffect, useState } from 'react'
 import Loader from '../Loaders/Loader'
 import getUserDetails from '../../utils/getUserDetails'
+import UploadChapter from '../Chapters/UploadChapter'
 
 function ForkedProjectInterface() {
     const { forkID } = useParams()
@@ -13,6 +15,7 @@ function ForkedProjectInterface() {
     const [forkedProject, setForkedProject] = useState(null)
     const [originalProject, setOriginalProject] = useState(null)
     const [chapters, setChapters] = useState(null)
+    const [isUploadChapter, setUploadChapter] = useState(false)
     const username = getUserDetails('userName')
 
     useEffect(() => {
@@ -79,19 +82,23 @@ function ForkedProjectInterface() {
                             <div className='flex justify-between items-center mt-5'>
                                 <input type="text" className='border border-gray-300 rounded px-2 py-1.5 h-fit text-sm mr-5 bg-gray-100 w-[500px]' placeholder='Search chapter here' />
                                 <div className='flex'>
-                                    <Link to={`/newChapter/${originalProject.title}/${projectID}`}><button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button></Link>
+                                    <Link to={`/newChapter/${originalProject.title}/${projectID}`}>`<button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button>`</Link>
                                     <button className="border border-[#3F5F4F] text-sm text-[#3F5F4F] px-3 py-1.5 rounded">Create Branch</button>
                                 </div>
                             </div>
                             {forkedProject.chapters && forkedProject.chapters.length ?
                                 <div>
                                     {chapters && chapters.map((chapter, index) => (
-                                        <Link to={`/chapter/${originalProject.title}/${chapter._id}`}>
-                                            <div className='flex items-center py-5 px-8 border border-gray-300 bg-gray-100 mt-3 w-full text-slate-900 text-sm rounded'>
+                                        <div className={`flex items-center justify-between py-5 px-8 mt-3 w-full text-slate-900 text-sm rounded ${chapter.isApproved ? 'border border-gray-300 bg-gray-100' : 'bg-[#c5e8ce] border border-[#97D4A6]'}`}>
+                                            <div className='flex items-center'>
                                                 <p className='mr-8'>{index + 1}.</p>
-                                                <p>{chapter.title}</p>
+                                                <Link to={`/chapter/${originalProject.title}/${chapter._id}`}><p>{chapter.title}</p></Link>
                                             </div>
-                                        </Link>
+                                            <div>
+                                                <img src={upload} alt="" className='w-[25px] cursor-pointer' onClick={() => setUploadChapter(true)} />
+                                                {isUploadChapter && <UploadChapter projectID={projectID} chapterID={chapter._id} setUploadChapter = {setUploadChapter}/>}
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
                                 :
@@ -108,7 +115,6 @@ function ForkedProjectInterface() {
                     </div>
                 </div>
             </>
-
             : <Loader />
     )
 }

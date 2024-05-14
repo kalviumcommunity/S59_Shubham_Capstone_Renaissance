@@ -29,7 +29,7 @@ export const fetchUserChapters = (projectID, userID) => {
 };
 
 export const postChapter = (projectID, data) => {
-    return axios.post(`https://renaissance-server.onrender.com/add-chapter/${projectID}`, data);
+    return axios.post(`http://localhost:8080/chapter/add-chapter/${projectID}`, data);
 };
 
 export const postProject = (data) => {
@@ -53,7 +53,7 @@ export const getFork = (forkID) => {
 };
 
 export const pullChapter = (data) => {
-    return axios.post('https://renaissance-server.onrender.com/pull/pull', data);
+    return axios.post('http://localhost:8080/pull/pull', data);
 };
 
 export const checkForkDone = (projectID, userID) => {
