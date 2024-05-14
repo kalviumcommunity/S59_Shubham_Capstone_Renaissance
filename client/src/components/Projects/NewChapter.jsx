@@ -11,7 +11,6 @@ function NewChapter() {
     const [chapterName, setChapterName] = useState("New Chapter")
     const [currentDate, setCurrentDate] = useState("")
     const [content, setContent] = useState("")
-
     const { projectName, projectID } = useParams()
 
     useEffect(() => {

@@ -15,7 +15,6 @@ const getAllChaptersForProject = async (req, res) => {
         console.log("Failed to fetch chapters:", error)
         res.status(500).json({ message: "Failed to fetch. Try again later" })
     }
-
 }
 
 const getAllChaptersForForkedProject = async (req, res) => {

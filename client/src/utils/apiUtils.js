@@ -1,65 +1,65 @@
 import axios from 'axios';
 
 export const fetchUserProjects = (userID) => {
-    return axios.get(`https://renaissance-server.onrender.com/user/user-project/${userID}`);
+    return axios.get(`${import.meta.env.VITE_API_USER_URI}/user-project/${userID}`);
 };
 
 export const fetchLatestProjects = (userID) => {
-    return axios.get(`https://renaissance-server.onrender.com/project/latest/${userID}`);
+    return axios.get(`${import.meta.env.VITE_API_PROJECT_URI}/latest/${userID}`);
 };
 
 export const fetchProjects = () => {
-    return axios.get(`https://renaissance-server.onrender.com/project`);
+    return axios.get(`${import.meta.env.VITE_API_PROJECT_URI}`);
 };
 
 export const forkProject = (userID, projectID, data) => {
-    return axios.post(`https://renaissance-server.onrender.com/fork/fork-project/${userID}/${projectID}`, data);
+    return axios.post(`${import.meta.env.VITE_API_FORK_URI}/fork-project/${userID}/${projectID}`, data);
 };
 
 export const fetchProject = (projectID) => {
-    return axios.get(`https://renaissance-server.onrender.com/project/get-project/${projectID}`);
+    return axios.get(`${import.meta.env.VITE_API_PROJECT_URI}/get-project/${projectID}`);
 };
 
 export const fetchChapters = (projectID) => {
-    return axios.get(`https://renaissance-server.onrender.com/chapter/project-chapters/${projectID}`);
+    return axios.get(`${import.meta.env.VITE_API_CHAPTER_URI}/project-chapters/${projectID}`);
 };
 
 export const fetchUserChapters = (projectID, userID) => {
-    return axios.get(`https://renaissance-server.onrender.com/chapter/forked-chapters/${projectID}/${userID}`);
+    return axios.get(`${import.meta.env.VITE_API_CHAPTER_URI}/forked-chapters/${projectID}/${userID}`);
 };
 
 export const postChapter = (projectID, data) => {
-    return axios.post(`https://renaissance-server.onrender.com/add-chapter/${projectID}`, data);
+    return axios.post(`${import.meta.env.VITE_API_CHAPTER_URI}/add-chapter/${projectID}`, data);
 };
 
 export const postProject = (data) => {
-    return axios.post('https://renaissance-server.onrender.com/project/add-project', data);
+    return axios.post(`${import.meta.env.VITE_API_PROJECT_URI}/add-project`, data);
 };
 
 export const fetchChapter = (chapterID) => {
-    return axios.get(`https://renaissance-server.onrender.com/chapter/get-chapter/${chapterID}`);
+    return axios.get(`${import.meta.env.VITE_API_CHAPTER_URI}/get-chapter/${chapterID}`);
 };
 
 export const fetchArtists = () => {
-    return axios.get("https://renaissance-server.onrender.com/artist");
+    return axios.get(`${import.meta.env.VITE_API_ARTIST_URI}`);
 };
 
 export const getForkedProject = (userID) => {
-    return axios.get(`https://renaissance-server.onrender.com/user/forkedProjects/${userID}`);
+    return axios.get(`${import.meta.env.VITE_API_USER_URI}/forkedProjects/${userID}`);
 };
 
 export const getFork = (forkID) => {
-    return axios.get(`https://renaissance-server.onrender.com/fork/get-fork/${forkID}`);
+    return axios.get(`${import.meta.env.VITE_API_FORK_URI}/get-fork/${forkID}`);
 };
 
 export const pullChapter = (data) => {
-    return axios.post('https://renaissance-server.onrender.com/pull/pull', data);
+    return axios.post(`${import.meta.env.VITE_API_PULL_URI}/pull`, data);
 };
 
 export const checkForkDone = (projectID, userID) => {
-    return axios.get(`https://renaissance-server.onrender.com/fork/check-fork/${userID}/${projectID}`)
+    return axios.get(`${import.meta.env.VITE_API_FORK_URI}/check-fork/${userID}/${projectID}`)
 }
 
 export const getOneUser = (userID) => {
-    return axios.get(`https://renaissance-server.onrender.com/user/getUser/${userID}`)
+    return axios.get(`${import.meta.env.VITE_API_USER_URI}/getUser/${userID}`)
 }
