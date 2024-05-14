@@ -24,12 +24,12 @@ export const fetchChapters = (projectID) => {
     return axios.get(`${import.meta.env.VITE_API_CHAPTER_URI}/project-chapters/${projectID}`);
 };
 
-export const fetchUserChapters = (projectID, userID) => {
-    return axios.get(`${import.meta.env.VITE_API_CHAPTER_URI}/forked-chapters/${projectID}/${userID}`);
+export const fetchUserChapters = (forkID, userID) => {
+    return axios.get(`${import.meta.env.VITE_API_CHAPTER_URI}/forked-chapters/${forkID}/${userID}`);
 };
 
-export const postChapter = (projectID, data) => {
-    return axios.post(`${import.meta.env.VITE_API_CHAPTER_URI}/add-chapter/${projectID}`, data);
+export const postChapter = (forkID, data) => {
+    return axios.post(`${import.meta.env.VITE_API_CHAPTER_URI}/add-chapter/${forkID}`, data);
 };
 
 export const postProject = (data) => {
@@ -62,4 +62,8 @@ export const checkForkDone = (projectID, userID) => {
 
 export const getOneUser = (userID) => {
     return axios.get(`${import.meta.env.VITE_API_USER_URI}/getUser/${userID}`)
+}
+
+export const fetchApprovalRequests = (userID) => {
+    return axios.get(`${import.meta.env.VITE_API_PULL_URI}/requests/${userID}`)
 }

@@ -36,7 +36,7 @@ function App() {
         <Route path='/Loader' element={<Loader />} />
         <Route path='/welcome' element={<WelcomeLoader />} />
         <Route path='/project/:projectID' element={<ProjectInterface />} />
-        <Route path='/newChapter/:projectName/:projectID' element={<NewChapter />} />
+        <Route path='/newChapter/:projectName/:forkID' element={<NewChapter />} />
         <Route path='/chapter/:projectName/:chapterID' element={<ChapterInterface />} />
         <Route path='/forkedProject/:forkID' element={<ForkedProjectInterface />} />
         <Route path = '/userAccount/:userID' element = {<Account/>} />

@@ -3,11 +3,13 @@ import deBonaparte from '../../assets/deBonaparte.jpg'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getOneUser, fetchUserProjects } from '../../utils/apiUtils'
+import Requests from './Requests'
 
 function Account() {
     const [isOverview, setIsOverview] = useState(true)
     const [isProjects, setIsProjects] = useState(false)
     const [isContacts, setIsContacts] = useState(false)
+    const [isRequests, setIsRequests] = useState(false)
     const [userProjects, setUserProject] = useState([])
     const [userData, setUserData] = useState([])
     const { userID } = useParams()
@@ -15,6 +17,7 @@ function Account() {
         setIsOverview(false)
         setIsContacts(false)
         setIsProjects(false)
+        setIsRequests(false)
         setter(true)
     }
 
@@ -53,6 +56,7 @@ function Account() {
                     <button className={isOverview ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsOverview)}>Overview</button>
                     <button className={isProjects ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsProjects)} >Projects</button>
                     <button className={isContacts ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsContacts)}>Contacts</button>
+                    <button className={isRequests ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsRequests)}>Requests</button>
                 </div>
                 {isOverview &&
                     <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10'>
@@ -69,7 +73,7 @@ function Account() {
                         <h1 className='text-2xl font-bold text-slate-700'>Projects</h1>
                         <p className='text-justify text-sm text-slate-400 mt-1.5'>Discover all of the projects here. Read and contribute.</p>
                         {userProjects && userProjects.map(project => (
-                            <div className='bg-[#97D4A6] shadow rounded py-3 px-5 my-3'>{project.title}</div>
+                            <div className='bg-[#97D4A6] rounded py-3 px-5 my-3'>{project.title}</div>
                         ))}
                     </div>
                 }
@@ -83,6 +87,10 @@ function Account() {
                             <p>Questions? mail at thakur@gmail.com</p>
                         </div>
                     </div>
+                }
+                {
+                    isRequests &&
+                    <Requests userID = {userID}/>
                 }
             </div>
         </div>

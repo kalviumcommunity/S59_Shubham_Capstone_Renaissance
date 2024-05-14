@@ -4,8 +4,8 @@ const { getAllChaptersForProject, getChapter, addNewChapter, updateChapter, dele
 
 router.get('/project-chapters/:projectID', getAllChaptersForProject)
 router.get('/get-chapter/:chapterID', getChapter)
-router.get('/forked-chapters/:projectID/:userID', getAllChaptersForForkedProject)
-router.post('/add-chapter/:projectID', addNewChapter)
+router.get('/forked-chapters/:forkID/:userID', getAllChaptersForForkedProject)
+router.post('/add-chapter/:forkID', addNewChapter)
 router.put('/update-chapter/:chapterID', updateChapter)
 router.delete('/delete-chapter/:chapterID', deleteChapter)
 

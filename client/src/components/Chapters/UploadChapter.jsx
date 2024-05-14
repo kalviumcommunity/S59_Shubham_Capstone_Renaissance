@@ -3,11 +3,10 @@ import getUserDetails from "../../utils/getUserDetails"
 import { useState } from "react"
 import { pullChapter } from "../../utils/apiUtils"
 
-function UploadChapter({ projectID, chapterID, setUploadChapter }) {
+function UploadChapter({ projectID, chapterID, userID, setUploadChapter }) {
     const [message, setMessage] = useState(null)
     const setPullRequest = () => {
         const date = getDate()
-        const userID = getUserDetails('userID')
         const data = { projectID: projectID, timestamp: date, userID: userID, updatedChapter: chapterID, message: message }
         console.log(data)
         pullChapter(data)

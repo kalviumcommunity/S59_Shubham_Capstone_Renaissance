@@ -11,7 +11,7 @@ function NewChapter() {
     const [chapterName, setChapterName] = useState("New Chapter")
     const [currentDate, setCurrentDate] = useState("")
     const [content, setContent] = useState("")
-    const { projectName, projectID } = useParams()
+    const { projectName, forkID } = useParams()
 
     useEffect(() => {
         setCurrentDate(getDate())
@@ -22,7 +22,8 @@ function NewChapter() {
         e.preventDefault()
         const data = { title: chapterName, content: content, dateCreated: currentDate, userID: userID }
         console.log(data)
-        postChapter(projectID, data)
+        console.log(forkID)
+        postChapter(forkID, data)
             .then(response => {
                 console.log("Response", response.data)
                 toast.success("Chapter Added!")
