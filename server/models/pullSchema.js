@@ -21,7 +21,8 @@ const pullSchema = mongoose.Schema({
     },
     message : {
         type : String,
-        default : "No message provided"
+        default : "No message provided",
+        required : false
     }
 })
 
