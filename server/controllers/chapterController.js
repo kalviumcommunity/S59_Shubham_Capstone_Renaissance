@@ -1,5 +1,6 @@
 const chapterModel = require('../models/chapterSchema')
 const projectModel = require('../models/projectSchema')
+const forkModel = require('../models/forkSchema')
 const chapterStruc = require('../validation/chapterValidation')
 const checkValidation = require('../validation/checkValidation')
 
@@ -19,9 +20,9 @@ const getAllChaptersForProject = async (req, res) => {
 
 const getAllChaptersForForkedProject = async (req, res) => {
     try {
-        const projectID = req.params.projectID
+        const forkID = req.params.forkID
         const userID = req.params.userID
-        const project = await projectModel.findById(projectID)
+        const project = await forkModel.findById(forkID)
         if (!project) return res.status(404).json({ message: "Project does not exist" })
         const chapters = await chapterModel.find({ _id: { $in: project.chapters }, userID: userID })
         res.status(200).json(chapters)
@@ -57,12 +58,13 @@ const addNewChapter = async (req, res) => {
     if (!checkValidation(req.body, chapterStruc)) {
         return res.status(400).json({ message: "Validation Failed" })
     }
-    const projectID = req.params.projectID
+    const forkID = req.params.forkID
+    console.log(forkID)
     try {
-        const project = await projectModel.findById(projectID)
+        const project = await forkModel.findById(forkID)
         if (!project) return res.status(404).json({ message: "Project does not exist. Check again later" })
         const savedChapter = await newChapter.save()
-        await projectModel.findByIdAndUpdate(projectID, { $push: { chapters: savedChapter._id } })
+        await forkModel.findByIdAndUpdate(forkID, { $push: { chapters: savedChapter._id } })
         res.status(201).json(savedChapter)
     }
     catch (error) {

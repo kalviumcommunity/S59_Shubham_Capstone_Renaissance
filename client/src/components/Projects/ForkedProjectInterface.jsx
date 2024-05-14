@@ -39,7 +39,7 @@ function ForkedProjectInterface() {
                 .catch(error => {
                     console.log("Error fetching the original project", error)
                 })
-            fetchUserChapters(projectID, userID)
+            fetchUserChapters(forkID, userID)
                 .then(response => {
                     setChapters(response.data)
                 })
@@ -82,7 +82,7 @@ function ForkedProjectInterface() {
                             <div className='flex justify-between items-center mt-5'>
                                 <input type="text" className='border border-gray-300 rounded px-2 py-1.5 h-fit text-sm mr-5 bg-gray-100 w-[500px]' placeholder='Search chapter here' />
                                 <div className='flex'>
-                                    <Link to={`/newChapter/${originalProject.title}/${projectID}`}>`<button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button>`</Link>
+                                    <Link to={`/newChapter/${originalProject.title}/${forkID}`}>`<button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button>`</Link>
                                     <button className="border border-[#3F5F4F] text-sm text-[#3F5F4F] px-3 py-1.5 rounded">Create Branch</button>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@ function ForkedProjectInterface() {
                                             </div>
                                             <div>
                                                 <img src={upload} alt="" className='w-[25px] cursor-pointer' onClick={() => setUploadChapter(true)} />
-                                                {isUploadChapter && <UploadChapter projectID={projectID} chapterID={chapter._id} setUploadChapter = {setUploadChapter}/>}
+                                                {isUploadChapter && <UploadChapter projectID={projectID} chapterID={chapter._id} userID = {chapter.userID} setUploadChapter = {setUploadChapter}/>}
                                             </div>
                                         </div>
                                     ))}

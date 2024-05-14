@@ -1,6 +1,15 @@
+import { useState } from 'react'
 import deBonaparte from '../../assets/deBonaparte.jpg'
+import getUserDetails from '../../utils/getUserDetails'
 
 function Requests() {
+    const [requests, setRequests] = useState(null)
+    useEffect(() => {
+        const userID = getUserDetails('userID')
+        fetchApprovalRequests(userID)
+            .then(response => setRequests(response.data))
+            .catch(error => console.log(error))
+    })
     return (
         <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10'>
             <h1 className="text-xl text-slate-700 font-bold ">Requests to Merge in your projects</h1>
