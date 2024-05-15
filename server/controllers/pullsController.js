@@ -8,6 +8,8 @@ const setpull = async (req, res) => {
         projectID: req.body.projectID,
         timestamp: req.body.timestamp,
         userID: req.body.userID,
+        contributerName: req.body.contributerName,
+        projectName: req.body.projectName,
         updatedChapter: req.body.updatedChapter,
         message: req.body.message != null ? req.body.message : "Message not provided"
     })

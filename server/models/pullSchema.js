@@ -14,6 +14,14 @@ const pullSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    contributerName: {
+        type : String,
+        required : true
+    },
+    projectName: {
+        type : String,
+        required : true
+    },
     updatedChapter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Chapter',
