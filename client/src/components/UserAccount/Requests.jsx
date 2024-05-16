@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import deBonaparte from '../../assets/deBonaparte.jpg'
+import {toast} from 'react-toastify'
 import { fetchApprovalRequests } from '../../utils/apiUtils'
 import getUserDetails from '../../utils/getUserDetails'
 import getDateFromISO from '../../utils/getDateFromISO'
@@ -13,7 +14,10 @@ function Requests() {
                 console.log(response.data)
                 setRequests(response.data)
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                toast.error("Failed to fetch any request")
+                console.log(error)
+            })
     }, [])
     return (
         <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10 h-[80%] overflow-auto'>

@@ -1,7 +1,7 @@
-const projectModel = require('../models/projectSchema.js')
 const userModel = require('../models/userSchema.js')
-const chapterModel = require('../models/chapterSchema.js')
 const pullModel = require('../models/pullSchema.js')
+const pullStruc = require('../validation/pullValidation.js')
+const checkValidation = require('../validation/checkValidation.js')
 
 const setpull = async (req, res) => {
     const newpull = new pullModel({
@@ -13,6 +13,9 @@ const setpull = async (req, res) => {
         updatedChapter: req.body.updatedChapter,
         message: req.body.message != null ? req.body.message : "Message not provided"
     })
+    if (!checkValidation(req.body, pullStruc)) {
+        return res.status(400).json({ message: "Validation Failed" })
+    }
     try {
         const pulledPost = await newpull.save()
         await userModel.findByIdAndUpdate(req.body.userID, { $push: { pulls: pulledPost._id } })

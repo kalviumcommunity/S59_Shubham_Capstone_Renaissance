@@ -2,6 +2,7 @@ import { format } from 'date-fns'
 
 const getDateFromISO = (isostring) => {
     if (typeof isostring !== 'string') {
+        console.log("Invalid Format. Please send date in ISO format")
         return null
     }
     try {
@@ -10,7 +11,7 @@ const getDateFromISO = (isostring) => {
     }
     catch (error) {
         console.log("Error formatting date", error)
-        return isostring
+        return null
     }
 }
 

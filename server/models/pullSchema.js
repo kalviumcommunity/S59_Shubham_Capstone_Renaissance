@@ -12,7 +12,8 @@ const pullSchema = mongoose.Schema({
     },
     userID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required : true
     },
     contributerName: {
         type : String,
