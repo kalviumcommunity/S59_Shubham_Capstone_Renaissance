@@ -12,7 +12,16 @@ const pullSchema = mongoose.Schema({
     },
     userID: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required : true
+    },
+    contributerName: {
+        type : String,
+        required : true
+    },
+    projectName: {
+        type : String,
+        required : true
     },
     updatedChapter: {
         type: mongoose.Schema.Types.ObjectId,

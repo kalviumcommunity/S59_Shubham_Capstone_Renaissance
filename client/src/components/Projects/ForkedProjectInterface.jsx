@@ -96,7 +96,7 @@ function ForkedProjectInterface() {
                                             </div>
                                             <div>
                                                 <img src={upload} alt="" className='w-[25px] cursor-pointer' onClick={() => setUploadChapter(true)} />
-                                                {isUploadChapter && <UploadChapter projectID={projectID} chapterID={chapter._id} userID = {chapter.userID} setUploadChapter = {setUploadChapter}/>}
+                                                {isUploadChapter && <UploadChapter projectID={projectID} chapterID={chapter._id} userID = {originalProject.projectOwner} contributerName = {username} projectName = {originalProject.title} setUploadChapter = {setUploadChapter}/>}
                                             </div>
                                         </div>
                                     ))}
