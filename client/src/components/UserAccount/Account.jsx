@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react'
-import deBonaparte from '../../assets/deBonaparte.jpg'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getOneUser, fetchUserProjects } from '../../utils/apiUtils'
 import Requests from './Requests'
+import MyProfile from './MyProfile'
+import { showProfileImage } from '../../utils/getProfileImage'
 
 function Account() {
     const [isOverview, setIsOverview] = useState(true)
     const [isProjects, setIsProjects] = useState(false)
     const [isContacts, setIsContacts] = useState(false)
     const [isRequests, setIsRequests] = useState(false)
+    const [isProfile, setIsProfile] = useState(false)
     const [userProjects, setUserProject] = useState([])
+    const [imgURL, setImgURL] = useState("")
     const [userData, setUserData] = useState([])
     const { userID } = useParams()
     const toggleModal = (setter) => {
@@ -18,10 +21,12 @@ function Account() {
         setIsContacts(false)
         setIsProjects(false)
         setIsRequests(false)
+        setIsProfile(false)
         setter(true)
     }
 
     useEffect(() => {
+        showProfileImage(userID, setImgURL)
         getOneUser(userID)
             .then(response => {
                 console.log(response.data)
@@ -36,7 +41,7 @@ function Account() {
     return (
         <div className='flex justify-between'>
             <div className='w-[30%] bg-gray-100 px-5 py-8 border border-gray-300'>
-                <img src={deBonaparte} alt="profileImage" className='rounded-full h-[350px] w-[350px] ' />
+                <img src={imgURL && imgURL} alt="profileImage" className='rounded-full h-[350px] w-[350px] ' />
                 <div className='pt-5'>
                     <h1 className='text-2xl font-bold text-center'>{userData.username}</h1>
                     <div className='flex justify-center'>
@@ -52,11 +57,12 @@ function Account() {
                 </div>
             </div>
             <div className='w-[65%] mt-8 mx-8'>
-                <div className='w-[40%] flex justify-between'>
+                <div className='w-[70%] flex justify-between'>
                     <button className={isOverview ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsOverview)}>Overview</button>
                     <button className={isProjects ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsProjects)} >Projects</button>
                     <button className={isContacts ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsContacts)}>Contacts</button>
                     <button className={isRequests ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsRequests)}>Requests</button>
+                    <button className={isProfile ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsProfile)}>My Profile</button>
                 </div>
                 {isOverview &&
                     <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10'>
@@ -90,7 +96,11 @@ function Account() {
                 }
                 {
                     isRequests &&
-                    <Requests userID = {userID}/>
+                    <Requests userID={userID} />
+                }
+                {
+                    isProfile &&
+                    <MyProfile userID={userID} />
                 }
             </div>
         </div>
