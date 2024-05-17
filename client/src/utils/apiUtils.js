@@ -67,3 +67,9 @@ export const getOneUser = (userID) => {
 export const fetchApprovalRequests = (userID) => {
     return axios.get(`${import.meta.env.VITE_API_PULL_URI}/requests/${userID}`)
 }
+
+export const setProfileImage = (userID, file) => {
+    const formData = new FormData()
+    formData.append('profile-image', file)
+    return axios.patch(`${import.meta.env.VITE_API_FILE_URI}/set-profile-image/${userID}`, formData)
+}

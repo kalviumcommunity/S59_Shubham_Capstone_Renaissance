@@ -4,6 +4,7 @@ const projectModel = require('../models/projectSchema')
 const checkValidation = require('../validation/checkValidation')
 const userStruc = require('../validation/userValidation')
 const jwt = require('jsonwebtoken')
+const path = require('path')
 require('dotenv').config({ path: '../envFiles/.env' });
 
 const SECRET = process.env.SECRET
@@ -42,7 +43,7 @@ const getOneUser = async (req, res) => {
             console.log("User not found")
             return res.status(404).json({ message: "User not found" })
         }
-        const userdata = { email: findUser.email, projects: findUser.projects, occupations: findUser.occupations, username : findUser.username }
+        const userdata = { email: findUser.email, projects: findUser.projects, occupations: findUser.occupations, username: findUser.username, profileImage: findUser.profileImage }
         res.status(200).json(userdata)
     }
     catch (error) {
@@ -149,4 +150,18 @@ const getForkedProjects = async (req, res) => {
 
 }
 
-module.exports = { registerUser, updateUser, deleteUser, loginUser, getUserProjects, getForkedProjects, getOneUser }
+const getProfileImage = async (req, res) => {
+    const userID = req.params.userID
+    try {
+        const findUser = await userModel.findById(userID)
+        if (!findUser) return res.status(404).json({ message: "User not found" })
+        const filePath = path.join(__dirname, '..', '..', 'server', findUser.profileImage)
+        res.sendFile(filePath)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Error fetching the profile image. Try again later." })
+    }
+}
+
+module.exports = { registerUser, updateUser, deleteUser, loginUser, getUserProjects, getForkedProjects, getOneUser, getProfileImage }
