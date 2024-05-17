@@ -3,7 +3,7 @@ import deBonaparte from '../../assets/deBonaparte.jpg'
 import getDate from '../../utils/getDate'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { postChapter, pullChapter } from '../../utils/apiUtils'
+import { postChapter } from '../../utils/apiUtils'
 import { toast } from 'react-toastify'
 import getUserDetails from '../../utils/getUserDetails'
 

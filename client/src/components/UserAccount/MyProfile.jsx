@@ -1,5 +1,5 @@
-import { setProfileImage, getProfileImage } from '../../utils/apiUtils'
 import { useState, useEffect } from 'react'
+import { setProfileImage } from '../../utils/apiUtils'
 import { showProfileImage } from '../../utils/getProfileImage'
 
 function MyProfile({ userID }) {
