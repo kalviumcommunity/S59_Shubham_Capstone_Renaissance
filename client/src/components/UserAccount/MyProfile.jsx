@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { setProfileImage } from '../../utils/apiUtils'
 import { showProfileImage } from '../../utils/getProfileImage'
+import { toast } from 'react-toastify'
 
 function MyProfile({ userID }) {
     const [selProfile, setSelFile] = useState("")
@@ -15,9 +16,13 @@ function MyProfile({ userID }) {
         setProfileImage(userID, selProfile)
             .then(response => {
                 console.log(response)
+                toast.success("Profile updated successfully!")
                 showProfileImage(userID, setImgURL)
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                toast.error(error.response.data.message)
+                console.log(error)
+            })
     }
 
     useEffect(() => {
