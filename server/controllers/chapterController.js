@@ -118,4 +118,19 @@ const deleteChapter = async (req, res) => {
     }
 }
 
-module.exports = { getAllChaptersForProject, getAllChaptersForForkedProject, getChapter, addNewChapter, updateChapter, deleteChapter }
+const approveChapter = async (req, res) => {
+    const chapterID = req.params.chapterID
+    try {
+        const chapter = await chapterModel.findById(chapterID)
+        if (!chapter) return res.status(404).json({ message: "No Chapter Found" })
+        chapter.isApproved = true
+        const savedChapter = await chapter.save()
+        res.status(200).json(savedChapter)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Error approving chapter. Try again later" })
+    }
+}
+
+module.exports = { getAllChaptersForProject, getAllChaptersForForkedProject, getChapter, addNewChapter, updateChapter, deleteChapter, approveChapter }

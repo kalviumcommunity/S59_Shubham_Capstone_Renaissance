@@ -73,3 +73,15 @@ export const setProfileImage = (userID, file) => {
     formData.append('profile-image', file)
     return axios.patch(`${import.meta.env.VITE_API_FILE_URI}/set-profile-image/${userID}`, formData)
 }
+
+export const getRequest = (requestID) => {
+    return axios.get(`${import.meta.env.VITE_API_PULL_URI}/get-pull/${requestID}`);
+};
+
+export const approveChapter = (chapterID) => {
+    return axios.patch(`${import.meta.env.VITE_API_CHAPTER_URI}/approve-chapter/${chapterID}`);
+}
+
+export const clearPull = (requestID) => {
+    return axios.delete(`${import.meta.env.VITE_API_PULL_URI}/clear-pull/${requestID}`);
+};

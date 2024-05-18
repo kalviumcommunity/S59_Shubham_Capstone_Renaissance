@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import deBonaparte from '../../assets/deBonaparte.jpg'
-import {toast} from 'react-toastify'
+import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { fetchApprovalRequests } from '../../utils/apiUtils'
 import getUserDetails from '../../utils/getUserDetails'
 import getDateFromISO from '../../utils/getDateFromISO'
@@ -34,7 +35,7 @@ function Requests() {
                             </div>
                         </div>
                         <div className='flex flex-col justify-center'>
-                            <button className="bg-[#3F5F4F] border text-white border-[#3F5F4F] rounded text-sm px-3 py-1.5 rounded">View Request</button>
+                            <Link to={`/request/${request._id}`}><button className="bg-[#3F5F4F] border text-white border-[#3F5F4F] rounded text-sm px-3 py-1.5 rounded">View Request</button></Link>
                             <button className="border border-1.5 border-[#3F5F4F] rounded text-sm px-3 py-1.5 rounded mt-3">Merge Request</button>
                         </div>
                     </div>
