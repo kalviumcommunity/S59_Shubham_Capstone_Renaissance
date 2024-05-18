@@ -1,5 +1,6 @@
 const userModel = require('../models/userSchema.js')
 const pullModel = require('../models/pullSchema.js')
+const projectModel = require('../models/projectSchema.js')
 const pullStruc = require('../validation/pullValidation.js')
 const checkValidation = require('../validation/checkValidation.js')
 
@@ -10,6 +11,7 @@ const setpull = async (req, res) => {
         userID: req.body.userID,
         contributerName: req.body.contributerName,
         projectName: req.body.projectName,
+        contributerID: req.body.contributerID,
         updatedChapter: req.body.updatedChapter,
         message: req.body.message != null ? req.body.message : "Message not provided"
     })
@@ -67,6 +69,9 @@ const clearpull = async (req, res) => {
             console.log("pull does not exist")
             return res.status(404).json({ message: "pull not found. Check the id" })
         }
+        const projectID = pullToClear.projectID
+        const updatedChapter = pullToClear.updatedChapter
+        await projectModel.updateOne({ _id: projectID }, { $push: { chapters: updatedChapter } })
         await userModel.updateMany({ pulls: pullID }, { $pull: { pulls: pullID } })
             .catch(async error => {
                 console.log("Error clearing pull from user's account:", error)
@@ -78,9 +83,11 @@ const clearpull = async (req, res) => {
 
     }
     catch (error) {
+        await pullModel.findByIdAndUpdate(pullID, {$set : {deleted : false}})
         console.log(error)
         res.status(500).json({ message: "pull failed. Try again later." })
     }
 }
+
 
 module.exports = { setpull, getApprovalRequests, getOnepull, clearpull }

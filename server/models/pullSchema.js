@@ -4,7 +4,7 @@ const pullSchema = mongoose.Schema({
     projectID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project',
-        required : true
+        required: true
     },
     timestamp: {
         type: Date,
@@ -13,25 +13,30 @@ const pullSchema = mongoose.Schema({
     userID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required : true
+        required: true
     },
     contributerName: {
-        type : String,
-        required : true
+        type: String,
+        required: true
+    },
+    contributerID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
     projectName: {
-        type : String,
-        required : true
+        type: String,
+        required: true
     },
     updatedChapter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Chapter',
-        required : true
+        required: true
     },
-    message : {
-        type : String,
-        default : "No message provided",
-        required : false
+    message: {
+        type: String,
+        default: "No message provided",
+        required: false
     }
 })
 

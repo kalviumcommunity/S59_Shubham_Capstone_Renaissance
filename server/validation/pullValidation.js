@@ -7,7 +7,8 @@ const pullStruc = Joi.object({
     contributerName: Joi.string().required(),
     projectName: Joi.string().required(),
     updatedChapter: Joi.string().required(),
-    message : Joi.string()
+    message: Joi.string(),
+    contributerID: Joi.string().required()
 })
 
 module.exports = pullStruc

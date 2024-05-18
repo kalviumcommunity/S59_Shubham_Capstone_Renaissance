@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getData, getOneData, postData, deleteData, getLatestData, forkProject } = require('../controllers/projectController')
+const { getData, getOneData, postData, deleteData, getLatestData, forkProject, approveProject } = require('../controllers/projectController')
 
 router.get('/', getData)
 router.get('/get-project/:dataID', getOneData)
