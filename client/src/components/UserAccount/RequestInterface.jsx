@@ -1,11 +1,13 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { getOneUser, getRequest, fetchChapter, clearPull, approveChapter } from "../../utils/apiUtils"
 import { showProfileImage } from "../../utils/getProfileImage"
 import ReactHtmlParser from 'html-react-parser'
 import { useEffect, useState } from "react"
+import { toast } from 'react-toastify'
 import getDateFromISO from "../../utils/getDateFromISO"
 
 function RequestInterface() {
+    const navigate = useNavigate()
     const { requestID } = useParams()
     const [request, setRequest] = useState(null)
     const [chapter, setChapter] = useState(null)
@@ -26,9 +28,13 @@ function RequestInterface() {
             })
             .then(response => {
                 console.log(response.data)
-                console.log("Approved!")
+                toast.success("Merged!")
+                navigate(-1)
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+                toast.error("Failed to merge. Try again later")                
+            })
     }
 
     useEffect(() => {
@@ -82,7 +88,7 @@ function RequestInterface() {
                             {chapter && ReactHtmlParser(chapter.content)}
                         </div>
                     </div>
-                    <button className="bg-[#3F5F4F] border text-white border-[#3F5F4F] rounded text-sm px-3 py-1.5 rounded mt-5" onClick={() => {mergeRequest(chapter._id, request._id)}}>Merge Request</button>
+                    <button className="bg-[#3F5F4F] border text-white border-[#3F5F4F] rounded text-sm px-3 py-1.5 rounded mt-5" onClick={() => { mergeRequest(chapter._id, request._id) }}>Merge Request</button>
                     <button className="bg-red-100 border border-red-400 text-sm text-red-400 px-3 ml-5 py-1.5 rounded mt-8">Reject Request</button>
                 </div>
 
