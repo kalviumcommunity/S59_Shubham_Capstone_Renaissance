@@ -30,11 +30,10 @@ const userSchema = new mongoose.Schema({
     },
     occupations: {
         type: Array,
-        required: true
+        default : ['amateur']
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     profileImage : {
         type : String,

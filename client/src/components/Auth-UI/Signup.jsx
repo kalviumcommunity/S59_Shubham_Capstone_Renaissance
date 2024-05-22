@@ -3,7 +3,7 @@ import registerUtil from '../../utils/registerUtil'
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-function Signup({setRegStatus}) {
+function Signup({ setRegStatus }) {
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
     const [traits, setTraits] = useState({ 'student': false, 'professional': false, amateur: false })
     const [traitsList, setTraitList] = useState([])
@@ -27,6 +27,11 @@ function Signup({setRegStatus}) {
     const getButtonBg = (trait) => {
         return traits[trait] ? `#97D4A6` : `#e6faeb`
     }
+
+    const handleGoogleLogin = () => {
+        window.open(`${import.meta.env.VITE_API_GOOGLE_URI}/google`, "_self")
+    }
+
     return (
         <form
             className='flex justify-center items-center w-[50vw]'
@@ -89,9 +94,10 @@ function Signup({setRegStatus}) {
                     <button className='w-[400px] bg-[#97D4A6] py-2 px-3.5 rounded m-1.5 text-sm' type='submit'>Let me in!</button>
                 </div>
                 <p className='text-center text-sm m-3'>or</p>
-                <button className='w-[400px] bg-[#97D4A6] py-2 px-3.5 rounded m-1.5 text-sm'>Continue with Google</button>
-
-
+                <button type = "button" className='w-[400px] bg-[#97D4A6] py-2 px-3.5 rounded m-1.5 text-sm flex justify-center items-center' onClick={handleGoogleLogin}>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png" alt="google-icon" className='w-[25px] mr-3' />
+                    Continue with Google
+                </button>
                 <p className='text-center text-sm m-3'>Already have an account? <span className='text-[#3F5F4F] cursor-pointer underline' onClick={() => setRegStatus(true)}>Login here</span></p>
 
 
