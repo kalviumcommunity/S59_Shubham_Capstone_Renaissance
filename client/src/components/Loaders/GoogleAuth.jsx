@@ -3,17 +3,22 @@ import { fetchDataFromGoogleAuth } from '../../utils/apiUtils'
 import { useEffect } from 'react'
 import setCookie from '../../utils/setCookie'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
-function GoogleAuth({setLogin}) {
+function GoogleAuth({ setLogin, isLogin }) {
     const navigate = useNavigate(null)
     useEffect(() => {
         fetchDataFromGoogleAuth()
             .then(response => {
                 setCookie('accessToken', response.data.accessToken, 1)
                 setLogin(true)
+                toast.success("Login Successful!")
                 navigate('/Dashboard')
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                toast.error("Login Failed. Try again later.")
+                console.log(error)
+            })
     }, [])
 
     return (

@@ -43,7 +43,7 @@ function App() {
         <Route path='/forkedProject/:forkID' element={<ForkedProjectInterface />} />
         <Route path='/userAccount/:userID' element={<Account />} />
         <Route path='/request/:requestID' element={<RequestInterface />} />
-        <Route path='/success' element={<GoogleAuth setLogin={setLogin} />} />
+        <Route path='/success' element={<GoogleAuth setLogin={setLogin} isLogin={isLogin} />} />
       </Routes>
       <ToastContainer />
     </>
