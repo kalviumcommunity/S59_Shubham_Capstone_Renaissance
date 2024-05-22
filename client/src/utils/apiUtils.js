@@ -85,3 +85,9 @@ export const approveChapter = (chapterID) => {
 export const clearPull = (requestID) => {
     return axios.delete(`${import.meta.env.VITE_API_PULL_URI}/clear-pull/${requestID}`);
 };
+
+export const fetchDataFromGoogleAuth = () => {
+    return axios.get(`${import.meta.env.VITE_API_GOOGLE_URI}/google/session`, {
+        withCredentials: true
+    });
+};

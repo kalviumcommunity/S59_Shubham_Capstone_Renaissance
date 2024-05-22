@@ -14,6 +14,7 @@ import ChapterInterface from './components/Chapters/ChapterInterface'
 import ForkedProjectInterface from './components/Projects/ForkedProjectInterface'
 import RequestInterface from './components/UserAccount/RequestInterface';
 import Account from './components/UserAccount/Account';
+import GoogleAuth from './components/Loaders/GoogleAuth';
 import getCookie from './utils/getCookie'
 import './index.css'
 import './App.css'
@@ -31,7 +32,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<Home isLogin={isLogin} />} />
-        <Route path='/Register' element={<Register setLogin={setLogin} isLogin = {isLogin} />} />
+        <Route path='/Register' element={<Register setLogin={setLogin} isLogin={isLogin} />} />
         <Route path='/Dashboard' element={isLogin ? <UserDashboard /> : <Register setLogin={setLogin} />} />
         <Route path='/NewProject' element={isLogin ? <NewProject /> : <Register setLogin={setLogin} />} />
         <Route path='/Loader' element={<Loader />} />
@@ -40,8 +41,9 @@ function App() {
         <Route path='/newChapter/:projectName/:forkID' element={<NewChapter />} />
         <Route path='/chapter/:projectName/:chapterID' element={<ChapterInterface />} />
         <Route path='/forkedProject/:forkID' element={<ForkedProjectInterface />} />
-        <Route path = '/userAccount/:userID' element = {<Account/>} />
-        <Route path = '/request/:requestID' element = {<RequestInterface/>} />
+        <Route path='/userAccount/:userID' element={<Account />} />
+        <Route path='/request/:requestID' element={<RequestInterface />} />
+        <Route path='/success' element={<GoogleAuth setLogin={setLogin} isLogin={isLogin} />} />
       </Routes>
       <ToastContainer />
     </>

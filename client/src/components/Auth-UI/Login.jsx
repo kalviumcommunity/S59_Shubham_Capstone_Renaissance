@@ -16,6 +16,10 @@ function Login({ isLogin, setRegStatus, setLogin }) {
         }
     }, [isLogin])
 
+    const handleGoogleLogin = () => {
+        window.open(`${import.meta.env.VITE_API_GOOGLE_URI}/google`, "_self")
+    }
+
     return (
         <form className='flex justify-center items-center w-[50vw]'
             onSubmit={handleSubmit((data) => {
@@ -56,6 +60,10 @@ function Login({ isLogin, setRegStatus, setLogin }) {
                 </div>
 
                 <p className='text-center text-sm m-3'>or</p>
+                <button type = "button" className='w-[400px] bg-[#97D4A6] py-2 px-3.5 rounded m-1.5 text-sm flex justify-center items-center' onClick={handleGoogleLogin}>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png" alt="google-icon" className='w-[25px] mr-3' />
+                    Continue with Google
+                </button>
                 <p className='text-center text-sm m-3'>Don't have an account? <span className='text-[#3F5F4F] cursor-pointer underline' onClick={() => setRegStatus(false)}>Register here</span></p>
             </div>
         </form>
