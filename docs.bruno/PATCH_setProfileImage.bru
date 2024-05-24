@@ -1,0 +1,18 @@
+meta {
+  name: PATCH_setProfileImage
+  type: http
+  seq: 17
+}
+
+patch {
+  url: http://localhost:8080/file/set-profile-image/66234f93ea695965f60d2b4b
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "profile-image": "path/to/your/imagefile.jpg"
+  }
+  
+}
