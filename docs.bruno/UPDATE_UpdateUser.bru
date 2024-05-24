@@ -1,0 +1,21 @@
+meta {
+  name: UPDATE_UpdateUser
+  type: http
+  seq: 19
+}
+
+put {
+  url: http://localhost:8080/user/update
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "username": "Swasti_Mohanty",
+      "email": "swasti@gmail.com",
+      "occupations": [],
+      "password": "abc"
+  }
+  
+}
