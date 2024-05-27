@@ -15,6 +15,7 @@ import ForkedProjectInterface from './components/Projects/ForkedProjectInterface
 import RequestInterface from './components/UserAccount/RequestInterface';
 import Account from './components/UserAccount/Account';
 import GoogleAuth from './components/Loaders/GoogleAuth';
+import NavBar from './components/NavBar';
 import getCookie from './utils/getCookie'
 import './index.css'
 import './App.css'
@@ -45,6 +46,7 @@ function App() {
         <Route path='/request/:requestID' element={<RequestInterface />} />
         <Route path='/success' element={<GoogleAuth setLogin={setLogin} isLogin={isLogin} />} />
       </Routes>
+      <NavBar />
       <ToastContainer />
     </>
   )
