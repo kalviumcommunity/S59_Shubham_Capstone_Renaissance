@@ -11,6 +11,33 @@ import getUserDetails from '../utils/getUserDetails'
 function NavBar() {
     const [expand, setExpand] = useState(false)
     const userID = getUserDetails('userID')
+    const links = [
+        {
+            image: home,
+            alt: 'navigation',
+            to: '/'
+        },
+        {
+            image: dashboard,
+            alt: 'dashboard',
+            to: '/Dashboard'
+        },
+        {
+            image: explore,
+            alt: 'explore',
+            to: '/Dashboard'
+        },
+        {
+            image: help,
+            alt: 'help',
+            to: '/Dashboard'
+        },
+        {
+            image: user,
+            alt: 'user',
+            to: userID ? `/userAccount/${userID}` : '/Register'
+        }
+    ]
     return (
         <nav className='flex fixed z-5 top-[20px] right-[20px] flex flex-col'>
             <div className={`w-[50px] h-[50px] bg-slate-700 p-1.5 shadow-xl cursor-pointer rounded-full ${expand ? 'rotateIcon' : "rotateBack"}`}>
@@ -18,21 +45,11 @@ function NavBar() {
             </div>
             {expand && (
                 <div className='flex flex-col'>
-                    <Link to='/' className='w-[50px] h-[50px] bg-slate-700 p-3 shadow-xl cursor-pointer rounded-full mt-3'>
-                        <img src={home} alt="navigation" />
-                    </Link >
-                    <Link to='/Dashboard' className='w-[50px] h-[50px] bg-slate-700 p-3 shadow-xl cursor-pointer rounded-full mt-3'>
-                        <img src={dashboard} alt="navigation" />
-                    </Link >
-                    <Link to='/Dashboard' className='w-[50px] h-[50px] bg-slate-700 p-3 shadow-xl cursor-pointer rounded-full mt-3'>
-                        <img src={explore} alt="navigation" />
-                    </Link >
-                    <Link to='/Dashboard' className='w-[50px] h-[50px] bg-slate-700 p-3 shadow-xl cursor-pointer rounded-full mt-3'>
-                        <img src={help} alt="navigation" />
-                    </Link >
-                    <Link to={userID ? `/userAccount/${userID}` : '/Register'} className='w-[50px] h-[50px] bg-slate-700 p-3 shadow-xl cursor-pointer rounded-full mt-3'>
-                        <img src={user} alt="navigation" />
-                    </Link >
+                    {links && links.map(link => (
+                        <Link to= {link.to} className='w-[50px] h-[50px] bg-slate-700 p-3 shadow-xl cursor-pointer rounded-full mt-3'>
+                            <img src={link.image} alt={link.alt} aria-label={link.alt}/>
+                        </Link >
+                    ))}
                 </div>
             )}
         </nav>
