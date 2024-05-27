@@ -6,6 +6,7 @@ const cors = require('cors')
 const app = express()
 const PORT = process.env.PORT || 8080
 const SESSION_SECRET = process.env.SESSION_SECRET
+const CLIENT_URI = process.env.CLIENT_URI
 const projectRoutes = require('./routes/projectRoutes')
 const userRoutes = require('./routes/userRoutes')
 const artistRoutes = require('./routes/artistRoutes')
@@ -17,7 +18,7 @@ const googleRoutes = require('./routes/googleRoutes')
 
 connectToDB()
 const corsOptions = {
-  origin: 'http://localhost:5173',
+  origin: CLIENT_URI,
   credentials: true,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Content-Type,Authorization'
