@@ -30,7 +30,7 @@ function Home({ isLogin }) {
     }, [])
 
     return (
-        imageArray.length > 0 ? <div>
+        imageArray ? <div>
             <SimpleSlider />
             <div className='flex'>
                 <div className='my-5 pl-10 h-[400px] w-[80%] bg-cover ' style={{ backgroundImage: `url(${greenBg})` }}>
@@ -49,7 +49,10 @@ function Home({ isLogin }) {
                         <button className="bg-transparent text-[[#3F5F4F] border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" onClick={scrollToHelp} >How to Start?</button>
                     </div>
                 </div>
-                <div className="w-[350px] bg-cover absolute h-[350px] right-[80px] mt-[30px] border-[#97D4A6] rounded-full border-[30px] shadow-lg" style={{ backgroundImage: `url(${johnKeats})` }}>
+                <div className="artist-image w-[350px] bg-cover absolute h-[350px] right-[80px] flex items-start justify-center mt-[30px] border-[#97D4A6] rounded-full border-[30px] shadow-lg" style={{ backgroundImage: `url(${johnKeats})` }}>
+                    <div className='animate-bounce bg-yellow-200 rounded mr-3 py-1.5 px-1.5 text-center text-sm text-[12px] ml-5 opacity-90'>
+                        Artist of the day
+                    </div>
                 </div>
             </div >
             <h1 className='text-7xl font-extrabold text-center mt-[60px]'>Discover Personalities</h1>
