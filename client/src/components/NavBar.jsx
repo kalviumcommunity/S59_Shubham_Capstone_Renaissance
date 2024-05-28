@@ -46,7 +46,7 @@ function NavBar() {
             {expand && (
                 <div className='flex flex-col'>
                     {links && links.map(link => (
-                        <div className='flex items-center tooltip-container'>
+                        <div className='flex items-center tooltip-container' key={link.alt}>
                             <div className='tooltip animate-bounce bg-yellow-200 rounded mr-3 py-1.5 px-1.5 text-center text-sm w-24'>
                                 {link.alt}
                             </div>

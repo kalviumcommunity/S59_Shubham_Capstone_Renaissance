@@ -30,7 +30,7 @@ function Home({ isLogin }) {
     }, [])
 
     return (
-        imageArray ? <div>
+        imageArray.length > 0 ? <div>
             <SimpleSlider />
             <div className='flex'>
                 <div className='my-5 pl-10 h-[400px] w-[80%] bg-cover ' style={{ backgroundImage: `url(${greenBg})` }}>

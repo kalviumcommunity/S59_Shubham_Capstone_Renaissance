@@ -33,6 +33,7 @@ input[type="file"] {
 
 .tooltip {
     display: none;
+    z-index : 50;
 }
 
 .tooltip-container:hover .tooltip {
