@@ -10,6 +10,7 @@ import getDate from '../../utils/getDate'
 import getUserDetails from '../../utils/getUserDetails'
 import forkIcon from '../../assets/fork-icon.png'
 import forkedIcon from '../../assets/forked.png'
+import UserInfoCard from '../UserInfoCard'
 
 function ProjectInterface() {
     const [project, setProject] = useState(null)
@@ -104,7 +105,7 @@ function ProjectInterface() {
                         <h3>{project.title}</h3>
                     </div>
                     <div className="text-white">
-                        <Link to={`/userAccount/${userID}`}>{username}</Link>
+                        <Link to={`/userAccount/${userID}`}><UserInfoCard/></Link>
                     </div>
                 </header>
                 <div className='py-8 px-10'>
