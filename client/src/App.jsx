@@ -12,6 +12,7 @@ import ProjectInterface from './components/Projects/ProjectInterface'
 import NewChapter from './components/Projects/NewChapter'
 import ChapterInterface from './components/Chapters/ChapterInterface'
 import ForkedProjectInterface from './components/Projects/ForkedProjectInterface'
+import DailyArtist from './components/Landing-Page/DailyArtist';
 import RequestInterface from './components/UserAccount/RequestInterface';
 import Account from './components/UserAccount/Account';
 import GoogleAuth from './components/Loaders/GoogleAuth';
@@ -45,6 +46,7 @@ function App() {
         <Route path='/userAccount/:userID' element={<Account />} />
         <Route path='/request/:requestID' element={<RequestInterface />} />
         <Route path='/success' element={<GoogleAuth setLogin={setLogin} isLogin={isLogin} />} />
+        <Route path= '/DailyArtist' element={<DailyArtist />} /> 
       </Routes>
       <NavBar />
       <ToastContainer />
