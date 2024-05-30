@@ -19,19 +19,8 @@ function ForkedProjectInterface() {
     const [originalChapters, setOriginalChapters] = useState(null)
     const [isUploadChapter, setUploadChapter] = useState(false)
     const username = getUserDetails('userName')
-    
-    useEffect(() => {
-        getFork(forkID)
-            .then(response => {
-                setProjectID(response.data.projectID)
-                setForkedProject(response.data)
-            })
-            .catch(error => {
-                console.log("Error fetching the fork", error)
-            })
-    }, [])
 
-    useEffect(() => {
+    const fetchDataForThePage = useCallback(() => {
         const userID = getUserDetails('userID')
         if (projectID) {
             fetchProject(projectID)
@@ -67,7 +56,23 @@ function ForkedProjectInterface() {
                     }
                 })
         }
-    }, [projectID, forkID])
+    }, [projectID, forkID]
+    )
+
+    useEffect(() => {
+        getFork(forkID)
+            .then(response => {
+                setProjectID(response.data.projectID)
+                setForkedProject(response.data)
+            })
+            .catch(error => {
+                console.log("Error fetching the fork", error)
+            })
+    }, [])
+
+    useEffect(() => {
+        fetchDataForThePage()
+    }, [fetchDataForThePage])
 
     return (
         originalProject ?
