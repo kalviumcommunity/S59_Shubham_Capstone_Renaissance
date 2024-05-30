@@ -1,13 +1,14 @@
 import { useParams } from 'react-router-dom'
-import { fetchProject, fetchUserChapters, getFork } from '../../utils/apiUtils'
+import { fetchProject, fetchUserChapters, getFork, fetchChapters } from '../../utils/apiUtils'
 import { Link } from 'react-router-dom'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import upload from '../../assets/upload.png'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Loader from '../Loaders/Loader'
 import getUserDetails from '../../utils/getUserDetails'
 import UploadChapter from '../Chapters/UploadChapter'
+import UserInfoCard from '../UserInfoCard'
 
 function ForkedProjectInterface() {
     const { forkID } = useParams()
@@ -15,9 +16,10 @@ function ForkedProjectInterface() {
     const [forkedProject, setForkedProject] = useState(null)
     const [originalProject, setOriginalProject] = useState(null)
     const [chapters, setChapters] = useState(null)
+    const [originalChapters, setOriginalChapters] = useState(null)
     const [isUploadChapter, setUploadChapter] = useState(false)
     const username = getUserDetails('userName')
-
+    
     useEffect(() => {
         getFork(forkID)
             .then(response => {
@@ -39,6 +41,19 @@ function ForkedProjectInterface() {
                 .catch(error => {
                     console.log("Error fetching the original project", error)
                 })
+            fetchChapters(projectID)
+                .then(response => {
+                    setOriginalChapters(response.data)
+                })
+                .catch(error => {
+                    if (error.response) {
+                        toast.error("Some error occurred fetching the project. Try again later.")
+                    }
+                    else {
+                        console.log("Some error occurred. Try Again Later", error)
+                        toast.error("Some error occurred fetching the project. Try again later.")
+                    }
+                })
             fetchUserChapters(forkID, userID)
                 .then(response => {
                     setChapters(response.data)
@@ -52,8 +67,8 @@ function ForkedProjectInterface() {
                     }
                 })
         }
+    }, [projectID, forkID])
 
-    })
     return (
         originalProject ?
             <>
@@ -63,7 +78,7 @@ function ForkedProjectInterface() {
                         <h3 className='ml-5'>{originalProject.projectOwnerName} / </h3>
                         <h3>{originalProject.title}</h3>
                     </div>
-                    <div className="text-white">{username}</div>
+                    <div className="text-white"><UserInfoCard /></div>
                 </header>
                 <div className='py-8 px-10'>
                     <div className='flex items-center justify-between'>
@@ -82,13 +97,25 @@ function ForkedProjectInterface() {
                             <div className='flex justify-between items-center mt-5'>
                                 <input type="text" className='border border-gray-300 rounded px-2 py-1.5 h-fit text-sm mr-5 bg-gray-100 w-[500px]' placeholder='Search chapter here' />
                                 <div className='flex'>
-                                    <Link to={`/newChapter/${originalProject.title}/${forkID}`}>`<button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button>`</Link>
+                                    <Link to={`/newChapter/${originalProject.title}/${forkID}/false`}>`<button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button>`</Link>
                                     <button className="border border-[#3F5F4F] text-sm text-[#3F5F4F] px-3 py-1.5 rounded">Create Branch</button>
                                 </div>
                             </div>
+                            {originalChapters &&
+                                <div>
+                                    {originalChapters && originalChapters.map((chapter, index) => (
+                                        <div className={`flex items-center justify-between py-5 px-8 mt-3 w-full text-slate-900 text-sm rounded ${chapter.isApproved ? 'border border-gray-300 bg-gray-100' : 'bg-[#c5e8ce] border border-[#97D4A6]'}`}>
+                                            <div className='flex items-center'>
+                                                <p className='mr-8'>{index + 1}.</p>
+                                                <Link to={`/chapter/${originalProject.title}/${chapter._id}`}><p>{chapter.title}</p></Link>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>}
                             {forkedProject.chapters && forkedProject.chapters.length ?
                                 <div>
                                     {chapters && chapters.map((chapter, index) => (
+                                        !chapter.isApproved &&
                                         <div className={`flex items-center justify-between py-5 px-8 mt-3 w-full text-slate-900 text-sm rounded ${chapter.isApproved ? 'border border-gray-300 bg-gray-100' : 'bg-[#c5e8ce] border border-[#97D4A6]'}`}>
                                             <div className='flex items-center'>
                                                 <p className='mr-8'>{index + 1}.</p>
@@ -96,13 +123,14 @@ function ForkedProjectInterface() {
                                             </div>
                                             <div>
                                                 <img src={upload} alt="" className='w-[25px] cursor-pointer' onClick={() => setUploadChapter(true)} />
-                                                {isUploadChapter && <UploadChapter projectID={projectID} chapterID={chapter._id} userID = {originalProject.projectOwner} contributerName = {username} projectName = {originalProject.title} setUploadChapter = {setUploadChapter}/>}
+                                                {isUploadChapter && <UploadChapter projectID={projectID} chapterID={chapter._id} userID={originalProject.projectOwner} contributerName={username} projectName={originalProject.title} setUploadChapter={setUploadChapter} />}
                                             </div>
                                         </div>
+
                                     ))}
                                 </div>
                                 :
-                                <div className='text-center text-gray-700 mt-10'>
+                                <div className='flex justify-center items-center flex-col text-center text-gray-700 mt-10'>
                                     <img src={emilySearchDoodle} alt="No Chapters yet" className='w-[200px] rounded' />
                                     <p className='mt-5'>No Chapters yet!</p>
                                 </div>
@@ -113,6 +141,8 @@ function ForkedProjectInterface() {
                             <p className='text-sm rounded mt-3'>{originalProject.description && originalProject.description}</p>
                         </div>
                     </div>
+                    <hr className='mt-8 mb-1.5 text-justify' />
+                    <p className='text-[13px] text-gray-500 text-center'>Don't keep forking it. Just dive in and contribute to produce something great!</p>
                 </div>
             </>
             : <Loader />
