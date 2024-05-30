@@ -3,7 +3,7 @@ import setCookie from './setCookie'
 import { toast } from 'react-toastify'
 
 const loginUtil = (data, setLoginStatus, setLogin) => {
-    axios.post('https://renaissance-server.onrender.com/user/login', data)
+    axios.post('http://localhost:8080/user/login', data)
         .then(response => {
             try {
                 setCookie('accessToken', response.data.accessToken, 1)

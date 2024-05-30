@@ -91,3 +91,7 @@ export const fetchDataFromGoogleAuth = () => {
         withCredentials: true
     });
 };
+
+export const postChapterByOwner = (projectID, data) => {
+    return axios.post(`${import.meta.env.VITE_API_CHAPTER_URI}/post-chapter/${projectID}`, data)
+}

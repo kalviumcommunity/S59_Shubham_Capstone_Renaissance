@@ -105,7 +105,7 @@ function ProjectInterface() {
                         <h3>{project.title}</h3>
                     </div>
                     <div className="text-white">
-                        <Link to={`/userAccount/${userID}`}><UserInfoCard/></Link>
+                        <Link to={`/userAccount/${userID}`}><UserInfoCard /></Link>
                     </div>
                 </header>
                 <div className='py-8 px-10'>
@@ -146,7 +146,7 @@ function ProjectInterface() {
                                     ))}
                                 </div>
                                 :
-                                <div className='text-center text-gray-700 mt-10'>
+                                <div className='flex justify-center items-center flex-col text-center text-gray-700 mt-10'>
                                     <img src={emilySearchDoodle} alt="No Chapters yet" className='w-[200px] rounded' />
                                     <p className='mt-5'>No Chapters yet!</p>
                                 </div>
@@ -157,6 +157,8 @@ function ProjectInterface() {
                             <p className='text-sm rounded mt-3'>{project.description && project.description}</p>
                         </div>
                     </div>
+                    <hr className='mt-8 mb-1.5 text-justify' />
+                    <p className='text-[13px] text-gray-500 text-center'>You can fork the project using the button on the top right. Start contributing and produce some memorable pieces here at Renaissance!</p>
                 </div>
             </>
 
