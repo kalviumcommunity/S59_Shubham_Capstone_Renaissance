@@ -133,4 +133,29 @@ const approveChapter = async (req, res) => {
     }
 }
 
-module.exports = { getAllChaptersForProject, getAllChaptersForForkedProject, getChapter, addNewChapter, updateChapter, deleteChapter, approveChapter }
+const postChapterByOwner = async (req, res) => {
+    const newChapter = new chapterModel({
+        title: req.body.title,
+        content: req.body.content,
+        dateCreated: req.body.dateCreated,
+        userID: req.body.userID,
+        isApproved : true
+    })
+    if (!checkValidation(req.body, chapterStruc)) {
+        return res.status(400).json({ message: "Validation Failed" })
+    }
+    const projectID = req.params.projectID
+    try {
+        const project = await projectModel.findById(projectID)
+        if (!project) return res.status(404).json({ message: "Project does not exist. Check again later" })
+        const savedChapter = await newChapter.save()
+        await projectModel.findByIdAndUpdate(projectID, { $push: { chapters: savedChapter._id } })
+        res.status(201).json(savedChapter)
+    }
+    catch (error) {
+        console.log("Failed to post chapter:", error)
+        res.status(500).json({ message: "Failed to post chapter. Try again later" })
+    }
+}
+
+module.exports = { getAllChaptersForProject, getAllChaptersForForkedProject, getChapter, addNewChapter, updateChapter, deleteChapter, approveChapter, postChapterByOwner }

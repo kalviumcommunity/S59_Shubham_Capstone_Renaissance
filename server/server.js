@@ -23,8 +23,8 @@ const corsOptions = {
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Content-Type,Authorization'
 };
+app.use(cors())
 app.use(cors(corsOptions))
-
 app.use(
     session({
       secret: SESSION_SECRET,

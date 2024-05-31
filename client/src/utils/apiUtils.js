@@ -94,4 +94,8 @@ export const fetchDataFromGoogleAuth = () => {
 
 export const updateUser = (data, userID) => {
     return axios.patch(`${import.meta.env.VITE_API_USER_URI}/update/${userID}`, data)
-}
+};
+
+export const postChapterByOwner = (projectID, data) => {
+    return axios.post(`${import.meta.env.VITE_API_CHAPTER_URI}/post-chapter/${projectID}`, data)
+};

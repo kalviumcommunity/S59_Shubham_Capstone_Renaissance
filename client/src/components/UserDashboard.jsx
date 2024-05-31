@@ -132,7 +132,7 @@ function UserDashboard() {
                     <p className='ml-3 mt-20 text-base text-slate-800 font-semibold'>Your Contributions:</p>
                     <div className='m-1.5 w-[220px] overflow-auto'>
                         {userProjects.length ? userProjects.map(ele => (
-                            <Link to={`/project/${ele._id}`}><p key={ele._id} className='pb-0.5 ml-2 text-[14px] text-slate-800 hover:underline cursor-pointer'>{username}/<span>{ele.title}</span></p></Link>
+                            <Link to={`/myProject/${ele._id}`}><p key={ele._id} className='pb-0.5 ml-2 text-[14px] text-slate-800 hover:underline cursor-pointer'>{username}/<span>{ele.title}</span></p></Link>
                         )) :
                             <p className='m-3 text-[14px] text-gray-500'>No Project to show</p>}
                     </div>

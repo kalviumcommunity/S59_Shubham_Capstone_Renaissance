@@ -12,7 +12,9 @@ import ProjectInterface from './components/Projects/ProjectInterface'
 import NewChapter from './components/Projects/NewChapter'
 import ChapterInterface from './components/Chapters/ChapterInterface'
 import ForkedProjectInterface from './components/Projects/ForkedProjectInterface'
+import DailyArtist from './components/Landing-Page/DailyArtist';
 import RequestInterface from './components/UserAccount/RequestInterface';
+import UserProjectInterface from './components/Projects/UserProjectInterface';
 import Account from './components/UserAccount/Account';
 import GoogleAuth from './components/Loaders/GoogleAuth';
 import NavBar from './components/NavBar';
@@ -39,12 +41,14 @@ function App() {
         <Route path='/Loader' element={<Loader />} />
         <Route path='/welcome' element={<WelcomeLoader />} />
         <Route path='/project/:projectID' element={<ProjectInterface />} />
-        <Route path='/newChapter/:projectName/:forkID' element={<NewChapter />} />
+        <Route path='/newChapter/:projectName/:ID/:isPermit' element={<NewChapter />} />
         <Route path='/chapter/:projectName/:chapterID' element={<ChapterInterface />} />
         <Route path='/forkedProject/:forkID' element={<ForkedProjectInterface />} />
         <Route path='/userAccount/:userID' element={<Account />} />
         <Route path='/request/:requestID' element={<RequestInterface />} />
         <Route path='/success' element={<GoogleAuth setLogin={setLogin} isLogin={isLogin} />} />
+        <Route path='/DailyArtist' element={<DailyArtist />} />
+        <Route path='/myProject/:projectID' element={<UserProjectInterface />} />
       </Routes>
       <NavBar />
       <ToastContainer />

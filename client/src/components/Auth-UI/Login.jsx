@@ -12,7 +12,7 @@ function Login({ isLogin, setRegStatus, setLogin }) {
 
     useEffect(() => {
         if (isLogin) {
-            navigate('/')
+            navigate('/Dashboard')
         }
     }, [isLogin])
 

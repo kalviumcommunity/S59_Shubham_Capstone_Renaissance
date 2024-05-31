@@ -2,16 +2,18 @@ import ChapterEditor from '../Text-Editor/ChapterEditor'
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import getDate from '../../utils/getDate'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { postChapter } from '../../utils/apiUtils'
 import { toast } from 'react-toastify'
 import getUserDetails from '../../utils/getUserDetails'
+import { postChapterByOwner } from '../../utils/apiUtils'
 
 function NewChapter() {
     const [chapterName, setChapterName] = useState("New Chapter")
     const [currentDate, setCurrentDate] = useState("")
+    const navigate = useNavigate()
     const [content, setContent] = useState("")
-    const { projectName, forkID } = useParams()
+    const { projectName, ID, isPermit } = useParams()
 
     useEffect(() => {
         setCurrentDate(getDate())
@@ -22,18 +24,32 @@ function NewChapter() {
         e.preventDefault()
         const data = { title: chapterName, content: content, dateCreated: currentDate, userID: userID }
         console.log(data)
-        console.log(forkID)
-        postChapter(forkID, data)
-            .then(response => {
-                console.log("Response", response.data)
-                toast.success("Chapter Added!")
-            })
-            .catch(error => {
-                console.log(error.response)
-                toast.error("Something wrong happened. Try again later")
-            })
+        if (isPermit === 'true') {
+            console.log("hi")
+            postChapterByOwner(ID, data)
+                .then(response => {
+                    console.log("Response", response.data)
+                    navigate(-1)
+                    toast.success("Chapter posted!")
+                })
+                .catch(error => {
+                    console.log(error.response)
+                    toast.error("Something wrong happened. Try again later")
+                })
+        } else {
+            console.log("Hey")
+            postChapter(ID, data)
+                .then(response => {
+                    console.log("Response", response.data)
+                    navigate(-1)
+                    toast.success("Chapter Added!")
+                })
+                .catch(error => {
+                    console.log(error.response)
+                    toast.error("Something wrong happened. Try again later")
+                })
+        }
     }
-
     return (
         <>
             <header className="sticky top-0 w-full flex justify-between bg-[#3F5F4F] p-5 items-center shadow-lg z-10">
