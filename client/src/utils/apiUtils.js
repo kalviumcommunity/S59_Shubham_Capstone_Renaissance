@@ -91,3 +91,7 @@ export const fetchDataFromGoogleAuth = () => {
         withCredentials: true
     });
 };
+
+export const updateUser = (data, userID) => {
+    return axios.patch(`${import.meta.env.VITE_API_USER_URI}/update/${userID}`, data)
+}

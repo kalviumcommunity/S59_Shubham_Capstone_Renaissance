@@ -12,7 +12,7 @@ function UserInfoCard() {
     const userMail = getUserDetails('email')
     return (
         <div className="flex w-fit items-center">
-            <img src={profileImage} alt="default-profile" className="w-14 mr-3" />
+            <img src={profileImage} alt="default-profile" className="w-14 mr-3 rounded-full" />
             <div>
                 <p className="text-base">{userName}</p>
                 <p className="text-[12px]">{userMail}</p>

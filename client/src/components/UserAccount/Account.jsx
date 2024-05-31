@@ -50,9 +50,9 @@ function Account() {
                         ))}
                     </div>
                 </div>
-                <div className='mt-5'>
+                <div className='mt-3'>
                     <p className='text-sm text-slate-700 w-fit text-justify'>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis placeat vero saepe, impedit, beatae possimus dolore dolorum, deserunt itaque exercitationem id. Beatae, error perferendis. Quam reiciendis ipsa nostrum fugiat fuga.
+                        {userData.bio || "Hi! I appreciate art and would love to contribute and collaborate. :D"}
                     </p>
                 </div>
             </div>
