@@ -3,7 +3,7 @@ const router = express.Router()
 const { registerUser, updateUser, deleteUser, getUserProjects, loginUser, getForkedProjects, getOneUser, getProfileImage } = require('../controllers/userController')
 
 router.post('/register', registerUser)
-router.put('/update', updateUser)
+router.patch('/update/:userID', updateUser)
 router.delete('/delete/:mail', deleteUser)
 router.post('/login', loginUser)
 router.get('/user-project/:id', getUserProjects)

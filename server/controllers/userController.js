@@ -43,7 +43,7 @@ const getOneUser = async (req, res) => {
             console.log("User not found")
             return res.status(404).json({ message: "User not found" })
         }
-        const userdata = { email: findUser.email, projects: findUser.projects, occupations: findUser.occupations, username: findUser.username, profileImage: findUser.profileImage }
+        const userdata = { email: findUser.email, projects: findUser.projects, occupations: findUser.occupations, username: findUser.username, profileImage: findUser.profileImage, phNumber: findUser.phNumber, location: findUser.location, bio: findUser.bio }
         res.status(200).json(userdata)
     }
     catch (error) {
@@ -55,19 +55,19 @@ const getOneUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        if (!checkValidation(req.body, userStruc)) {
-            console.log("Data Failed the validation")
-            return res.status(400).json({ message: "Data validation failed. Please add data as per the norms" })
-        }
-        const findUser = await userModel.findOne({ email: req.body.email })
+        const userID = req.params.userID
+        const findUser = await userModel.findById(userID)
         if (!findUser) {
             console.log("User doesn't exist")
             return res.status(404).json({ message: "User doesn't exist" })
         }
-        findUser.username = req.body.username
-        findUser.email = req.body.email
-        findUser.occupations = req.body.occupations
-        findUser.password = req.body.password
+        if (req.body.username) findUser.username = req.body.username
+        if (req.body.email) findUser.email = req.body.email
+        if (req.body.occupations) findUser.occupations = req.body.occupations
+        if (req.body.password) findUser.password = req.body.password
+        if (req.body.location) findUser.location = req.body.location
+        if (req.body.bio) findUser.bio = req.body.bio
+        if (req.body.phNumber) findUser.phNumber = req.body.phNumber
 
         await findUser.save()
         res.status(200).json(findUser)

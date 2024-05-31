@@ -5,7 +5,7 @@ import { pullChapter } from "../../utils/apiUtils"
 import RequestEditor from "../Text-Editor/RequestEditor"
 import getUserDetails from "../../utils/getUserDetails"
 
-function UploadChapter({ projectID, chapterID, userID, setUploadChapter, contributerName, projectName }) {
+function UploadChapter({ projectID, chapterID, userID, setUploadChapter , contributerName, projectName }) {
     const [message, setMessage] = useState(null)
     const setPullRequest = () => {
         const date = getDate()

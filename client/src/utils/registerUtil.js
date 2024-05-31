@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const registerUtil = (data) => {
-    axios.post('http://localhost:8080/user/register', data)
+    axios.post(`${import.meta.env.VITE_API_USER_URI}/register`, data)
         .then(response => {
             console.log("Response", response.data)
         })

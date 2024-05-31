@@ -30,14 +30,26 @@ const userSchema = new mongoose.Schema({
     },
     occupations: {
         type: Array,
-        default : ['amateur']
+        default: ['amateur']
     },
     password: {
         type: String
     },
-    profileImage : {
-        type : String,
-        default : './public/userDisplayImages/default-profile-image.png',
+    profileImage: {
+        type: String,
+        default: './public/userDisplayImages/default-profile-image.png',
+        required: false
+    },
+    location: {
+        type: String,
+        required: false
+    },
+    bio: {
+        type: String,
+        required: false
+    },
+    phNumber : {
+        type : Number,
         required : false
     }
 })

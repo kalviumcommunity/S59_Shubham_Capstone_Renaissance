@@ -3,7 +3,7 @@ import setCookie from './setCookie'
 import { toast } from 'react-toastify'
 
 const loginUtil = (data, setLoginStatus, setLogin) => {
-    axios.post('http://localhost:8080/user/login', data)
+    axios.post(`${import.meta.env.VITE_API_USER_URI}/login`, data)
         .then(response => {
             try {
                 setCookie('accessToken', response.data.accessToken, 1)
