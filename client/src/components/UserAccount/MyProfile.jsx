@@ -50,8 +50,11 @@ function MyProfile({ userID }) {
                         return
                     }
                     updateUser(data, userID)
-                        .then(response => console.log(response.data))
-                        .catch(error => console.log(error))
+                        .then(response => toast.success("Profile updated Successfully!"))
+                        .catch(error => {
+                            console.log(error)
+                            toast.error("Failed to update. Try again later. ")
+                        })
 
                 })}>
                 <h1 className="text-xl text-slate-700 font-bold ml-1.5">My Profile</h1>
