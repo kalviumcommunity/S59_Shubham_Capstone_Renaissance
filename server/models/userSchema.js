@@ -48,9 +48,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    phNumber : {
-        type : Number,
-        required : false
+    phNumber: {
+        type: Number,
+        required: false
+    },
+    Likes: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user'
+        }],
+        default: []
     }
 })
 

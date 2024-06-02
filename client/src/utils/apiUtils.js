@@ -99,3 +99,19 @@ export const updateUser = (data, userID) => {
 export const postChapterByOwner = (projectID, data) => {
     return axios.post(`${import.meta.env.VITE_API_CHAPTER_URI}/post-chapter/${projectID}`, data)
 }
+
+export const getNoOfLikesForProject = (projectID) => {
+    return axios.get(`${import.meta.env.VITE_API_SOCIAL_URI}/likes-for-project/${projectID}`)
+}
+
+export const getNoOfLikesForUser = (userID) => {
+    return axios.get(`${import.meta.env.VITE_API_SOCIAL_URI}/likes-for-user/${userID}`)
+}
+
+export const likeProject = (projectID, userID) => {
+    return axios.post(`${import.meta.env.VITE_API_SOCIAL_URI}/likes-project/${projectID}/${userID}`)
+}
+
+export const checkIfLiked = (projectID, userID) => {
+    return axios.get(`${import.meta.env.VITE_API_SOCIAL_URI}/check-liked/${projectID}/${userID}`)
+}
