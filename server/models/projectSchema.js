@@ -43,7 +43,7 @@ const projectSchema = mongoose.Schema({
     Likes :{
         type : [{
             type : mongoose.Schema.Types.ObjectId,
-            ref : 'user'
+            ref : 'project'
         }],
         default : []
     }

@@ -3,6 +3,7 @@ import likeIcon from '../assets/like-icon.png'
 import likedIcon from '../assets/liked-icon.png'
 import { getNoOfLikesForProject, likeProject, checkIfLiked } from '../utils/apiUtils'
 import getUserDetails from '../utils/getUserDetails'
+import { toast } from 'react-toastify'
 
 function SocialBar({ projectID }) {
     const [likes, setLikes] = useState(0)
@@ -21,15 +22,19 @@ function SocialBar({ projectID }) {
             .then(response => {
                 setLikes(response.data.likes)
                 setCanLike(false)
+                toast.success("You Liked a Project!")
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                toast.error("Failed to Like. Try again Later.")
+                console.log(error)
+            })
     }
 
     const checkLike = () => {
         checkIfLiked(projectID, userID)
-            .then(response => {if(response.status === 200) {setCanLike(true)}})
+            .then(response => { if (response.status === 200) { setCanLike(true) } })
             .catch(error => {
-                if(error.response.status === 409) setCanLike(false)
+                if (error.response.status === 409) setCanLike(false)
                 else console.log(error)
             })
     }
@@ -39,7 +44,7 @@ function SocialBar({ projectID }) {
             {canLike ?
                 <img src={likeIcon} alt="likeProject" className='w-8' onClick={() => handleLikeAction()} />
                 :
-                <img src={likedIcon} alt="likedProject" className='w-8'/>
+                <img src={likedIcon} alt="likedProject" className='w-8' />
             }
             <p className='text-[13px] mt-1.5 text-slate-600'>{likes} Upvotes</p>
         </div>
