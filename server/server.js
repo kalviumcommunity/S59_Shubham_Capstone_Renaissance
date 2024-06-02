@@ -1,6 +1,6 @@
 const express = require('express')
-const session=require("express-session")
-const passport=require("passport")
+const session = require("express-session")
+const passport = require("passport")
 const connectToDB = require('./config/db')
 const cors = require('cors')
 const app = express()
@@ -15,6 +15,7 @@ const pullRoutes = require('./routes/pullRoutes')
 const forkRoutes = require('./routes/forkRoutes')
 const fileRoutes = require('./routes/fileUpload')
 const googleRoutes = require('./routes/googleRoutes')
+const socialRoutes = require('./routes/SocialRoutes')
 
 connectToDB()
 const corsOptions = {
@@ -26,11 +27,11 @@ const corsOptions = {
 app.use(cors())
 app.use(cors(corsOptions))
 app.use(
-    session({
-      secret: SESSION_SECRET,
-      resave: false,
-      saveUninitialized: false,
-    })
+  session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
 )
 app.use(passport.initialize())
 app.use(passport.session())
@@ -44,7 +45,8 @@ app.use('/chapter', chapterRoutes)
 app.use('/pull', pullRoutes)
 app.use('/fork', forkRoutes)
 app.use('/google-auth', googleRoutes)
+app.use('/socials', socialRoutes)
 
 app.listen(PORT, () => {
-    console.log("Listening at Port", PORT)
+  console.log("Listening at Port", PORT)
 })

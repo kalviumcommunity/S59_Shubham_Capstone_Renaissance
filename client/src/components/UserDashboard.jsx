@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom'
 import searchIcon from '../assets/search-icon.png'
 import deVanGoghDoodle from '../assets/van-gogh.png'
 import keatsDoodle from '../assets/keats-doodle.jpeg'
-import statsIcon from '../assets/stats-icon.png'
 import deBonaparte from '../assets/deBonaparte.jpg'
 import Loader from './Loaders/Loader'
 import getUserDetails from '../utils/getUserDetails'
+import SocialBar from './SocialBar'
+import UserStats from './UserStats'
 
 function UserDashboard() {
     const [userProjects, setUserProjects] = useState([])
@@ -154,15 +155,7 @@ function UserDashboard() {
 
                     <div className='bg-[#97D4A6] mt-5 w-full h-[150px] rounded relative py-5 px-5'>
                         <h1 className='text-3xl font-bold'>Hey! Let's see your <span className='text-[#3F5F4F]'> Stats</span></h1>
-                        <div className='flex justify-center items-center w-fit'>
-                            <img src={statsIcon} alt="stats" className='w-[60px] mt-3' />
-                            <div className='w-2 h-[60px] bg-[#3F5F4F] ml-3 mt-3' />
-                            <div className='text-sm text-smibold pl-3 pt-1.5'>
-                                <p><span className='font-bold'>23</span> Likes</p>
-                                <p><span className='font-bold'>23</span> Contributions</p>
-                                <p><span className='font-bold'>23</span> Projects</p>
-                            </div>
-                        </div>
+                        <UserStats/>
                         <img src={deVanGoghDoodle} alt="van-gogh" className='w-[200px] absolute right-0 top-[-50px]' />
                         <div className='bg-white bg-opacity-70 w-[300px] absolute right-[160px] top-[10%] rounded text-sm text-slate-700 py-3 px-5'>Great things are not done by impulse, but by a series of small things brought together. <div className='mt-3'>- Vincent Van Gogh </div></div>
                     </div>
@@ -202,25 +195,28 @@ function UserDashboard() {
                     </div>
                     <div className='flex flex-col'>
                         {filter.filteredProjects && filter.filteredProjects.map(project => (
-                            <Link to={`/project/${project._id}`}> <div className='bg-white m-3 rounded-xl px-5 py-8 shadow-lg flex flex-col justify-center'>
-                                <div className='flex'>
-                                    <img src={deBonaparte} alt="deBonaparte" className='rounded-full w-20 h-20 shadow-lg' />
-                                    <div className='p-3'>
-                                        <h1 className='font-bold text-lg'>{project.projectOwnerName}</h1>
-                                        <p className='text-slate-700 text-[12px]'>Creative Writer, Author, Director</p>
-                                    </div>
-                                    {project.tags.map(tag => (
-                                        <button className='bg-gray-100 w-fit h-fit text-[14px] px-3 py-0.5 rounded ml-3 mt-1.5'>{tag}</button>
-                                    ))}
-                                    <button className='bg-[#3F5F4F] w-fit h-fit text-[14px] px-3 py-0.5 rounded ml-3 mt-1.5 text-white'>{project.status}</button>
-                                </div>
-                                <h1 className='font-bold mt-5'>{project.title}</h1>
-                                <p className='text-slate-700 text-sm'>{project.description}</p>
+                            <div className='bg-white m-3 rounded-xl px-5 py-8 shadow-lg flex items-start justify-between'>
                                 <div>
-                                    <button className='bg-[#3F5F4F] w-fit h-fit text-[13px] px-3 py-1.5 rounded mt-2 text-white'>View Project</button>
-                                    <button className='text-[#3F5F4F] font-semibold border border-[1.5px] border-[#3F5F4F] text-[13px] px-3 py-[5px] rounded mt-2 ml-1.5'>About organisation</button>
+                                    <div className='flex'>
+                                        <img src={deBonaparte} alt="deBonaparte" className='rounded-full w-20 h-20 shadow-lg' />
+                                        <div className='p-3'>
+                                            <h1 className='font-bold text-lg'>{project.projectOwnerName}</h1>
+                                            <p className='text-slate-700 text-[12px]'>Creative Writer, Author, Director</p>
+                                        </div>
+                                        {project.tags.map(tag => (
+                                            <button className='bg-gray-100 w-fit h-fit text-[14px] px-3 py-0.5 rounded ml-3 mt-1.5'>{tag}</button>
+                                        ))}
+                                        <button className='bg-[#3F5F4F] w-fit h-fit text-[14px] px-3 py-0.5 rounded ml-3 mt-1.5 text-white'>{project.status}</button>
+                                    </div>
+                                    <h1 className='font-bold mt-5'>{project.title}</h1>
+                                    <p className='text-slate-700 text-sm'>{project.description}</p>
+                                    <div>
+                                        <Link to={`/project/${project._id}`}><button className='bg-[#3F5F4F] w-fit h-fit text-[13px] px-3 py-1.5 rounded mt-2 text-white' >View Project</button></Link>
+                                        <button className='text-[#3F5F4F] font-semibold border border-[1.5px] border-[#3F5F4F] text-[13px] px-3 py-[5px] rounded mt-2 ml-1.5'>About organisation</button>
+                                    </div>
                                 </div>
-                            </div> </Link>
+                                <SocialBar projectID={project._id}/>
+                            </div>
                         ))
                         }
                     </div>

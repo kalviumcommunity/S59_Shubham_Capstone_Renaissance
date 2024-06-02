@@ -5,6 +5,7 @@ import { getOneUser, fetchUserProjects } from '../../utils/apiUtils'
 import Requests from './Requests'
 import MyProfile from './MyProfile'
 import { showProfileImage } from '../../utils/getProfileImage'
+import UserStats from '../UserStats'
 
 function Account() {
     const [isOverview, setIsOverview] = useState(true)
@@ -69,9 +70,7 @@ function Account() {
                         <h1 className='text-2xl font-bold text-slate-700'>Overview</h1>
                         <p className='text-justify text-sm text-slate-700 mt-3'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In voluptate vel, necessitatibus cum omnis, quas ullam voluptates nemo reprehenderit suscipit similique blanditiis eos iste. Veritatis minima omnis a nemo rem?</p>
                         <h1 className='text-2xl font-bold text-slate-700 mt-8'>Statistics</h1>
-                        <p className='text-justify text-sm text-slate-700 mt-1.5'>500 Likes</p>
-                        <p className='text-justify text-sm text-slate-700 mt-1.5'>1000 Projects</p>
-                        <p className='text-justify text-sm text-slate-700 mt-1.5'>20 Contributions</p>
+                        <UserStats />
                     </div>
                 }
                 {isProjects &&
