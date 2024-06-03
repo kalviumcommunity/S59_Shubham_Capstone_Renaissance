@@ -51,7 +51,8 @@ function ProjectInterface() {
         getContributors(projectID)
             .then(response => setContributers(response.data))
             .catch(error => {
-                console.log(error)
+                console.log("Error fetching the contributors list:", error)
+                toast.error("Could not fetch Contributors. Try again later.")
             })
         const checkForkedHelper = async () => {
             const forked = await checkForked(projectID);
