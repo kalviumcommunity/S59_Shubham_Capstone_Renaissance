@@ -87,4 +87,19 @@ const getLatestData = async (req, res) => {
     }
 };
 
-module.exports = { getData, getOneData, postData, deleteData, getLatestData }
+const getContributorsList = async (req, res) => {
+    const projectID = req.params.projectID
+    try {
+        const project = await projectModel.findById(projectID)
+        if(!project) return res.status(404).json({message : "No Project Found"})
+        const contributorsIDs = project.contributors
+        const contributors = await userModel.find({ _id: { $in: contributorsIDs } }, 'username')
+        res.status(200).json(contributors)
+    }
+    catch (error) {
+        console.log("Error getting the contributers:", error)
+        res.status(500).json({ message: "Error fetching contributers. Try again later." })
+    }
+}
+
+module.exports = { getData, getOneData, postData, deleteData, getLatestData, getContributorsList }

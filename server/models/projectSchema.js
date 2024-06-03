@@ -17,9 +17,12 @@ const projectSchema = mongoose.Schema({
         type : Array,
         required : true
     },
-    contributors : {
-        type : Array,
-        required : false
+    contributors :{
+        type : [{
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'user'
+        }],
+        default : []
     },
     status : {
         type : String,

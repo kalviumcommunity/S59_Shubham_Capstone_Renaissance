@@ -115,3 +115,7 @@ export const likeProject = (projectID, userID) => {
 export const checkIfLiked = (projectID, userID) => {
     return axios.get(`${import.meta.env.VITE_API_SOCIAL_URI}/check-liked/${projectID}/${userID}`)
 }
+
+export const getContributors = (projectID) => {
+    return axios.get(`${import.meta.env.VITE_API_PROJECT_URI}/get-contributers/${projectID}`)
+}
