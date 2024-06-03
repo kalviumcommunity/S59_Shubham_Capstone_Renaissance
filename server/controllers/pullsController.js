@@ -71,7 +71,8 @@ const clearpull = async (req, res) => {
         }
         const projectID = pullToClear.projectID
         const updatedChapter = pullToClear.updatedChapter
-        await projectModel.updateOne({ _id: projectID }, { $push: { chapters: updatedChapter } })
+        const contributorID = pullToClear.contributerID
+        await projectModel.updateOne({ _id: projectID }, { $push: { chapters: updatedChapter, contributors: contributorID } })
         await userModel.updateMany({ pulls: pullID }, { $pull: { pulls: pullID } })
             .catch(async error => {
                 console.log("Error clearing pull from user's account:", error)
@@ -83,7 +84,7 @@ const clearpull = async (req, res) => {
 
     }
     catch (error) {
-        await pullModel.findByIdAndUpdate(pullID, {$set : {deleted : false}})
+        await pullModel.findByIdAndUpdate(pullID, { $set: { deleted: false } })
         console.log(error)
         res.status(500).json({ message: "pull failed. Try again later." })
     }

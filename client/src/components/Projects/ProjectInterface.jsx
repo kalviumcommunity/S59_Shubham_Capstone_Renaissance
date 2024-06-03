@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { fetchChapters, fetchProject, forkProject, checkForkDone } from '../../utils/apiUtils'
+import { fetchChapters, fetchProject, forkProject, checkForkDone, getContributors } from '../../utils/apiUtils'
 import { Link } from 'react-router-dom'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
@@ -15,14 +15,13 @@ import UserInfoCard from '../UserInfoCard'
 function ProjectInterface() {
     const [project, setProject] = useState(null)
     const [chapters, setChapters] = useState([])
-    const [username, setUserName] = useState("")
+    const [contributers, setContributers] = useState(null)
     const [fork, setFork] = useState(false)
     const { projectID } = useParams()
     const userID = getUserDetails("userID")
 
     useEffect(() => {
         const username = getUserDetails('userName')
-        setUserName(username)
         fetchProject(projectID)
             .then(response => {
                 setProject(response.data)
@@ -48,6 +47,11 @@ function ProjectInterface() {
                     console.log("Some error occurred. Try Again Later", error)
                     toast.error("Some error occurred fetching the project. Try again later.")
                 }
+            })
+        getContributors(projectID)
+            .then(response => setContributers(response.data))
+            .catch(error => {
+                console.log(error)
             })
         const checkForkedHelper = async () => {
             const forked = await checkForked(projectID);
@@ -152,9 +156,15 @@ function ProjectInterface() {
                                 </div>
                             }
                         </div>
-                        <div className='w-[500px] h-fit bg-[#97D4A6] py-8 rounded px-8 m-3'>
-                            <h3 className='font-bold text-lg'>About</h3>
-                            <p className='text-sm rounded mt-3'>{project.description && project.description}</p>
+                        <div className='w-[40vw]'>
+                            <div className='h-fit bg-[#97D4A6] rounded p-5 m-3'>
+                                <h3 className='font-bold text-lg'>About</h3>
+                                <p className='text-sm rounded mt-3'>{project.description && project.description}</p>
+                            </div>
+                            <div className='h-fit bg-gray-100 border border-gray-300 rounded p-5 m-3'>
+                                <h3 className='font-bold text-lg'>Contributors</h3>
+                                <p className='text-sm rounded mt-3 text-slate-600' title="View Profile ->">{contributers && contributers.map(contributer => <div className='hover:underline cursor-pointer'>{contributer.username}</div>)}</p>
+                            </div>
                         </div>
                     </div>
                     <hr className='mt-8 mb-1.5 text-justify' />
