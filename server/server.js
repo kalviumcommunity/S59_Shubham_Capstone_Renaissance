@@ -16,6 +16,7 @@ const forkRoutes = require('./routes/forkRoutes')
 const fileRoutes = require('./routes/fileUpload')
 const googleRoutes = require('./routes/googleRoutes')
 const socialRoutes = require('./routes/SocialRoutes')
+const cookieParser = require('cookie-parser')
 
 connectToDB()
 const corsOptions = {
@@ -24,7 +25,6 @@ const corsOptions = {
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   allowedHeaders: 'Content-Type,Authorization'
 };
-app.use(cors())
 app.use(cors(corsOptions))
 app.use(
   session({
@@ -33,6 +33,7 @@ app.use(
     saveUninitialized: false,
   })
 )
+app.use(cookieParser())
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(express.static('public'))

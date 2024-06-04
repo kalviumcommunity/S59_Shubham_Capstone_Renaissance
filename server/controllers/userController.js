@@ -164,4 +164,21 @@ const getProfileImage = async (req, res) => {
     }
 }
 
-module.exports = { registerUser, updateUser, deleteUser, loginUser, getUserProjects, getForkedProjects, getOneUser, getProfileImage }
+const logoutUser = async (req, res) => {
+    const token = req.cookies.accessToken
+    const sessionID = req.cookies['connect.sid']
+    if (!token) return res.status(401).json({ message: "No token provided" })
+    try {
+        jwt.verify(token, SECRET)
+        res.clearCookie('accessToken')
+        if (sessionID) res.clearCookie('connect.sid')
+        res.status(200).json({ message: "Logout Successful!" })
+    }
+    catch (error) {
+        console.log("Error logging out:", error)
+        res.status(401).json({ message: "Logout failed!" })
+    }
+
+}
+
+module.exports = { registerUser, updateUser, deleteUser, loginUser, getUserProjects, getForkedProjects, getOneUser, getProfileImage, logoutUser }
