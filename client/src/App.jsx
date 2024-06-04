@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from 'react-router-dom'
@@ -24,12 +25,18 @@ import './App.css'
 
 function App() {
   const [isLogin, setLogin] = useState(false)
-
+  const navigate = useNavigate()
   useEffect(() => {
     if (getCookie('accessToken')) {
       setLogin(true)
     }
   }, [])
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate('/')
+    }
+  }, [isLogin])
 
   return (
     <>
@@ -44,7 +51,7 @@ function App() {
         <Route path='/newChapter/:projectName/:ID/:isPermit' element={<NewChapter />} />
         <Route path='/chapter/:projectName/:chapterID' element={<ChapterInterface />} />
         <Route path='/forkedProject/:forkID' element={<ForkedProjectInterface />} />
-        <Route path='/userAccount/:userID' element={<Account />} />
+        <Route path='/userAccount/:userID' element={<Account setLogin={setLogin} isLogin={isLogin} />} />
         <Route path='/request/:requestID' element={<RequestInterface />} />
         <Route path='/success' element={<GoogleAuth setLogin={setLogin} isLogin={isLogin} />} />
         <Route path='/DailyArtist' element={<DailyArtist />} />
