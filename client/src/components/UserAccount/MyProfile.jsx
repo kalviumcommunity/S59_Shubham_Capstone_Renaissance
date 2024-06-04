@@ -6,7 +6,7 @@ import { showProfileImage } from '../../utils/getProfileImage'
 import Loader from '../Loaders/Loader'
 import { toast } from 'react-toastify'
 
-function MyProfile({ userID, setLogin }) {
+function MyProfile({ userID, setLogin, isLogin }) {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [userData, setUserData] = useState(null)
     const [selProfile, setSelFile] = useState("")
@@ -60,7 +60,7 @@ function MyProfile({ userID, setLogin }) {
                 })}>
                 <div className='flex justify-between items-center mb-3'>
                     <h1 className="text-xl text-slate-700 font-bold ml-1.5">My Profile</h1>
-                    <button type='button' className="bg-red-200 ml-1.5 text-sm border border-red-500 mr-5 rounded py-1.5 px-5" title="Logout" onClick={() => logoutUtil(setLogin)}>Logout</button>
+                    {isLogin ? null : <button type='button' className="bg-red-200 ml-1.5 text-sm border border-red-500 mr-5 rounded py-1.5 px-5" title="Logout" onClick={() => logoutUtil(setLogin)}>Logout</button>}
                 </div>
                 <p className='text-[13px] text-gray-400 mb-5 ml-1.5 text-justify'>You can see your current profile data. If you wish to update it, write the new data in the respective field and click the button in the bottom to update it! To update the profile picture, select the new picture and upload from the device and select change!</p>
                 <div className="white shadow rounded py-10 px-8 bg-white my-5">

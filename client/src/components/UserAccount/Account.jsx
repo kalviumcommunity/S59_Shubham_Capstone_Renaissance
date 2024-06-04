@@ -7,7 +7,7 @@ import MyProfile from './MyProfile'
 import { showProfileImage } from '../../utils/getProfileImage'
 import UserStats from '../UserStats'
 
-function Account({setLogin}) {
+function Account({setLogin, isLogin}) {
     const [isOverview, setIsOverview] = useState(true)
     const [isProjects, setIsProjects] = useState(false)
     const [isContacts, setIsContacts] = useState(false)
@@ -99,7 +99,7 @@ function Account({setLogin}) {
                 }
                 {
                     isProfile &&
-                    <MyProfile userID={userID} setLogin={setLogin} />
+                    <MyProfile userID={userID} setLogin={setLogin} isLogin={isLogin}/>
                 }
             </div>
         </div>
