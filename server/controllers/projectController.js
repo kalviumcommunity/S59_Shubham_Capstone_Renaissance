@@ -1,5 +1,8 @@
 const projectModel = require('../models/projectSchema')
 const userModel = require('../models/userSchema')
+const chapterModel = require('../models/chapterSchema')
+const pullModel = require('../models/pullSchema')
+const forkModel = require('../models/forkSchema')
 const checkValidation = require('../validation/checkValidation')
 const projectStruc = require('../validation/projectValidation')
 
@@ -60,19 +63,49 @@ const postData = async (req, res) => {
 
 const deleteData = async (req, res) => {
     try {
-        const projectId = req.params.id
-        const projectToDelete = await projectModel.findByIdAndDelete(projectId);
+        const projectID = req.params.id
+        const projectToDelete = await projectModel.findById(projectID);
         if (!projectToDelete) {
             console.log("Project does not exist")
             return res.status(404).json({ message: "Project not found. Check the id" })
         }
+        const chapters = projectToDelete.chapters
+        for (const chapterID of chapters) {
+            await chapterModel.findByIdAndDelete(chapterID)
+        }
+        const forksToDelete = await forkModel.find({ projectID })
+        for (const fork of forksToDelete) {
+            await userModel.updateMany(
+                { forkedProjects: fork._id },
+                { $pull: { forkedProjects: fork._id } }
+            )
+            await forkModel.findByIdAndDelete(fork._id)
+        }
+        await pullModel.deleteMany({ projectID: projectID })
+        await chapterModel.deleteMany({ projectID: projectID })
+        await projectModel.findByIdAndDelete(projectID)
         console.log("Project deleted successfully")
-        res.status(200).json({ message: "Project deleted successfully" })
-
+        res.status(204).send()
     }
     catch (error) {
         console.log(error)
         res.status(500).json({ message: "Deletion failed. Try again later." })
+    }
+}
+
+const updateData = async (req, res) => {
+    const projectID = req.params.id
+    try {
+        const project = await projectModel.findById(projectID)
+        if (!project) return res.status(404).json({ message: "Project Not Found" })
+        if (req.body.title) project.title = req.body.title
+        if (req.body.description) project.description = req.body.description
+        await project.save()
+        res.status(200).json(project)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Updation failed. Try again later." })
     }
 }
 
@@ -91,7 +124,7 @@ const getContributorsList = async (req, res) => {
     const projectID = req.params.projectID
     try {
         const project = await projectModel.findById(projectID)
-        if(!project) return res.status(404).json({message : "No Project Found"})
+        if (!project) return res.status(404).json({ message: "No Project Found" })
         const contributorsIDs = project.contributors
         const contributors = await userModel.find({ _id: { $in: contributorsIDs } }, 'username')
         res.status(200).json(contributors)
@@ -102,4 +135,4 @@ const getContributorsList = async (req, res) => {
     }
 }
 
-module.exports = { getData, getOneData, postData, deleteData, getLatestData, getContributorsList }
+module.exports = { getData, getOneData, postData, deleteData, getLatestData, getContributorsList, updateData }

@@ -1,17 +1,20 @@
 import UserInfoCard from '../UserInfoCard'
-import { fetchProject } from '../../utils/apiUtils'
-import { fetchChapters } from '../../utils/apiUtils'
+import { fetchChapters, getContributors, fetchProject, deleteProject, updateProject } from '../../utils/apiUtils'
 import emilySearchDoodle from '../../assets/emily-doodle.jpeg'
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import Loader from '../Loaders/Loader'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { useParams } from 'react-router-dom'
 
 function UserProjectInterface() {
     const { projectID } = useParams()
     const [project, setProject] = useState(null)
+    const [contributers, setContributers] = useState(null)
     const [chapters, setChapters] = useState(null)
+    const [isUpdate, setIsUpdate] = useState(false)
+    const [changes, setChanges] = useState({ title: "", description: "" })
     useEffect(() => {
         fetchProject(projectID)
             .then(response => {
@@ -22,7 +25,44 @@ function UserProjectInterface() {
                 setChapters(response.data)
             })
             .catch(error => console.log(error))
+        getContributors(projectID)
+            .then(response => setContributers(response.data))
+            .catch(error => {
+                console.log("Error fetching the contributors list:", error)
+                toast.error("Could not fetch Contributors. Try again later.")
+            })
     }, [])
+
+    const isAnyFieldNotEmpty = (object) => {
+        return Object.keys(object).some(key => object[key] !== '');
+    }
+
+    const handleDeleteProject = () => {
+        deleteProject(projectID)
+            .then(response => {
+                toast.success("Project Deleted.")
+            })
+            .catch(error => {
+                console.log(error)
+                toast.error("Something wrong happened. Try again later")
+            })
+    }
+
+    const handleUpdate = () => {
+        const data = changes;
+        if (!isAnyFieldNotEmpty(data)) {
+            toast.error("Fill all fields")
+            return;
+        }
+        updateProject(projectID, data)
+            .then(response => {
+                toast.success("Project Updated.")
+            })
+            .catch(error => {
+                console.log(error)
+                toast.error("Something wrong happened. Try again later")
+            })
+    }
     return (
         project && chapters ?
             <div>
@@ -51,7 +91,7 @@ function UserProjectInterface() {
                             <div className='flex justify-between items-center mt-5'>
                                 <input type="text" className='border border-gray-300 rounded px-2 py-1.5 h-fit text-sm mr-5 bg-gray-100 w-[500px]' placeholder='Search chapter here' />
                                 <div className='flex'>
-                                    <Link to={`/newChapter/${project.title}/${project._id}/true`}>`<button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button>`</Link>
+                                    <Link to={`/newChapter/${project.title}/${null}/${project._id}/true`}>`<button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button>`</Link>
                                     <button className="border border-[#3F5F4F] text-sm text-[#3F5F4F] px-3 py-1.5 rounded">Create Branch</button>
                                 </div>
                             </div>
@@ -73,9 +113,26 @@ function UserProjectInterface() {
                                 </div>
                             }
                         </div>
-                        <div className='w-[500px] h-fit bg-[#97D4A6] py-8 rounded px-8 m-3'>
-                            <h3 className='font-bold text-lg'>About</h3>
-                            <p className='text-sm rounded mt-3'>{project.description && project.description}</p>
+                        <div className='w-[40vw]'>
+                            <div className='mt-5 ml-3'>
+                                <button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded" onClick={() => setIsUpdate(!isUpdate)}>Update Project</button>
+                                <button className="bg-red-200 border border-red-500 text-sm text-red-700 px-3 py-1.5 rounded ml-5" onClick={() => handleDeleteProject()}>Delete Project</button>
+                            </div>
+                            {isUpdate &&
+                                <div className='h-fit bg-gray-100 border border-gray-300 rounded p-5 m-3'>
+                                    <h3 className='text-lg font-bold text-slate-700 ml-3 mb-5'>Update Title & Description</h3>
+                                    <input className='py-1.5 px-5 w-full rounded text-sm mb-3 border' onChange={(e) => setChanges(prevChanges => ({ ...prevChanges, title: e.target.value }))} placeholder="Enter new title" />
+                                    <textarea className='py-1.5 px-5 w-full rounded text-sm border' onChange={(e) => setChanges(prevChanges => ({ ...prevChanges, description: e.target.value }))} placeholder="Enter new description" />
+                                    <button type="button" className="bg-slate-700 text-[12px] px-5 py-1.5 mt-3 rounded text-slate-100" onClick={() => handleUpdate()}>Save Changes</button>
+                                </div>}
+                            <div className='h-fit bg-[#97D4A6] rounded p-5 m-3'>
+                                <h3 className='font-bold text-lg'>About</h3>
+                                <p className='text-sm rounded mt-3'>{project.description && project.description}</p>
+                            </div>
+                            <div className='h-fit bg-gray-100 border border-gray-300 rounded p-5 m-3'>
+                                <h3 className='font-bold text-lg'>Contributors</h3>
+                                <p className='text-sm rounded mt-3 text-slate-600' title="View Profile ->">{contributers && contributers.map(contributer => <div className='hover:underline cursor-pointer'>{contributer.username}</div>)}</p>
+                            </div>
                         </div>
                     </div>
                     <hr className='mt-8 mb-1.5 text-justify' />

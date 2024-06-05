@@ -13,7 +13,7 @@ function NewChapter() {
     const [currentDate, setCurrentDate] = useState("")
     const navigate = useNavigate()
     const [content, setContent] = useState("")
-    const { projectName, ID, isPermit } = useParams()
+    const { projectName, forkID, projectID, isPermit } = useParams()
 
     useEffect(() => {
         setCurrentDate(getDate())
@@ -26,7 +26,7 @@ function NewChapter() {
         console.log(data)
         if (isPermit === 'true') {
             console.log("hi")
-            postChapterByOwner(ID, data)
+            postChapterByOwner(projectID, data)
                 .then(response => {
                     console.log("Response", response.data)
                     navigate(-1)
@@ -38,7 +38,7 @@ function NewChapter() {
                 })
         } else {
             console.log("Hey")
-            postChapter(ID, data)
+            postChapter(forkID, projectID, data)
                 .then(response => {
                     console.log("Response", response.data)
                     navigate(-1)

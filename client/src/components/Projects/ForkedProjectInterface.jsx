@@ -102,7 +102,7 @@ function ForkedProjectInterface() {
                             <div className='flex justify-between items-center mt-5'>
                                 <input type="text" className='border border-gray-300 rounded px-2 py-1.5 h-fit text-sm mr-5 bg-gray-100 w-[500px]' placeholder='Search chapter here' />
                                 <div className='flex'>
-                                    <Link to={`/newChapter/${originalProject.title}/${forkID}/false`}>`<button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button>`</Link>
+                                    <Link to={`/newChapter/${originalProject.title}/${forkID}/${originalProject._id}/false`}>`<button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button>`</Link>
                                     <button className="border border-[#3F5F4F] text-sm text-[#3F5F4F] px-3 py-1.5 rounded">Create Branch</button>
                                 </div>
                             </div>

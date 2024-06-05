@@ -20,6 +20,11 @@ const chapterSchema = mongoose.Schema({
     isApproved: {
         type: Boolean,
         default: false
+    },
+    projectID : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'project',
+        required : false
     }
 })
 
