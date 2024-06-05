@@ -1,37 +1,62 @@
-import deBonaparte from '../assets/deBonaparte.jpg'
+import github_logo from '../assets/socials/github.png'
+import insta_logo from '../assets/socials/insta.png'
+import linkedin_logo from '../assets/socials/linkedin.png'
+
 function Footer() {
     return (
         <footer>
-            <div className="flex justify-between px-20 mt-10 py-14 bg-[#97D4A6] border-t border-[#3F5F4F]">
+            <div className="px-20 mt-10 pt-14 bg-gray-100 border-t">
                 <div>
-                    <h3 className="font-bold text-2xl text-[#3F5F4F] ml-2">Important Links</h3>
-                    <ul>
-                        <li className="p-2 mt-5">Explore literary pieces here</li>
-                        <li className="p-2">Terms and conditions</li>
-                        <li className="p-2">Privacy Policy</li>
-                        <li className="p-2">Credits and Acknowledgements</li>
-
-                    </ul>
+                    <h3 className='font-bold text-2xl text-slate-900'>Renaissance</h3>
+                    <p className='text-[13px] text-slate-500'>Movement that changed the fate of the continent sunken into backwaters.</p>
                 </div>
-                <div>
-                    <h3 className="font-bold text-2xl text-[#3F5F4F] ml-2">Important Links</h3>
-                    <ul>
-                        <li className="p-2 mt-5">Explore literary pieces here</li>
-                        <li className="p-2">Terms and conditions</li>
-                        <li className="p-2">Privacy Policy</li>
-                        <li className="p-2">Credits and Acknowledgements</li>
+                <div className='flex justify-between items-center w-full'>
+                    <div className='mt-8 flex justify-between w-[50vw]'>
+                        <div>
+                            <h4 className='text-base font-bold text-slate-700'>ABOUT</h4>
+                            <ul className='mt-3'>
+                                <li className='text-sm text-slate-500'>Why Renaissance?</li>
+                                <li className='text-sm text-slate-500 mt-1.5'>Terms and Conditions</li>
+                                <li className='text-sm text-slate-500 mt-1.5'>Creator's' Page</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className='text-base font-bold text-slate-700'>WEBSITE</h4>
+                            <ul className='mt-3'>
+                                <li className='text-sm text-slate-500'>Explore</li>
+                                <li className='text-sm text-slate-500 mt-1.5'>Artist of the Day</li>
+                                <li className='text-sm text-slate-500 mt-1.5'>My Dashboard</li>
+                                <li className='text-sm text-slate-500 mt-1.5'>My Profile</li>
+                                <li className='text-sm text-slate-500 mt-1.5'>Credits</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className='text-base font-bold text-slate-700'>HELP AND SUPPORT</h4>
+                            <ul className='mt-3'>
+                                <li className='text-sm text-slate-500'>How to get started?</li>
+                                <li className='text-sm text-slate-500 mt-1.5'>Terms and conditions</li>
+                                <li className='text-sm text-slate-500 mt-1.5'>Help Desk</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className='w-[20vw] mt-3'>
+                        <h4 className='text-base font-bold text-slate-700'>CONTACTS</h4>
+                        <ul className='mt-3'>
+                            <p className='text-sm text-slate-500'>Questions? Drop a mail at</p>
+                            <p className='text-sm text-slate-500 font-semibold'>shubham.thakur@kalvium.community</p>
+                            <p className='text-sm text-slate-500'>A Capstone page made under the Full stack web development course by <a className='font-semibold underline' href='https://kalvium.com/' target='_blank'>Kalvium</a></p>
 
-                    </ul>
-                </div>
-                <div className='w-[20vw]'>
-                    <h3>Questions?  Mail shubham.thakur@kalvium.community</h3>
-                    <div>
-                        <h3>© Shubham Thakur (2024)</h3>
-                        <h3>All rights reserved.</h3>
+                        </ul>
                     </div>
                 </div>
+                <hr className='mt-8' />
+                <p className='text-sm font-semibold text-center text-slate-700 mt-3'>Designed and Developed by Shubham Thakur</p>
+                <div className='flex justify-center'>
+                    <a href="" target='_blank'><img src={github_logo} alt="Visit GitHub" className="w-8 m-1.5" /></a>
+                    <a href="" target='_blank'><img src={insta_logo} alt="Visit Instagram" className="w-8 m-1.5" /></a>
+                    <a href="" target='_blank'><img src={linkedin_logo} alt="Visit LinkedIn" className="w-8 m-1.5" /></a>
+                </div>
             </div>
-            <div className="bg-[#3F5F4F] text-slate-100 py-5 px-8 text-center">We own none of the assets used here. They belong to their respective owners.</div>
         </footer>
     )
 }

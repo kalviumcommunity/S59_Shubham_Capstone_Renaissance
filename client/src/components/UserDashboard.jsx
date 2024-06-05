@@ -9,6 +9,7 @@ import Loader from './Loaders/Loader'
 import getUserDetails from '../utils/getUserDetails'
 import SocialBar from './SocialBar'
 import UserStats from './UserStats'
+import Footer from './Footer'
 
 function UserDashboard() {
     const [userProjects, setUserProjects] = useState([])
@@ -221,7 +222,6 @@ function UserDashboard() {
                         }
                     </div>
                 </div>
-
             </div>
             : <Loader />
     )
