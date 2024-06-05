@@ -49,6 +49,7 @@ const getChapter = async (req, res) => {
 
 const addNewChapter = async (req, res) => {
     const newChapter = new chapterModel({
+        projectID : req.params.projectID,
         title: req.body.title,
         content: req.body.content,
         dateCreated: req.body.dateCreated,

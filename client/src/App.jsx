@@ -48,7 +48,7 @@ function App() {
         <Route path='/Loader' element={<Loader />} />
         <Route path='/welcome' element={<WelcomeLoader />} />
         <Route path='/project/:projectID' element={<ProjectInterface />} />
-        <Route path='/newChapter/:projectName/:ID/:isPermit' element={<NewChapter />} />
+        <Route path='/newChapter/:projectName/:forkID/:projectID/:isPermit' element={<NewChapter />} />
         <Route path='/chapter/:projectName/:chapterID' element={<ChapterInterface />} />
         <Route path='/forkedProject/:forkID' element={<ForkedProjectInterface />} />
         <Route path='/userAccount/:userID' element={<Account setLogin={setLogin} isLogin={isLogin} />} />
