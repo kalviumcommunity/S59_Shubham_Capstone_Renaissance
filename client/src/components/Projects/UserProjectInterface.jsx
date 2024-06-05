@@ -5,6 +5,7 @@ import deBonaparte from '../../assets/deBonaparte.jpg'
 import Loader from '../Loaders/Loader'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import { useParams } from 'react-router-dom'
 
 function UserProjectInterface() {
@@ -12,7 +13,7 @@ function UserProjectInterface() {
     const [project, setProject] = useState(null)
     const [contributers, setContributers] = useState(null)
     const [chapters, setChapters] = useState(null)
-    const [isUpdate, setIsUpdate] = useState(true)
+    const [isUpdate, setIsUpdate] = useState(false)
     const [changes, setChanges] = useState({ title: "", description: "" })
     useEffect(() => {
         fetchProject(projectID)
@@ -38,19 +39,29 @@ function UserProjectInterface() {
 
     const handleDeleteProject = () => {
         deleteProject(projectID)
-            .then(response => console.log(response.data))
-            .catch(error => console.log(error))
+            .then(response => {
+                toast.success("Project Deleted.")
+            })
+            .catch(error => {
+                console.log(error)
+                toast.error("Something wrong happened. Try again later")
+            })
     }
 
     const handleUpdate = () => {
         const data = changes;
-        if(!isAnyFieldNotEmpty(data)){
-            console.log("Fill all fields")
+        if (!isAnyFieldNotEmpty(data)) {
+            toast.error("Fill all fields")
             return;
         }
         updateProject(projectID, data)
-            .then(response => console.log(response.data))
-            .catch(error => console.log(error))
+            .then(response => {
+                toast.success("Project Updated.")
+            })
+            .catch(error => {
+                console.log(error)
+                toast.error("Something wrong happened. Try again later")
+            })
     }
     return (
         project && chapters ?
