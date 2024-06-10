@@ -18,6 +18,7 @@ import RequestInterface from './components/UserAccount/RequestInterface';
 import UserProjectInterface from './components/Projects/UserProjectInterface';
 import Account from './components/UserAccount/Account';
 import GoogleAuth from './components/Loaders/GoogleAuth';
+import Explore from './components/Explore/Explore';
 import NavBar from './components/NavBar';
 import getCookie from './utils/getCookie'
 import './index.css'
@@ -56,6 +57,7 @@ function App() {
         <Route path='/success' element={<GoogleAuth setLogin={setLogin} isLogin={isLogin} />} />
         <Route path='/DailyArtist' element={<DailyArtist />} />
         <Route path='/myProject/:projectID' element={<UserProjectInterface />} />
+        <Route path='/Explore' element={<Explore />} />
       </Routes>
       <NavBar />
       <ToastContainer />

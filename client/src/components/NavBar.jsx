@@ -25,7 +25,7 @@ function NavBar() {
         {
             image: explore,
             alt: 'Explore',
-            to: '/Dashboard'
+            to: '/Explore'
         },
         {
             image: help,
