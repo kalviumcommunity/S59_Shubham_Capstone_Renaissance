@@ -29,10 +29,10 @@ export default function SimpleSlider() {
     };
 
     return (
-        <div style={{ width: "100%", margin: "auto", height: "40vh", marginBottom: "30px"}}>
+        <div style={{ width: "100%", margin: "auto", height: "40vh", marginBottom: "30px" }}>
             <Slider {...settings}>
                 <div className="card w-full h-full">
-                    <img src={carouselOne} alt="renaissance-carousel" className="card-content" />
+                    <img src={carouselFour} alt="renaissance-carousel" className="card-content" />
                     <div className="card-hover flex flex-col px-8">
                         <p className=" font-bold text-white">School of Athens</p>
                         <p className=" font-semibold text-white">(Raphael)</p>
@@ -56,7 +56,7 @@ export default function SimpleSlider() {
                     </div>
                 </div>
                 <div className="card w-full">
-                    <img src={carouselFour} alt="renaissance-carousel" className="card-content" />
+                    <img src={carouselOne} alt="renaissance-carousel" className="card-content" />
                     <div className="card-hover flex flex-col px-8">
                         <p className=" font-bold text-white">The Creation of Adam</p>
                         <p className=" font-semibold text-white">(Michelangelo)</p>

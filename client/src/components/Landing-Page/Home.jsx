@@ -6,11 +6,13 @@ import johnKeats from '../../assets/john_keats.jpg'
 import HelpDesk from './HelpDesk'
 import SimpleSlider from '../Sliders/Slider'
 import SecondarySlider from '../Sliders/SecondarySlider'
+import Suggestions from './Suggestions'
 import Footer from '../Footer'
 import { Link } from 'react-router-dom'
 import WelcomeLoader from '../Loaders/WelcomeLoader'
 import { fetchArtists } from '../../utils/apiUtils'
 import downChevron from '../../assets/arrow.png'
+import data from './data.json'
 
 function Home({ isLogin }) {
     const [imageArray, setImageArray] = useState([])
@@ -50,7 +52,7 @@ function Home({ isLogin }) {
                         <button className="bg-transparent text-[[#3F5F4F] border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" onClick={scrollToHelp} >How to Start?</button>
                     </div>
                 </div>
-                <Link to ='/DailyArtist' className="absolute right-[80px] w-[350px] bg-cover h-[350px] z-50 flex items-start justify-center mt-[30pxF] border-[30px] shadow-lg border-[#97D4A6] rounded-full hover:shadow-xl artist-image" style={{ backgroundImage: `url(${johnKeats})` }}>
+                <Link to='/DailyArtist' className="absolute right-[80px] w-[350px] bg-cover h-[350px] z-50 flex items-start justify-center mt-[30pxF] border-[30px] shadow-lg border-[#97D4A6] rounded-full hover:shadow-xl artist-image" style={{ backgroundImage: `url(${johnKeats})` }}>
                     <div className='animate-bounce'>
                         <div className='bg-yellow-200 rounded mr-3 py-1.5 px-1.5 text-center text-sm text-[12px] ml-5 opacity-90'>
                             Artist of the day
@@ -62,9 +64,14 @@ function Home({ isLogin }) {
             <h1 className='text-7xl font-extrabold text-center mt-[60px]'>Discover Personalities</h1>
             <p className='text-center mt-[10px] mb-[60px]'>In timeless verse, their ancient souls still breathe.</p>
             {imageArray && <SecondarySlider imageArray={imageArray} />}
+            <h1 className='text-7xl font-extrabold text-center mt-[70px] mb-[50px] '>Exlore Some Amazing Works</h1>
+            <Suggestions title={data[1].title} desc={data[1].desc} author={data[1].author} img={data[1].img} direction={'right'} />
             <div ref={helpDeskRef}>
                 <HelpDesk />
             </div>
+            <Suggestions title={data[0].title} desc={data[0].desc} author={data[0].author} img={data[0].img} direction={'left'} />
+            <hr className='mt-8' />
+            <p className='text-center mb-8 text-slate-800 mt-3'>Thanks For Visiting</p>
             <Footer />
         </div>
             : <WelcomeLoader />
