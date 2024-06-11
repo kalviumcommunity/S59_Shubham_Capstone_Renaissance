@@ -55,7 +55,7 @@ function App() {
         <Route path='/userAccount/:userID' element={<Account setLogin={setLogin} isLogin={isLogin} />} />
         <Route path='/request/:requestID' element={<RequestInterface />} />
         <Route path='/success' element={<GoogleAuth setLogin={setLogin} isLogin={isLogin} />} />
-        <Route path='/DailyArtist' element={<DailyArtist />} />
+        <Route path='/DailyArtist/:artistID' element={<DailyArtist />} />
         <Route path='/myProject/:projectID' element={<UserProjectInterface />} />
         <Route path='/Explore' element={<Explore />} />
       </Routes>

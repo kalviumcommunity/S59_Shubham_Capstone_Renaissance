@@ -13,9 +13,11 @@ import WelcomeLoader from '../Loaders/WelcomeLoader'
 import { fetchArtists } from '../../utils/apiUtils'
 import downChevron from '../../assets/arrow.png'
 import data from './data.json'
+import getDailyArtist from '../../utils/getDailyArtist'
 
 function Home({ isLogin }) {
     const [imageArray, setImageArray] = useState([])
+    const [artistOfTheDay, setArtistOfTheDay] = useState(null)
     const helpDeskRef = useRef()
 
     const scrollToHelp = () => {
@@ -26,6 +28,9 @@ function Home({ isLogin }) {
         fetchArtists()
             .then(response => {
                 setImageArray(response.data)
+                const selArtist = getDailyArtist(response.data)
+                console.log(selArtist)
+                setArtistOfTheDay(selArtist)
             })
             .catch(error => {
                 console.log(error)
@@ -33,7 +38,7 @@ function Home({ isLogin }) {
     }, [])
 
     return (
-        imageArray ? <div>
+        imageArray.length ? <div>
             <SimpleSlider />
             <div className='flex'>
                 <div className='my-5 pl-10 h-[400px] w-[80%] bg-cover ' style={{ backgroundImage: `url(${greenBg})` }}>
@@ -52,7 +57,7 @@ function Home({ isLogin }) {
                         <button className="bg-transparent text-[[#3F5F4F] border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" onClick={scrollToHelp} >How to Start?</button>
                     </div>
                 </div>
-                <Link to='/DailyArtist' className="absolute right-[80px] w-[350px] bg-cover h-[350px] z-50 flex items-start justify-center mt-[30pxF] border-[30px] shadow-lg border-[#97D4A6] rounded-full hover:shadow-xl artist-image" style={{ backgroundImage: `url(${johnKeats})` }}>
+                <Link to={`/DailyArtist/${artistOfTheDay._id}`} className="absolute right-[80px] w-[350px] bg-cover h-[350px] z-50 flex items-start justify-center mt-[30pxF] border-[30px] shadow-lg border-[#97D4A6] rounded-full hover:shadow-xl artist-image" style={{ backgroundImage: `url(${artistOfTheDay.artistImageSrc})` }}>
                     <div className='animate-bounce'>
                         <div className='bg-yellow-200 rounded mr-3 py-1.5 px-1.5 text-center text-sm text-[12px] ml-5 opacity-90'>
                             Artist of the day
