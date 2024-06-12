@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import celebratingDoodle from '../../assets/celebrating.png'
 import Loader from '../Loaders/Loader'
-import johnKeats from '../../assets/john_keats.jpg'
+import { toast } from 'react-toastify'
 import { getArtistsOne } from '../../utils/apiUtils'
 import { useParams } from 'react-router-dom'
 
@@ -11,8 +11,11 @@ function DailyArtist() {
     useEffect(() => {
         getArtistsOne(artistID)
             .then(response => setArtistOfTheDay(response.data))
-            .catch(error => console.log(error))
-    })
+            .catch(error => {
+                console.log(error)
+                toast.error("Failed to fetch today's artist of the day")
+            })
+    }, [])
     return (
         artistOfTheDay ?
             <div className='flex justify-between'>
