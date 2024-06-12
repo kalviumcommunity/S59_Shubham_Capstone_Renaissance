@@ -57,7 +57,7 @@ function Home({ isLogin }) {
                         <button className="bg-transparent text-[[#3F5F4F] border-solid border-[#3F5F4F] mr-5 rounded border-2 py-1.5 px-3" onClick={scrollToHelp} >How to Start?</button>
                     </div>
                 </div>
-                <Link to={`/DailyArtist/${artistOfTheDay._id}`} className="absolute right-[80px] w-[350px] bg-cover h-[350px] z-50 flex items-start justify-center mt-[30pxF] border-[30px] shadow-lg border-[#97D4A6] rounded-full hover:shadow-xl artist-image" style={{ backgroundImage: `url(${artistOfTheDay.artistImageSrc})` }}>
+                <Link to={`/DailyArtist/${artistOfTheDay._id}`} className="absolute right-[80px] w-[350px] bg-cover h-[350px] z-20 flex items-start justify-center mt-[30pxF] border-[30px] shadow-lg border-[#97D4A6] rounded-full hover:shadow-xl artist-image" style={{ backgroundImage: `url(${artistOfTheDay.artistImageSrc})` }}>
                     <div className='animate-bounce'>
                         <div className='bg-yellow-200 rounded mr-3 py-1.5 px-1.5 text-center text-sm text-[12px] ml-5 opacity-90'>
                             Artist of the day

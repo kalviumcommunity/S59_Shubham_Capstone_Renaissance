@@ -21,7 +21,7 @@ function DailyArtist() {
             <div className='flex justify-between'>
                 <div className='w-1/2 flex flex-col justify-center items-center h-[100vh] bg-gray-100 shadow-lg border'>
                     <h1 className='font-bold text-xl font-bold text-[#3F5F4F]'>RENAISSANCE</h1>
-                    <img src={celebratingDoodle} alt="" className='w-[48vw]' />
+                    <img src={celebratingDoodle} alt="celebrating" className='w-[48vw]' />
                     <div className="w-[350px] bg-cover h-[350px] rounded-full shadow-lg mt-[-40px]" style={{ backgroundImage: `url(${artistOfTheDay.artistImageSrc})` }} />
                 </div>
                 <div className='w-1/2 py-8 px-8 h-[100vh] overflow-auto'>
