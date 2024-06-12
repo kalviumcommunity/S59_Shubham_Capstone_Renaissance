@@ -34,9 +34,9 @@ export default function SimpleSlider() {
                 <div className="card w-full h-full">
                     <img src={carouselFour} alt="renaissance-carousel" className="card-content" />
                     <div className="card-hover flex flex-col px-8">
-                        <p className=" font-bold text-white">School of Athens</p>
-                        <p className=" font-semibold text-white">(Raphael)</p>
-                        <p className="text-[13px] mt-8 w-[80%]">The School of Athens is a fresco by the Italian Renaissance artist Raphael. The fresco depicts a congregation of ancient philosophers, mathematicians, and scientists, with Plato and Aristotle featured in the center. The identities of most figures are ambiguous or discernable only through subtle details or allusions.</p>
+                        <p className=" font-bold text-white">The Creation of Adam</p>
+                        <p className=" font-semibold text-white">(Michelangelo)</p>
+                        <p className="text-[13px] mt-8 w-[80%]">The Creation of Adam, also known as The Creation of Man a fresco painting by Italian artist Michelangelo, which forms part of the Sistine Chapel's ceiling, painted c. 1508–1512. It illustrates the Biblical creation narrative from the Book of Genesis in which God gives life to Adam, the first man.</p>
                     </div>
                 </div>
                 <div className="card w-full">
@@ -58,9 +58,9 @@ export default function SimpleSlider() {
                 <div className="card w-full">
                     <img src={carouselOne} alt="renaissance-carousel" className="card-content" />
                     <div className="card-hover flex flex-col px-8">
-                        <p className=" font-bold text-white">The Creation of Adam</p>
-                        <p className=" font-semibold text-white">(Michelangelo)</p>
-                        <p className="text-[13px] mt-8 w-[80%]">The Creation of Adam, also known as The Creation of Man a fresco painting by Italian artist Michelangelo, which forms part of the Sistine Chapel's ceiling, painted c. 1508–1512. It illustrates the Biblical creation narrative from the Book of Genesis in which God gives life to Adam, the first man.</p>
+                        <p className=" font-bold text-white">School of Athens</p>
+                        <p className=" font-semibold text-white">(Raphael)</p>
+                        <p className="text-[13px] mt-8 w-[80%]">The School of Athens is a fresco by the Italian Renaissance artist Raphael. The fresco depicts a congregation of ancient philosophers, mathematicians, and scientists, with Plato and Aristotle featured in the center. The identities of most figures are ambiguous or discernable only through subtle details or allusions.</p>
                     </div>
                 </div>
             </Slider>

@@ -127,3 +127,7 @@ export const deleteProject = (projectID) => {
 export const updateProject = (projectID, data) => {
     return axios.patch(`${import.meta.env.VITE_API_PROJECT_URI}/update/${projectID}`, data)
 }
+
+export const getArtistsOne = (artistID) => {
+    return axios.get(`${import.meta.env.VITE_API_ARTIST_URI}/find-artist/${artistID}`)
+}
