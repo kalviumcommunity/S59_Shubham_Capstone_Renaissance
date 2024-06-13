@@ -6,8 +6,9 @@ import Requests from './Requests'
 import MyProfile from './MyProfile'
 import { showProfileImage } from '../../utils/getProfileImage'
 import UserStats from '../UserStats'
+import getUserDetails from '../../utils/getUserDetails'
 
-function Account({setLogin, isLogin}) {
+function Account({ setLogin, isLogin }) {
     const [isOverview, setIsOverview] = useState(true)
     const [isProjects, setIsProjects] = useState(false)
     const [isContacts, setIsContacts] = useState(false)
@@ -17,6 +18,7 @@ function Account({setLogin, isLogin}) {
     const [imgURL, setImgURL] = useState("")
     const [userData, setUserData] = useState([])
     const { userID } = useParams()
+    const loggedUserID = getUserDetails('userID')
     const toggleModal = (setter) => {
         setIsOverview(false)
         setIsContacts(false)
@@ -58,12 +60,12 @@ function Account({setLogin, isLogin}) {
                 </div>
             </div>
             <div className='w-[65%] mt-8 mx-8'>
-                <div className='w-[70%] flex justify-between'>
+                <div className={`flex justify-between ${(loggedUserID === userID) ? 'w-[70%]' : 'w-[30%]'}`}>
                     <button className={isOverview ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsOverview)}>Overview</button>
                     <button className={isProjects ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsProjects)} >Projects</button>
                     <button className={isContacts ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsContacts)}>Contacts</button>
-                    <button className={isRequests ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsRequests)}>Requests</button>
-                    <button className={isProfile ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsProfile)}>My Profile</button>
+                    {loggedUserID === userID && <button className={isRequests ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsRequests)}>Requests</button>}
+                    {loggedUserID === userID && <button className={isProfile ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsProfile)}>My Profile</button>}
                 </div>
                 {isOverview &&
                     <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10'>
@@ -94,12 +96,12 @@ function Account({setLogin, isLogin}) {
                     </div>
                 }
                 {
-                    isRequests &&
+                    (isRequests && loggedUserID === userID) &&
                     <Requests userID={userID} />
                 }
                 {
-                    isProfile &&
-                    <MyProfile userID={userID} setLogin={setLogin} isLogin={isLogin}/>
+                    (isProfile && loggedUserID === userID) &&
+                    <MyProfile userID={userID} setLogin={setLogin} isLogin={isLogin} />
                 }
             </div>
         </div>

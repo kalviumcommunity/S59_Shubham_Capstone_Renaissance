@@ -156,7 +156,7 @@ function UserDashboard() {
 
                     <div className='bg-[#97D4A6] mt-5 w-full h-[150px] rounded relative py-5 px-5'>
                         <h1 className='text-3xl font-bold'>Hey! Let's see your <span className='text-[#3F5F4F]'> Stats</span></h1>
-                        <UserStats/>
+                        <UserStats />
                         <img src={deVanGoghDoodle} alt="van-gogh" className='w-[200px] absolute right-0 top-[-50px]' />
                         <div className='bg-white bg-opacity-70 w-[300px] absolute right-[160px] top-[10%] rounded text-sm text-slate-700 py-3 px-5'>Great things are not done by impulse, but by a series of small things brought together. <div className='mt-3'>- Vincent Van Gogh </div></div>
                     </div>
@@ -213,10 +213,10 @@ function UserDashboard() {
                                     <p className='text-slate-700 text-sm'>{project.description}</p>
                                     <div>
                                         <Link to={`/project/${project._id}`}><button className='bg-[#3F5F4F] w-fit h-fit text-[13px] px-3 py-1.5 rounded mt-2 text-white' >View Project</button></Link>
-                                        <button className='text-[#3F5F4F] font-semibold border border-[1.5px] border-[#3F5F4F] text-[13px] px-3 py-[5px] rounded mt-2 ml-1.5'>About organisation</button>
+                                        <Link to={`/userAccount/${project.projectOwner}`}><button className='text-[#3F5F4F] font-semibold border border-[1.5px] border-[#3F5F4F] text-[13px] px-3 py-[5px] rounded mt-2 ml-1.5'>About organisation</button></Link>
                                     </div>
                                 </div>
-                                <SocialBar projectID={project._id}/>
+                                <SocialBar projectID={project._id} />
                             </div>
                         ))
                         }
