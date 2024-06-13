@@ -20,7 +20,7 @@ function Explore() {
                     <div className="flex">
                         <h1 className="text-2xl font-bold text-slate-800">Renaissance</h1>
                         <Link to='/Register' ><button className="bg-[#3F5F4F] ml-3 text-white border-solid border-[#3F5F4F] text-sm mr-5 rounded border-2 py-0.5 px-1.5">Let me In!</button></Link>
-                        <button className="text-#3F5F4F] ml-3 border border-[#3F5F4F] text-sm mr-5 rounded border-1 py-0.5 px-3">How to Start?</button>
+                        <button className="text-[#3F5F4F] ml-3 border border-[#3F5F4F] text-sm mr-5 rounded border-1 py-0.5 px-3">How to Start?</button>
                     </div>
                     <p className="text-slate-700 text-center mt-10 text-[14px]">We Provide a free access to our users to hundreds of poems, stories, novelletes, novels for free!. Why? Beacuse its open source. We invite you to hlep us build the community of open source for Litreature!</p>
                     <div className="card cursor-pointer">
