@@ -5,7 +5,7 @@ import { pullChapter } from "../../utils/apiUtils"
 import RequestEditor from "../Text-Editor/RequestEditor"
 import getUserDetails from "../../utils/getUserDetails"
 
-function UploadChapter({ projectID, chapterID, userID, setUploadChapter , contributerName, projectName }) {
+function UploadChapter({ projectID, chapterID, userID, setUploadChapter, contributerName, projectName }) {
     const [message, setMessage] = useState(null)
     const setPullRequest = () => {
         const date = getDate()
@@ -26,7 +26,7 @@ function UploadChapter({ projectID, chapterID, userID, setUploadChapter , contri
     return (
         <>
             <div className="fixed bottom-0 left-0 w-[100vw] h-[100vh] bg-black opacity-10"></div>
-            <div className="fixed top-[30%] left-[30%] bg-gray-100 border border-gray-300 rounded py-10 px-8 w-[40%]">
+            <div className="fixed lg:top-[10%] xl:top-[30%] left-[30%] bg-gray-100 border border-gray-300 rounded py-10 px-8 w-[40%]">
                 <h1 className='font-bold text-2xl'>Upload the chapter to Original Project</h1>
                 <p className="text-gray-500 text-[12px]">Once the onwer of the project approves your submission, your work would be saved in the main project</p>
                 <hr />

@@ -70,7 +70,7 @@ function MyProfile({ userID, setLogin, isLogin }) {
                         <div className='flex flex-col items-center justify-center'>
                             <img src={imgURL && imgURL} alt="abhishekKaundal" className='rounded-full w-[150px]' />
                             <div className='text-[13px] mt-3'>
-                                <label htmlFor="file-upload" className='text-sm cursor-pointer border bg-gray-100 rounded w-24 px-3 py-1.5 text-slate-700'>Upload from device</label>
+                                <label htmlFor="file-upload" className='lg:text-[9px] xl:text-sm cursor-pointer border bg-gray-100 rounded w-fit px-3 py-1.5 text-slate-700'>Upload from device</label>
                                 <input type="file" id="file-upload" onChange={handleFileChange} />
                                 <div className='mt-3 text-slate-500 text-center'>{selProfile && selProfile.name}</div>
                             </div>

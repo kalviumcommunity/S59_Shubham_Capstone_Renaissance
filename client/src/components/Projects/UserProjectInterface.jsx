@@ -89,10 +89,10 @@ function UserProjectInterface() {
                     <div className='flex mt-3 justify-between'>
                         <div className='w-full'>
                             <div className='flex justify-between items-center mt-5'>
-                                <input type="text" className='border border-gray-300 rounded px-2 py-1.5 h-fit text-sm mr-5 bg-gray-100 w-[500px]' placeholder='Search chapter here' />
+                                <input type="text" className='border border-gray-300 rounded px-2 py-1.5 h-fit text-sm mr-5 bg-gray-100 lg:w-[400px] xl:w-[500px]' placeholder='Search chapter here' />
                                 <div className='flex'>
-                                    <Link to={`/newChapter/${project.title}/${null}/${project._id}/true`}>`<button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded mr-1.5">Add Chapter</button>`</Link>
-                                    <button className="border border-[#3F5F4F] text-sm text-[#3F5F4F] px-3 py-1.5 rounded">Create Branch</button>
+                                    <Link to={`/newChapter/${project.title}/${null}/${project._id}/true`}>`<button className="bg-[#3F5F4F] lg:text-[12px] xl:text-sm text-white lg:px-2 xl:px-3 py-1.5 rounded mr-1.5">Add Chapter</button>`</Link>
+                                    <button className="border border-[#3F5F4F] lg:text-[12px] xl:text-sm text-[#3F5F4F] lg:px-2 xl:px-3 py-1.5 rounded">Create Branch</button>
                                 </div>
                             </div>
                             {project.chapters.length ?
@@ -114,9 +114,9 @@ function UserProjectInterface() {
                             }
                         </div>
                         <div className='w-[40vw]'>
-                            <div className='mt-5 ml-3'>
-                                <button className="bg-[#3F5F4F] text-sm text-white px-3 py-1.5 rounded" onClick={() => setIsUpdate(!isUpdate)}>Update Project</button>
-                                <button className="bg-red-200 border border-red-500 text-sm text-red-700 px-3 py-1.5 rounded ml-5" onClick={() => handleDeleteProject()}>Delete Project</button>
+                            <div className='flex mt-5 ml-3'>
+                                <button className="bg-[#3F5F4F] border border-[#3F5F4F] h-fit lg:text-[12px] xl:text-sm text-white lg:px-2 xl:px-3 py-1.5 rounded" onClick={() => setIsUpdate(!isUpdate)}>Update Project</button>
+                                <button className="bg-red-200 h-fit lg:text-[12px] xl:text-sm border border-red-500 text-sm text-red-700 lg:px-2 xl:px-3 py-1.5 rounded ml-5" onClick={() => handleDeleteProject()}>Delete Project</button>
                             </div>
                             {isUpdate &&
                                 <div className='h-fit bg-gray-100 border border-gray-300 rounded p-5 m-3'>
