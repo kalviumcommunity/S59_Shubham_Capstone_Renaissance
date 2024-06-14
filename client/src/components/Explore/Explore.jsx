@@ -6,7 +6,7 @@ import Footer from "../Footer"
 import deBonaparte from '../../assets/deBonaparte.jpg'
 import { Link } from "react-router-dom"
 
-function Explore() {
+function Explore({isLogin}) {
     const [projects, setProjects] = useState([])
     useEffect(() => {
         fetchProjects()
@@ -46,13 +46,13 @@ function Explore() {
                                 <h1 className='font-bold mt-5'>{project.title}</h1>
                                 <p className='text-slate-700 text-sm'>{project.description}</p>
                                 <div>
-                                    <button className='bg-[#3F5F4F] w-fit h-fit text-[13px] px-3 py-1.5 rounded mt-2 text-white' >Read</button>
+                                    <Link to={`/Read/${project._id}`}><button className='bg-[#3F5F4F] w-fit h-fit text-[13px] px-3 py-1.5 rounded mt-2 text-white' >Read</button></Link>
                                     <Link to={`/userAccount/${project.projectOwner}`}><button className='text-[#3F5F4F] font-semibold border border-[1.5px] border-[#3F5F4F] text-[13px] px-3 py-[5px] rounded mt-2 ml-1.5'>About Authors</button></Link>
                                 </div>
                             </div>
                         ))}
                     </div>
-                </div>
+                    </div>
                     <Footer /></>
                 : <Loader />
             }

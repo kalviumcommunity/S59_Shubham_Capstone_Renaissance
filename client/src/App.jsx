@@ -23,6 +23,7 @@ import NavBar from './components/NavBar';
 import getCookie from './utils/getCookie'
 import './index.css'
 import './App.css'
+import Read from './components/Explore/Read';
 
 function App() {
   const [isLogin, setLogin] = useState(false)
@@ -58,6 +59,7 @@ function App() {
         <Route path='/DailyArtist/:artistID' element={<DailyArtist />} />
         <Route path='/myProject/:projectID' element={<UserProjectInterface />} />
         <Route path='/Explore' element={<Explore />} />
+        <Route path='/Read/:projectID' element={<Read isLogin={isLogin} />} />
       </Routes>
       <NavBar />
       <ToastContainer />
