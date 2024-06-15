@@ -29,7 +29,7 @@ export default function SimpleSlider() {
     };
 
     return (
-        <div style={{ width: "100%", margin: "auto", height: "40vh", marginBottom: "30px" }}>
+        <div style={{ width: "100%", margin: "auto", height: "40vh" }}>
             <Slider {...settings}>
                 <div className="card w-full h-full">
                     <img src={carouselFour} alt="renaissance-carousel" className="card-content" />

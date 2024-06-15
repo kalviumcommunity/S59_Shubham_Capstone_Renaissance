@@ -43,8 +43,8 @@ function Account({ setLogin, isLogin }) {
 
     return (
         <div className='flex justify-between'>
-            <div className='w-[30%] bg-gray-100 px-5 py-8 border border-gray-300'>
-                <img src={imgURL && imgURL} alt="profileImage" className='rounded-full h-[350px] w-[350px] ' />
+            <div className='w-[30%] bg-gray-100 px-5 py-8 border border-gray-300 h-[100vh]'>
+                <img src={imgURL && imgURL} alt="profileImage" className='rounded-full mx-auto lg:h-[200px] lg:w-[200px] xl:h-[350px] xl:w-[350px]' />
                 <div className='pt-5'>
                     <h1 className='text-2xl font-bold text-center'>{userData.username}</h1>
                     <div className='flex justify-center'>
@@ -60,7 +60,7 @@ function Account({ setLogin, isLogin }) {
                 </div>
             </div>
             <div className='w-[65%] mt-8 mx-8'>
-                <div className={`flex justify-between ${(loggedUserID === userID) ? 'w-[70%]' : 'w-[30%]'}`}>
+                <div className={`flex justify-between ${(loggedUserID === userID) ? 'w-[70%]' : 'xl:w-[30%] lg:w-[40%]'}`}>
                     <button className={isOverview ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsOverview)}>Overview</button>
                     <button className={isProjects ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsProjects)} >Projects</button>
                     <button className={isContacts ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsContacts)}>Contacts</button>

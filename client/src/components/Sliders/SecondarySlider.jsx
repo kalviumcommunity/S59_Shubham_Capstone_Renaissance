@@ -13,10 +13,10 @@ const SamplePrevArrow = ({ className, style, onClick }) => {
     return <div className={className} style={{ ...style, display: "flex", alignItems: "center", justifyContent: "center" }} onClick={onClick} />
 }
 
-function SecondarySlider({imageArray}) {
+function SecondarySlider({ imageArray }) {
     const [imageIndex, setImageIndex] = useState(0)
     const [selectedArtist, setSelectedArtist] = useState(null)
-    const modalRef = useRef(null)   
+    const modalRef = useRef(null)
     const settings = {
         infinite: true,
         centerPadding: "0px",
@@ -43,7 +43,7 @@ function SecondarySlider({imageArray}) {
     }
 
     return (
-        <div className="h-[400px] bg-cover relative" style={{ backgroundImage: `url(${bgSemiGreen})` }}>
+        <div className="xl:h-[400px] lg:h-[320px] bg-cover relative" style={{ backgroundImage: `url(${bgSemiGreen})` }}>
             <div ref={modalRef} />
             <Slider {...settings} className="slider-container w-[70vw] m-auto h-[350px]">
                 {imageArray.map((image, index) => (
@@ -54,7 +54,6 @@ function SecondarySlider({imageArray}) {
                             {selectedArtist == null && <p className="text-[15px] text-white text-shadow text-center mb-1.5 cursor-pointer">{image.artistName}</p>}
                         </div>}
                     </div>
-
                 ))}
             </Slider>
             {selectedArtist != null &&

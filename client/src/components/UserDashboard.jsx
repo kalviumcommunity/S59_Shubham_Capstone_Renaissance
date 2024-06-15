@@ -125,7 +125,7 @@ function UserDashboard() {
     return (
         projects ?
             <div className='flex'>
-                <div className="pt-20 shadow-xl h-[100vh] fixed w-[19%]">
+                <div className="pt-20 shadow-xl h-[100vh] fixed bg-white lg:w-[25%] xl:w-[19%]">
                     <Link to='/NewProject'><button className="bg-[#3F5F4F] ml-3 text-sm text-white px-2 py-1.5 rounded">+ New</button></Link>
                     <form className='mt-2'>
                         <input type="text" placeholder="Search Here" className="pl-10 py-3 text-sm w-[250px] my-5 absolute bg-gray-100 left-[-15px] h-[30px] rounded-3xl border-transparent" />
@@ -146,7 +146,7 @@ function UserDashboard() {
                             <p className='m-3 text-[14px] text-gray-500'>No Project to show</p>}
                     </div>
                 </div>
-                <div className='bg-[#F4F4F4] w-[81%] ml-[19%] px-10 pt-20'>
+                <div className='bg-[#F4F4F4] xl:w-[81%] lg:w-[75%] xl:ml-[19%] lg:ml-[25%] px-10 pt-20'>
                     <form className='shadow-xl'>
                         <input type="text" placeholder="Search Here" className="pl-[70px] py-1.5 text-[15px] w-[400px] absolute left-[230px] rounded-3xl border-transparent" />
                         <button className="z-[10] absolute bg-[#3F5F4F] border-solid border-[#3F5F4F] border-2 py-1.5 px-3 left-[600px]  rounded-3xl rounded-l-none" ><img src={searchIcon} className='w-[16.5px]' /></button>
@@ -158,24 +158,24 @@ function UserDashboard() {
                         <h1 className='text-3xl font-bold'>Hey! Let's see your <span className='text-[#3F5F4F]'> Stats</span></h1>
                         <UserStats />
                         <img src={deVanGoghDoodle} alt="van-gogh" className='w-[200px] absolute right-0 top-[-50px]' />
-                        <div className='bg-white bg-opacity-70 w-[300px] absolute right-[160px] top-[10%] rounded text-sm text-slate-700 py-3 px-5'>Great things are not done by impulse, but by a series of small things brought together. <div className='mt-3'>- Vincent Van Gogh </div></div>
+                        <div className='bg-white bg-opacity-70 xl:w-[300px] lg:w-[270px] absolute right-[160px] lg:top-[45%] xl:top-[10%] rounded lg:text-[10px] xl:text-sm text-slate-700 lg:py-1.5 xl:py-3 px-5'>Great things are not done by impulse, but by a series of small things brought together. <div className='mt-3'>- Vincent Van Gogh </div></div>
                     </div>
                     <hr className="mt-5" />
                     <h1 className='font-bold text-2xl mt-8'>Your Latest Projects</h1>
-                    <Link to={'/NewProject'}><button className="bg-[#3F5F4F] text-slate-100 text-sm border-solid border-[#3F5F4F] my-5 rounded border-2 py-1.5 px-3" >Add a new Project</button></Link>
-                    <button className="text-[#3F5F4F] font-semibold text-sm border-solid border-[#3F5F4F] mx-3 my-5 rounded border py-1.5 px-3" onClick={scrollToExplore}>Contribute</button>
+                    <Link to={'/NewProject'}><button className="bg-[#3F5F4F] text-slate-100 lg:text-[12px] xl:text-sm border-solid border-[#3F5F4F] my-5 rounded border-2 py-1.5 px-3" >Add a new Project</button></Link>
+                    <button className="text-[#3F5F4F] font-semibold lg:text-[12px] xl:text-sm border-solid border-[#3F5F4F] mx-3 my-5 rounded border py-1.5 px-3" onClick={scrollToExplore}>Contribute</button>
                     <div className='flex flex-wrap'>
                         {latestProjects.length ? latestProjects.map(project => (
-                            <div className='bg-white m-3 rounded-xl w-[30%] px-5 py-8 shadow-lg flex flex-col justify-center'>
+                            <div className='bg-white lg:m-1.5 xl:m-3 rounded-xl xl:w-[30%] lg:w-[32%] lg:w-[30%] xl:px-5 lg:px-3 lg:py-5 xl:py-8 shadow-lg flex flex-col justify-center'>
                                 <div className='flex'>
-                                    <img src={deBonaparte} alt="deBonaparte" className='rounded-full w-20 h-20 shadow-lg' />
+                                    <img src={deBonaparte} alt="deBonaparte" className='rounded-full xl:w-20 lg:w-14  lg:h-14 xl:h-20 shadow-lg' />
                                     <div className='p-3'>
-                                        <h1 className='font-bold text-lg'>{username}</h1>
-                                        <p className='text-slate-700 text-[12px]'>Creative Writer, Author, Director</p>
+                                        <h1 className='font-bold lg:text-[12px] xl:text-lg'>{username}</h1>
+                                        <p className='text-slate-700 lg:text-[10px] xl:text-[12px]'>Creative Writer, Author, Director</p>
                                     </div>
                                 </div>
-                                <h1 className='font-bold mt-5'>{project.title}</h1>
-                                <p className='text-slate-700 text-sm'>{project.description}</p>
+                                <h1 className='lg:text-[12px] font-bold mt-5'>{project.title}</h1>
+                                <p className='lg:text-[12px] text-slate-700 text-sm'>{project.description}</p>
                             </div>
                         ))
                             :
@@ -201,16 +201,16 @@ function UserDashboard() {
                                     <div className='flex'>
                                         <img src={deBonaparte} alt="deBonaparte" className='rounded-full w-20 h-20 shadow-lg' />
                                         <div className='p-3'>
-                                            <h1 className='font-bold text-lg'>{project.projectOwnerName}</h1>
-                                            <p className='text-slate-700 text-[12px]'>Creative Writer, Author, Director</p>
+                                            <h1 className='font-bold lg:text-[14px] xl:text-lg'>{project.projectOwnerName}</h1>
+                                            <p className='text-slate-700 lg:text-[10px] xl:text-[12px]'>Creative Writer, Author, Director</p>
                                         </div>
                                         {project.tags.map(tag => (
-                                            <button className='bg-gray-100 w-fit h-fit text-[14px] px-3 py-0.5 rounded ml-3 mt-1.5'>{tag}</button>
+                                            <button className='bg-gray-100 w-fit lg:text-[12px] xl:text-[14px] lg:px-1.5 xl:px-3 py-0.5 rounded xl:ml-3 lg:ml-[1.5] h-fit mt-1.5'>{tag}</button>
                                         ))}
-                                        <button className='bg-[#3F5F4F] w-fit h-fit text-[14px] px-3 py-0.5 rounded ml-3 mt-1.5 text-white'>{project.status}</button>
+                                        <button className='bg-[#3F5F4F] w-fit h-fit lg:text-[12px] text-[14px] px-3 py-0.5 rounded ml-3 mt-1.5 text-white'>{project.status}</button>
                                     </div>
-                                    <h1 className='font-bold mt-5'>{project.title}</h1>
-                                    <p className='text-slate-700 text-sm'>{project.description}</p>
+                                    <h1 className='font-bold lg:text-[12px] xl:text-lg mt-5'>{project.title}</h1>
+                                    <p className='text-slate-700 lg:text-[10px] xl:text-[12px]'>{project.description}</p>
                                     <div>
                                         <Link to={`/project/${project._id}`}><button className='bg-[#3F5F4F] w-fit h-fit text-[13px] px-3 py-1.5 rounded mt-2 text-white' >View Project</button></Link>
                                         <Link to={`/userAccount/${project.projectOwner}`}><button className='text-[#3F5F4F] font-semibold border border-[1.5px] border-[#3F5F4F] text-[13px] px-3 py-[5px] rounded mt-2 ml-1.5'>About organisation</button></Link>
