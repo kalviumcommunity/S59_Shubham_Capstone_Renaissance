@@ -9,7 +9,8 @@ import Loader from './Loaders/Loader'
 import getUserDetails from '../utils/getUserDetails'
 import SocialBar from './SocialBar'
 import UserStats from './UserStats'
-import Footer from './Footer'
+import explore from '../assets/explore-white.png'
+import Sidebar from './Sidebar'
 
 function UserDashboard() {
     const [userProjects, setUserProjects] = useState([])
@@ -20,6 +21,8 @@ function UserDashboard() {
     const [username, setUserName] = useState("")
     const exploreRef = useRef()
     const [filter, setFilter] = useState({ filterVal: "All", filteredProjects: [] })
+    const [isExpand, setIsExpand] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
 
     useEffect(() => {
         const userID = getUserDetails('userID')
@@ -92,6 +95,8 @@ function UserDashboard() {
                     console.log("Some error occurred. Try Again Later", error)
                 }
             })
+        if (window.innerWidth <= 768) setIsMobile(true)
+        else setIsExpand(true)
     }, [])
 
     const filterProjects = useMemo(() => {
@@ -124,105 +129,91 @@ function UserDashboard() {
 
     return (
         projects ?
-            <div className='flex'>
-                <div className="pt-20 shadow-xl h-[100vh] fixed bg-white lg:w-[25%] xl:w-[19%]">
-                    <Link to='/NewProject'><button className="bg-[#3F5F4F] ml-3 text-sm text-white px-2 py-1.5 rounded">+ New</button></Link>
-                    <form className='mt-2'>
-                        <input type="text" placeholder="Search Here" className="pl-10 py-3 text-sm w-[250px] my-5 absolute bg-gray-100 left-[-15px] h-[30px] rounded-3xl border-transparent" />
-                        <button className="z-[10] absolute bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] border-2 py-1.5 px-3 left-[200px] mt-[20px] rounded-3xl rounded-l-none" ><img src={searchIcon} className='w-[15px]' /></button>
-                    </form>
-                    <p className='ml-3 mt-20 text-base text-slate-800 font-semibold'>Your Contributions:</p>
-                    <div className='m-1.5 w-[220px] overflow-auto'>
-                        {userProjects.length ? userProjects.map(ele => (
-                            <Link to={`/myProject/${ele._id}`}><p key={ele._id} className='pb-0.5 ml-2 text-[14px] text-slate-800 hover:underline cursor-pointer'>{username}/<span>{ele.title}</span></p></Link>
-                        )) :
-                            <p className='m-3 text-[14px] text-gray-500'>No Project to show</p>}
+            <>
+                {isExpand && isMobile && <div className='fixed top-0 left-0 w-full h-full bg-black opacity-60 z-[80] shadow-xl' />}
+                <div className={'lg:flex'}>
+                    <div className='fixed lg:static lg:hidden block top-[10px] left-[10px] bg-slate-800 z-50 cursor-pointer' onClick={() => setIsExpand(!isExpand)}>
+                        <img src={explore} alt="open-sidebar" className='w-[50px]' />
                     </div>
-                    <p className='ml-3 mt-20 text-base text-slate-800 font-semibold'>Your Forked Projects:</p>
-                    <div className='m-1.5 w-[200px] overflow-auto h-[300px]'>
-                        {forkedProjects.length ? forkedProjects.map(ele => (
-                            <Link to={`/forkedProject/${ele.id}`}><p key={ele.id} className='pb-0.5 ml-2 text-[14px] text-slate-800 hover:underline cursor-pointer'>{username}/<span>{ele.title}</span></p></Link>
-                        )) :
-                            <p className='m-3 text-[14px] text-gray-500'>No Project to show</p>}
-                    </div>
-                </div>
-                <div className='bg-[#F4F4F4] xl:w-[81%] lg:w-[75%] xl:ml-[19%] lg:ml-[25%] px-10 pt-20'>
-                    <form className='shadow-xl'>
-                        <input type="text" placeholder="Search Here" className="pl-[70px] py-1.5 text-[15px] w-[400px] absolute left-[230px] rounded-3xl border-transparent" />
-                        <button className="z-[10] absolute bg-[#3F5F4F] border-solid border-[#3F5F4F] border-2 py-1.5 px-3 left-[600px]  rounded-3xl rounded-l-none" ><img src={searchIcon} className='w-[16.5px]' /></button>
-                    </form>
-                    <h1 className='font-bold text-3xl mt-[70px]'>Dashboard</h1>
-                    <p className='mt-1.5 text-sm'>Explore new projects and create your own too!</p>
+                    <Sidebar setExpand={setIsExpand} isExpand={isExpand} username={username} userProjects={userProjects} forkedProjects={forkedProjects} />
+                    <div className='bg-[#F4F4F4] w-full m-0 xl:w-[81%] lg:w-[75%] xl:ml-[19%] lg:ml-[25%] p-0 px-10 pt-20'>
+                        <form className='lg:shadow-xl pt-3'>
+                            <input type="text" placeholder="Search Here" className="lg:my-0 lg:pl-[70px] px-3 py-1.5 lg:pl-3 lg:py-1.5 text-[15px] w-[70vw] lg:w-[400px] lg:absolute left-[230px] rounded-3xl border-transparent" />
+                            <button className="z-[10] absolute bg-[#3F5F4F] border-solid border-[#3F5F4F] border-2 py-1.5 px-3 left-[70vw] lg:left-[600px] rounded-3xl rounded-l-none" ><img src={searchIcon} className='w-[16.5px]' /></button>
+                        </form>
+                        <h1 className='font-bold text-3xl lg:mt-[70px] mt-[30px]'>Dashboard</h1>
+                        <p className='mt-1.5 text-sm'>Explore new projects and create your own too!</p>
 
-                    <div className='bg-[#97D4A6] mt-5 w-full h-[150px] rounded relative py-5 px-5'>
-                        <h1 className='text-3xl font-bold'>Hey! Let's see your <span className='text-[#3F5F4F]'> Stats</span></h1>
-                        <UserStats />
-                        <img src={deVanGoghDoodle} alt="van-gogh" className='w-[200px] absolute right-0 top-[-50px]' />
-                        <div className='bg-white bg-opacity-70 xl:w-[300px] lg:w-[270px] absolute right-[160px] lg:top-[45%] xl:top-[10%] rounded lg:text-[10px] xl:text-sm text-slate-700 lg:py-1.5 xl:py-3 px-5'>Great things are not done by impulse, but by a series of small things brought together. <div className='mt-3'>- Vincent Van Gogh </div></div>
-                    </div>
-                    <hr className="mt-5" />
-                    <h1 className='font-bold text-2xl mt-8'>Your Latest Projects</h1>
-                    <Link to={'/NewProject'}><button className="bg-[#3F5F4F] text-slate-100 lg:text-[12px] xl:text-sm border-solid border-[#3F5F4F] my-5 rounded border-2 py-1.5 px-3" >Add a new Project</button></Link>
-                    <button className="text-[#3F5F4F] font-semibold lg:text-[12px] xl:text-sm border-solid border-[#3F5F4F] mx-3 my-5 rounded border py-1.5 px-3" onClick={scrollToExplore}>Contribute</button>
-                    <div className='flex flex-wrap'>
-                        {latestProjects.length ? latestProjects.map(project => (
-                            <div className='bg-white lg:m-1.5 xl:m-3 rounded-xl xl:w-[30%] lg:w-[32%] lg:w-[30%] xl:px-5 lg:px-3 lg:py-5 xl:py-8 shadow-lg flex flex-col justify-center'>
-                                <div className='flex'>
-                                    <img src={deBonaparte} alt="deBonaparte" className='rounded-full xl:w-20 lg:w-14  lg:h-14 xl:h-20 shadow-lg' />
-                                    <div className='p-3'>
-                                        <h1 className='font-bold lg:text-[12px] xl:text-lg'>{username}</h1>
-                                        <p className='text-slate-700 lg:text-[10px] xl:text-[12px]'>Creative Writer, Author, Director</p>
+                        <div className='bg-[#97D4A6] mt-5 w-full h-[120px] lg:h-[150px] rounded relative py-3 px-3 lg:py-5 lg:px-5'>
+                            <h1 className='text-base lg:text-3xl font-bold'>Hey! Let's see your <span className='text-[#3F5F4F]'> Stats</span></h1>
+                            <UserStats />
+                            <img src={deVanGoghDoodle} alt="van-gogh" className='lg:block hidden w-[200px] absolute right-0 top-[-50px]' />
+                            <div className='lg:block hidden  bg-white bg-opacity-70 xl:w-[300px] lg:w-[270px] absolute right-[160px] lg:top-[45%] xl:top-[10%] rounded lg:text-[10px] xl:text-sm text-slate-700 lg:py-1.5 xl:py-3 px-5'>Great things are not done by impulse, but by a series of small things brought together. <div className='mt-3'>- Vincent Van Gogh </div></div>
+                        </div>
+                        <hr className="mt-5" />
+                        <h1 className='font-bold text-xl lg:text-2xl mt-3 lg:mt-8'>Your Latest Projects</h1>
+                        <Link to={'/NewProject'}><button className="bg-[#3F5F4F] text-slate-100 text-[12px] xl:text-sm border-solid border-[#3F5F4F] my-5 rounded border-2 py-1.5 px-3" >Add a new Project</button></Link>
+                        <button className="text-[#3F5F4F] font-semibold text-[12px] xl:text-sm border-solid border-[#3F5F4F] mx-3 my-5 rounded border py-1.5 px-3" onClick={scrollToExplore}>Contribute</button>
+                        <div className='flex flex-wrap'>
+                            {latestProjects.length ? latestProjects.map(project => (
+                                <div className='bg-white m-1.5 xl:m-3 rounded-xl xl:w-[30%] lg:w-[32%] lg:w-[30%] xl:px-5 px-3 py-3 lg:py-5 xl:py-8 shadow-lg flex flex-col justify-center'>
+                                    <div className='flex'>
+                                        <img src={deBonaparte} alt="deBonaparte" className='rounded-full w-[80px] h-[80px] xl:w-20 lg:w-14  lg:h-14 xl:h-20 shadow-lg' />
+                                        <div className='p-3'>
+                                            <h1 className='font-bold text-[12px] xl:text-lg'>{username}</h1>
+                                            <p className='text-slate-700 text-[10px] xl:text-[12px]'>Creative Writer, Author, Director</p>
+                                        </div>
                                     </div>
+                                    <h1 className='text-[12px] font-bold mt-5'>{project.title}</h1>
+                                    <p className='text-[12px] text-slate-700 text-sm'>{project.description}</p>
                                 </div>
-                                <h1 className='lg:text-[12px] font-bold mt-5'>{project.title}</h1>
-                                <p className='lg:text-[12px] text-slate-700 text-sm'>{project.description}</p>
-                            </div>
-                        ))
-                            :
-                            <div className='m-auto'><img src={keatsDoodle} alt="AddSomeProjects" className='w-[200px] rounded' /> <p className='text-sm mt-5'>There are no projects to show!</p></div>}
+                            ))
+                                :
+                                <div className='m-auto'><img src={keatsDoodle} alt="AddSomeProjects" className='w-[200px] rounded' /> <p className='text-sm mt-5'>There are no projects to show!</p></div>}
 
-                    </div>
-                    <hr className="mt-5" />
-                    <div className='flex justify-between items-center mt-8 mb-5' ref={exploreRef}>
-                        <h1 className='font-bold text-2xl'>Explore</h1>
-                        <div className='flex'>
-                            <select className='py-0.5 px-3 rounded h-fit' onChange={(e) => setFilter(prevFilter => ({
-                                ...prevFilter, filterVal: e.target.value
-                            }))}>
-                                <option value='All'>All</option>
-                                {allTags.map(tag => <option value={tag}>{tag}</option>)}
-                            </select>
+                        </div>
+                        <hr className="mt-5" />
+                        <div className='flex justify-between items-center mt-8 mb-5' ref={exploreRef}>
+                            <h1 className='font-bold text-2xl'>Explore</h1>
+                            <div className='flex'>
+                                <select className='lg:py-0.5 lg:px-3 p-1.5 rounded h-fitlg:text-base text-[11px]' onChange={(e) => setFilter(prevFilter => ({
+                                    ...prevFilter, filterVal: e.target.value
+                                }))}>
+                                    <option value='All'>All</option>
+                                    {allTags.map(tag => <option className="lg:text-base text-[11px]" value={tag}>{tag}</option>)}
+                                </select>
+                            </div>
+                        </div>
+                        <div className='flex flex-col'>
+                            {filter.filteredProjects && filter.filteredProjects.map(project => (
+                                <div className='bg-white m-3 rounded-xl px-5 py-8 shadow-lg flex lg:flex-row flex-col lg:w-auto w-[80vw] items-start justify-between'>
+                                    <div>
+                                        <div className='flex'>
+                                            <img src={deBonaparte} alt="deBonaparte" className='rounded-full w-20 h-20 shadow-lg' />
+                                            <div className='p-3'>
+                                                <h1 className='font-bold text-[14px] xl:text-lg'>{project.projectOwnerName}</h1>
+                                                <p className='text-slate-700 text-[10px] xl:text-[12px]'>Creative Writer, Author, Director</p>
+                                            </div>
+                                            {project.tags.map(tag => (
+                                                <button className='hidden lg:block bg-gray-100 w-fit text-[12px] xl:text-[14px] lg:px-1.5 xl:px-3 py-0.5 rounded xl:ml-3 lg:ml-[1.5] h-fit mt-1.5'>{tag}</button>
+                                            ))}
+                                            <button className='lg:block hidden bg-[#3F5F4F] w-fit h-fit text-[12px] text-[14px] px-3 py-0.5 rounded ml-3 mt-1.5 text-white'>{project.status}</button>
+                                        </div>
+                                        <button className='block lg:hidden bg-[#3F5F4F] w-fit h-fit text-[12px] text-[12px] px-3 py-0.5 rounded mt-5 mt-3 text-white'>{project.status}</button>
+                                        <h1 className='font-bold text-[12px] xl:text-lg mt-1.5 lg:mt-5'>{project.title}</h1>
+                                        <p className='text-slate-700 text-[10px] xl:text-[12px]'>{project.description}</p>
+                                        <div>
+                                            <Link to={`/project/${project._id}`}><button className='bg-[#3F5F4F] w-fit h-fit text-[12px] lg:text-[13px] py-1.5 px-2 lg:px-3 lg:py-1.5 rounded mt-2 text-white' >View Project</button></Link>
+                                            <Link to={`/userAccount/${project.projectOwner}`}><button className='text-[#3F5F4F] font-semibold border border-[1.5px] border-[#3F5F4F] text-[12px] lg:text-[13px] py-1.5 px-2 lg:px-3 lg:py-1.5 rounded mt-2 ml-0.5 lg:ml-1.5'>About organisation</button></Link>
+                                        </div>
+                                    </div>
+                                    <SocialBar projectID={project._id} />
+                                </div>
+                            ))
+                            }
                         </div>
                     </div>
-                    <div className='flex flex-col'>
-                        {filter.filteredProjects && filter.filteredProjects.map(project => (
-                            <div className='bg-white m-3 rounded-xl px-5 py-8 shadow-lg flex items-start justify-between'>
-                                <div>
-                                    <div className='flex'>
-                                        <img src={deBonaparte} alt="deBonaparte" className='rounded-full w-20 h-20 shadow-lg' />
-                                        <div className='p-3'>
-                                            <h1 className='font-bold lg:text-[14px] xl:text-lg'>{project.projectOwnerName}</h1>
-                                            <p className='text-slate-700 lg:text-[10px] xl:text-[12px]'>Creative Writer, Author, Director</p>
-                                        </div>
-                                        {project.tags.map(tag => (
-                                            <button className='bg-gray-100 w-fit lg:text-[12px] xl:text-[14px] lg:px-1.5 xl:px-3 py-0.5 rounded xl:ml-3 lg:ml-[1.5] h-fit mt-1.5'>{tag}</button>
-                                        ))}
-                                        <button className='bg-[#3F5F4F] w-fit h-fit lg:text-[12px] text-[14px] px-3 py-0.5 rounded ml-3 mt-1.5 text-white'>{project.status}</button>
-                                    </div>
-                                    <h1 className='font-bold lg:text-[12px] xl:text-lg mt-5'>{project.title}</h1>
-                                    <p className='text-slate-700 lg:text-[10px] xl:text-[12px]'>{project.description}</p>
-                                    <div>
-                                        <Link to={`/project/${project._id}`}><button className='bg-[#3F5F4F] w-fit h-fit text-[13px] px-3 py-1.5 rounded mt-2 text-white' >View Project</button></Link>
-                                        <Link to={`/userAccount/${project.projectOwner}`}><button className='text-[#3F5F4F] font-semibold border border-[1.5px] border-[#3F5F4F] text-[13px] px-3 py-[5px] rounded mt-2 ml-1.5'>About organisation</button></Link>
-                                    </div>
-                                </div>
-                                <SocialBar projectID={project._id} />
-                            </div>
-                        ))
-                        }
-                    </div>
-                </div>
-            </div>
+                </div></>
             : <Loader />
     )
 }

@@ -42,11 +42,11 @@ function SocialBar({ projectID }) {
     return (
         <div className='flex flex-col justify-center items-center cursor-pointer' title='Upvote'>
             {canLike ?
-                <img src={likeIcon} alt="likeProject" className='w-8' onClick={() => handleLikeAction()} />
+                <img src={likeIcon} alt="likeProject" className='w-[30px] lg:w-8 lg:mt-0 mt-3' onClick={() => handleLikeAction()} />
                 :
-                <img src={likedIcon} alt="likedProject" className='w-8' />
+                <img src={likedIcon} alt="likedProject" className='w-[30px] lg:w-8 lg:mt-0 mt-3' />
             }
-            <p className='text-[13px] mt-1.5 text-slate-600'>{likes} Upvotes</p>
+            <p className='text-[11px] lg:text-[13px] mt-1.5 text-slate-600'>{likes} Upvotes</p>
         </div>
     )
 }
