@@ -21,7 +21,7 @@ function Requests() {
             })
     }, [])
     return (
-        <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10 h-[80%] overflow-auto'>
+        <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 h-[80%] overflow-auto'>
             <h1 className="text-xl text-slate-700 font-bold ">Requests to Merge in your projects</h1>
             <div>
                 {requests && requests.map(request => (
