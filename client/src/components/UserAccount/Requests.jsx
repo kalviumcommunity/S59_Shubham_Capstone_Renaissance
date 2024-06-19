@@ -26,17 +26,17 @@ function Requests() {
             <div>
                 {requests && requests.map(request => (
                     <div className="white shadow rounded py-5 px-8 bg-white my-5 flex justify-between">
-                        <div className='flex'>
-                            <img src={deBonaparte} alt="abhishekKaundal" className='rounded-full w-24 h-24' />
-                            <div className='m-5'>
-                                <h1 className="text-xl text-slate-700 font-bold ">{request.projectName}</h1>
-                                <p className="text-[14px] text-gray-500">By: {request.contributerName}</p>
-                                <p className="text-[14px] text-gray-500">{getDateFromISO(request.timestamp)}</p>
+                        <div className='lg:flex'>
+                            <img src={deBonaparte} alt="profile-image" className='rounded-full w-14 h-14 lg:w-24 lg:h-24' />
+                            <div className='mt-5 lg:m-5'>
+                                <h1 className="text-lg lg:text-xl text-slate-700 font-bold ">{request.projectName}</h1>
+                                <p className="text-[12px] lg:text-[14px] text-gray-500">By: {request.contributerName}</p>
+                                <p className="text-[12px] lg:text-[14px] text-gray-500">{getDateFromISO(request.timestamp)}</p>
                             </div>
                         </div>
                         <div className='flex flex-col justify-center'>
-                            <Link to={`/request/${request._id}`}><button className="bg-[#3F5F4F] border text-white border-[#3F5F4F] rounded text-sm px-3 py-1.5 rounded">View Request</button></Link>
-                            <button className="border border-1.5 border-[#3F5F4F] rounded text-sm px-3 py-1.5 rounded mt-3">Merge Request</button>
+                            <Link to={`/request/${request._id}`}><button className="bg-[#3F5F4F] border text-white border-[#3F5F4F] rounded text-[12px] lg:text-sm px-2 lg:px-3 py-1.5 rounded">View Request</button></Link>
+                            <button className="border border-1.5 border-[#3F5F4F] rounded text-[12px] lg:text-sm px-2 lg:px-3 py-1.5 rounded mt-3">Merge Request</button>
                         </div>
                     </div>
                 ))}

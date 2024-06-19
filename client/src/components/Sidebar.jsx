@@ -25,7 +25,7 @@ function Sidebar({ isExpand, userProjects, forkedProjects, username, setExpand }
                     )) :
                         <p className='m-3 text-[14px] text-gray-500'>No Project to show</p>}
                 </div>
-                <button onClick={() => setExpand(!isExpand)} className='ml-3.5 mt-5 text-[12px] px-1.5 py-0.5 lg:hidden bg-gray-100 border text-slate-800 rounded '>Go Back</button>
+                <button onClick={() => setExpand(!isExpand)} className='ml-3.5 mt-5 text-[12px] px-1.5 py-0.5 lg:hidden bg-red-100 border border-red-400 text-red-500 rounded '>Go Back</button>
             </div>
         </div>
     )

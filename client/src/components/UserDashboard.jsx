@@ -9,7 +9,7 @@ import Loader from './Loaders/Loader'
 import getUserDetails from '../utils/getUserDetails'
 import SocialBar from './SocialBar'
 import UserStats from './UserStats'
-import explore from '../assets/explore-white.png'
+import menu from '../assets/menu.png'
 import Sidebar from './Sidebar'
 
 function UserDashboard() {
@@ -132,8 +132,8 @@ function UserDashboard() {
             <>
                 {isExpand && isMobile && <div className='fixed top-0 left-0 w-full h-full bg-black opacity-60 z-[80] shadow-xl' />}
                 <div className={'lg:flex'}>
-                    <div className='fixed lg:static lg:hidden block top-[10px] left-[10px] bg-slate-800 z-50 cursor-pointer' onClick={() => setIsExpand(!isExpand)}>
-                        <img src={explore} alt="open-sidebar" className='w-[50px]' />
+                    <div className='fixed lg:static lg:hidden block p-3 top-[10px] rounded-full left-[10px] bg-slate-800 z-50 cursor-pointer' onClick={() => setIsExpand(!isExpand)}>
+                        <img src={menu} alt="open-sidebar" className='w-[28px]' />
                     </div>
                     <Sidebar setExpand={setIsExpand} isExpand={isExpand} username={username} userProjects={userProjects} forkedProjects={forkedProjects} />
                     <div className='bg-[#F4F4F4] w-full m-0 xl:w-[81%] lg:w-[75%] xl:ml-[19%] lg:ml-[25%] p-0 px-10 pt-20'>
@@ -164,8 +164,8 @@ function UserDashboard() {
                                             <p className='text-slate-700 text-[10px] xl:text-[12px]'>Creative Writer, Author, Director</p>
                                         </div>
                                     </div>
-                                    <h1 className='text-[12px] font-bold mt-5'>{project.title}</h1>
-                                    <p className='text-[12px] text-slate-700 text-sm'>{project.description}</p>
+                                    <h1 className='text-sm lg:text-base font-bold mt-5'>{project.title}</h1>
+                                    <p className='text-[12px] lg:text-sm text-slate-700'>{project.description}</p>
                                 </div>
                             ))
                                 :

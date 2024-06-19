@@ -60,7 +60,7 @@ function Account({ setLogin, isLogin }) {
                 </div>
             </div>
             <div className='w-fit lg:w-[65%] mt-8 mx-1.5 lg:mx-8'>
-                <div className={`flex justify-between ${(loggedUserID === userID) ? 'lg:w-[70%] w-[80vw] ' : 'xl:w-[30%] lg:w-[40%]'} lg:text-base text-[13px]`}>
+                <div className={`flex justify-between ${(loggedUserID === userID) ? 'lg:w-[70%] w-full ' : 'xl:w-[30%] lg:w-[40%]'} lg:text-base text-[13px]`}>
                     <button className={isOverview ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsOverview)}>Overview</button>
                     <button className={isProjects ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsProjects)} >Projects</button>
                     <button className={isContacts ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsContacts)}>Contacts</button>

@@ -13,7 +13,7 @@ function UserInfoCard() {
     return (
         <div className="flex w-fit items-center">
             <img src={profileImage} alt="default-profile" className="w-14 mr-3 rounded-full" />
-            <div>
+            <div className="lg:block hidden ">
                 <p className="text-base">{userName}</p>
                 <p className="text-[12px]">{userMail}</p>
             </div>
