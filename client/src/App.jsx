@@ -41,7 +41,7 @@ function App() {
   }, [isLogin])
 
   return (
-    <>
+    <div className=''>
       <Routes>
         <Route path='/' element={<Home isLogin={isLogin} />} />
         <Route path='/Register' element={<Register setLogin={setLogin} isLogin={isLogin} />} />
@@ -63,7 +63,7 @@ function App() {
       </Routes>
       <NavBar />
       <ToastContainer />
-    </>
+    </div>
   )
 }
 

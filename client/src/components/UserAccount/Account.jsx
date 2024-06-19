@@ -42,14 +42,14 @@ function Account({ setLogin, isLogin }) {
     }, [])
 
     return (
-        <div className='flex justify-between'>
-            <div className='w-[30%] bg-gray-100 px-5 py-8 border border-gray-300 h-[100vh]'>
-                <img src={imgURL && imgURL} alt="profileImage" className='rounded-full mx-auto lg:h-[200px] lg:w-[200px] xl:h-[350px] xl:w-[350px]' />
-                <div className='pt-5'>
-                    <h1 className='text-2xl font-bold text-center'>{userData.username}</h1>
+        <div className='flex lg:flex-row flex-col justify-between'>
+            <div className='w-full lg:w-[30%] bg-gray-100 lg:px-5 p-3 lg:py-8 border border-gray-300 h-fit lg:h-[100vh]'>
+                <img src={imgURL && imgURL} alt="profileImage" className='rounded-full mx-auto h-[100px] w-[100px] lg:h-[200px] lg:w-[200px] xl:h-[350px] xl:w-[350px]' />
+                <div className='pt-3 lg:pt-5'>
+                    <h1 className='text-xl text-2xl font-bold text-center'>{userData.username}</h1>
                     <div className='flex justify-center'>
                         {userData.occupations && userData.occupations.map(occ => (
-                            <p className='py-1.5 m-3 px-3 bg-[#97D4A6] w-fit rounded text-sm mt-3'>{occ}</p>
+                            <p className='py-1.5 m-3 px-3 bg-[#97D4A6] w-fit rounded text-[12px] lg:text-sm mt-3'>{occ}</p>
                         ))}
                     </div>
                 </div>
@@ -59,8 +59,8 @@ function Account({ setLogin, isLogin }) {
                     </p>
                 </div>
             </div>
-            <div className='w-[65%] mt-8 mx-8'>
-                <div className={`flex justify-between ${(loggedUserID === userID) ? 'w-[70%]' : 'xl:w-[30%] lg:w-[40%]'}`}>
+            <div className='w-fit lg:w-[65%] mt-8 mx-1.5 lg:mx-8'>
+                <div className={`flex justify-between ${(loggedUserID === userID) ? 'lg:w-[70%] w-full ' : 'xl:w-[30%] lg:w-[40%]'} lg:text-base text-[13px]`}>
                     <button className={isOverview ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsOverview)}>Overview</button>
                     <button className={isProjects ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsProjects)} >Projects</button>
                     <button className={isContacts ? `linkFocus` : `linkHover`} onClick={() => toggleModal(setIsContacts)}>Contacts</button>
@@ -95,10 +95,9 @@ function Account({ setLogin, isLogin }) {
                         </div>
                     </div>
                 }
-                {
-                    (isRequests && loggedUserID === userID) &&
-                    <Requests userID={userID} />
-                }
+                <div className='mt-5 lg:mt-10'>{(isRequests && loggedUserID === userID) &&
+                    <Requests userID={userID} />}
+                </div>
                 {
                     (isProfile && loggedUserID === userID) &&
                     <MyProfile userID={userID} setLogin={setLogin} isLogin={isLogin} />

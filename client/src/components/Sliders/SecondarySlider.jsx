@@ -43,15 +43,15 @@ function SecondarySlider({ imageArray }) {
     }
 
     return (
-        <div className="xl:h-[400px] lg:h-[320px] bg-cover relative" style={{ backgroundImage: `url(${bgSemiGreen})` }}>
+        <div className="xl:h-[400px] lg:h-[320px] bg-cover relative overflow-hidden" style={{ backgroundImage: `url(${bgSemiGreen})` }}>
             <div ref={modalRef} />
-            <Slider {...settings} className="slider-container w-[70vw] m-auto h-[350px]">
+            <Slider {...settings} className="slider-container lg:w-[70vw] m-auto h-[200px] lg:h-[350px]">
                 {imageArray.map((image, index) => (
-                    <div key={image._id} className={index == imageIndex ? "scale-[1.1] transition-transform px-5 py-8 rounded shadow-xl bg-white" : "shadow-xl p-5 scale-[0.8] bg-[#97D4A6] rounded"}>
-                        <img src={image.artistImageSrc} alt={image.artistName} className="rounded w-[800px] object-contain" />
+                    <div key={image._id} className={index == imageIndex ? "scale-[1.2] lg:scale-[1.1] transition-transform lg:px-5 p-2 lg:py-8 rounded shadow-xl bg-white" : "shadow-xl p-2 lg:p-5 scale-[0.7] lg:scale-[0.8] bg-[#97D4A6] rounded"}>
+                        <img src={image.artistImageSrc} alt={image.artistName} className="rounded w-[300px] lg:w-[800px] object-contain" />
                         {index == imageIndex && <div className="absolute bottom-[15%] w-[90%] m-auto" onClick={() => setPopUp(index)}>
-                            <img src={downChevron} className="w-5 m-auto animate-bounce cursor-pointer" alt="" />
-                            {selectedArtist == null && <p className="text-[15px] text-white text-shadow text-center mb-1.5 cursor-pointer">{image.artistName}</p>}
+                            <img src={downChevron} className="w-3 lg:w-5 m-auto animate-bounce cursor-pointer" alt="" />
+                            {selectedArtist == null && <p className="text-[11px] lg:text-[15px] text-white text-shadow text-center mb-1.5 cursor-pointer">{image.artistName}</p>}
                         </div>}
                     </div>
                 ))}

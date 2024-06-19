@@ -29,10 +29,10 @@ export default function SimpleSlider() {
     };
 
     return (
-        <div style={{ width: "100%", margin: "auto", height: "40vh" }}>
+        <div className="lg:w-full m-auto lg:h-[40vh]">
             <Slider {...settings}>
                 <div className="card w-full h-full">
-                    <img src={carouselFour} alt="renaissance-carousel" className="card-content" />
+                    <img src={carouselFour} alt="renaissance-carousel" className="card-content object-cover object-center w-[100vw] h-[50vh] lg:h-full lg:w-full" />
                     <div className="card-hover flex flex-col px-8">
                         <p className=" font-bold text-white">The Creation of Adam</p>
                         <p className=" font-semibold text-white">(Michelangelo)</p>
@@ -40,7 +40,7 @@ export default function SimpleSlider() {
                     </div>
                 </div>
                 <div className="card w-full">
-                    <img src={carouselTwo} alt="renaissance-carousel" className="card-content" />
+                    <img src={carouselTwo} alt="renaissance-carousel" className="card-content object-cover object-center w-[100vw] h-[50vh] lg:h-full lg:w-full" />
                     <div className="card-hover flex flex-col px-8">
                         <p className=" font-bold text-white">The Last Supper</p>
                         <p className=" font-semibold text-white">(Leonardo Da Vinci)</p>
@@ -48,7 +48,7 @@ export default function SimpleSlider() {
                     </div>
                 </div>
                 <div className="card w-full">
-                    <img src={carouselThree} alt="renaissance-carousel" className="card-content" />
+                    <img src={carouselThree} alt="renaissance-carousel" className="card-content object-cover object-center w-[100vw] h-[50vh] lg:h-full lg:w-full" />
                     <div className="card-hover flex flex-col px-8">
                         <p className=" font-bold text-white">Primevera</p>
                         <p className=" font-semibold text-white">(Sandro Botticelli)</p>
@@ -56,7 +56,7 @@ export default function SimpleSlider() {
                     </div>
                 </div>
                 <div className="card w-full">
-                    <img src={carouselOne} alt="renaissance-carousel" className="card-content" />
+                    <img src={carouselOne} alt="renaissance-carousel" className="card-content object-cover object-center w-[100vw] h-[50vh] lg:h-full lg:w-full" />
                     <div className="card-hover flex flex-col px-8">
                         <p className=" font-bold text-white">School of Athens</p>
                         <p className=" font-semibold text-white">(Raphael)</p>
