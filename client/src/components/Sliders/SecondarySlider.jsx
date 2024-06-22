@@ -43,7 +43,7 @@ function SecondarySlider({ imageArray }) {
     }
 
     return (
-        <div className="xl:h-[400px] lg:h-[320px] bg-cover relative overflow-hidden" style={{ backgroundImage: `url(${bgSemiGreen})` }}>
+        <div className="xl:h-[400px] lg:h-[320px] bg-cover relative" style={{ backgroundImage: `url(${bgSemiGreen})` }}>
             <div ref={modalRef} />
             <Slider {...settings} className="slider-container lg:w-[70vw] m-auto h-[200px] lg:h-[350px]">
                 {imageArray.map((image, index) => (
@@ -57,13 +57,12 @@ function SecondarySlider({ imageArray }) {
                 ))}
             </Slider>
             {selectedArtist != null &&
-                <div className="w-[80vw] py-8 px-5 rounded m-auto bg-white absolute left-[10%] top-[350px] shadow-xl pt-0 ">
-                    <button onClick={() => setPopUp(null)} className=" absolute right-3 top-3">Close</button>
-                    <h1 className="font-bold text-center text-lg">{imageArray[selectedArtist].artistName}</h1>
-                    <h1 className="text-center">{imageArray[selectedArtist].birth}</h1>
-                    <p className="p-3">{imageArray[selectedArtist].artistBio}</p>
+                <div className="w-[80vw] py-5 lg:py-8 px-3 lg:px-5 rounded m-auto bg-white absolute top-[130px] left-[10%] lg:top-[350px] shadow-xl pt-0 ">
+                    <button onClick={() => setPopUp(null)} className="lg:text-lg text-sm absolute right-3 top-3">Close</button>
+                    <h1 className="font-bold text-center lg:text-lg text-sm lg:mt-0 mt-3">{imageArray[selectedArtist].artistName}</h1>
+                    <h1 className="text-center lg:text-lg text-[13px]">{imageArray[selectedArtist].birth}</h1>
+                    <p className="p-3 text-black lg:text-lg text-[13px]">{imageArray[selectedArtist].artistBio}</p>
                 </div>
-
             }
         </div>
     );
