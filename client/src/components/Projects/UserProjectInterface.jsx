@@ -7,11 +7,13 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useParams } from 'react-router-dom'
+import { showProfileImage } from '../../utils/getProfileImage'
 import getUserDetails from '../../utils/getUserDetails'
 
 function UserProjectInterface() {
     const { projectID } = useParams()
     const [userID, setUserID] = useState(null)
+    const [projOwnerImg, setProjOwnerImg] = useState(null)
     const [project, setProject] = useState(null)
     const [contributers, setContributers] = useState(null)
     const [chapters, setChapters] = useState(null)
@@ -23,6 +25,7 @@ function UserProjectInterface() {
         fetchProject(projectID)
             .then(response => {
                 setProject(response.data)
+                showProfileImage(response.data.projectOwner, setProjOwnerImg)
                 return fetchChapters(response.data._id)
             })
             .then(response => {
@@ -72,7 +75,7 @@ function UserProjectInterface() {
             <div>
                 <header className="sticky top-0 w-full flex justify-between bg-[#3F5F4F] p-3 lg:p-5 items-center shadow-lg">
                     <div className="text-white flex justify-center items-center">
-                        <img src={deBonaparte} alt="" className='w-14 lg:w-[60px] lg:h-[60px] rounded-full' />
+                        <img src={projOwnerImg && projOwnerImg} alt="" className='w-14 lg:w-[60px] lg:h-[60px] rounded-full' />
                         <h3 className='lg:block hidden ml-1.5 lg:ml-5 lg:text-base text-sm '>{project.projectOwnerName} / </h3>
                         <h3 className='lg:text-base text-[12px] lg:ml-0 ml-3'>{project.title}</h3>
                     </div>

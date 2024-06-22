@@ -3,16 +3,29 @@ import Loader from '../Loaders/Loader'
 import explore_bg from '../../assets/cover_Explore.jpg'
 import { fetchProjects } from "../../utils/apiUtils"
 import Footer from "../Footer"
-import deBonaparte from '../../assets/deBonaparte.jpg'
+import { getDisplayPicture } from "../../utils/getAccountDP"
 import { Link } from "react-router-dom"
+import { ClipLoader } from "react-spinners"
 
 function Explore({ isLogin }) {
     const [projects, setProjects] = useState([])
+    const [projectImages, setProjectImages] = useState({})
     useEffect(() => {
         fetchProjects()
             .then(response => setProjects(response.data))
             .catch(error => console.log(error))
     }, [])
+    useEffect(() => {
+        const fetchImages = async () => {
+            const imageMap = {}
+            for (const project of projects) {
+                const url = await getDisplayPicture(project.projectOwner)
+                imageMap[project.projectOwner] = url
+            }
+            setProjectImages(imageMap)
+        }
+        fetchImages()
+    }, [projects])
     return (
         <>
             {projects ?
@@ -39,7 +52,7 @@ function Explore({ isLogin }) {
                         {projects.map(project => (
                             <div className='border bg-white m-3 rounded-xl w-fit px-5 py-8 shadow-lg flex flex-col justify-center hover:scale-105'>
                                 <div className='flex'>
-                                    <img src={deBonaparte} alt="deBonaparte" className='rounded-full w-20 h-20 shadow-lg' />
+                                    {projectImages[project.projectOwner] ? <img src={projectImages[project.projectOwner]} alt="profile-picture" className='rounded-full w-20 h-20 shadow-lg' /> : <ClipLoader size={20} className='m-auto' />}
                                     <div className='p-3'>
                                         <h1 className='font-bold text-sm lg:text-lg'>{project.projectOwnerName}</h1>
                                         <p className='text-slate-700 text-[12px]'>Creative Writer, Author, Director</p>

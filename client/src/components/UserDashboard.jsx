@@ -1,21 +1,24 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { fetchUserProjects, fetchLatestProjects, fetchProjects, getForkedProject, fetchProject, getFork } from '../utils/apiUtils'
 import { Link } from 'react-router-dom'
+import { getDisplayPicture } from '../utils/getAccountDP'
 import searchIcon from '../assets/search-icon.png'
 import deVanGoghDoodle from '../assets/van-gogh.png'
 import keatsDoodle from '../assets/keats-doodle.jpeg'
-import deBonaparte from '../assets/deBonaparte.jpg'
 import Loader from './Loaders/Loader'
 import getUserDetails from '../utils/getUserDetails'
 import SocialBar from './SocialBar'
 import UserStats from './UserStats'
+import { showProfileImage } from '../utils/getProfileImage'
 import menu from '../assets/menu.png'
 import Sidebar from './Sidebar'
+import { ClipLoader } from 'react-spinners'
 
 function UserDashboard() {
     const [userProjects, setUserProjects] = useState([])
     const [latestProjects, setLatestProjects] = useState([])
     const [forkedProjects, setForkedProjects] = useState([])
+    const [userImg, setUserImg] = useState(null)
     const [projects, setProjects] = useState(null)
     const [allTags, setTags] = useState([])
     const [username, setUserName] = useState("")
@@ -23,11 +26,14 @@ function UserDashboard() {
     const [filter, setFilter] = useState({ filterVal: "All", filteredProjects: [] })
     const [isExpand, setIsExpand] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
+    const [projectImages, setProjectImages] = useState({});
+
+
 
     useEffect(() => {
         const userID = getUserDetails('userID')
         setUserName(getUserDetails("userName"))
-
+        showProfileImage(userID, setUserImg)
         fetchLatestProjects(userID)
             .then(response => {
                 console.log(response.data)
@@ -95,9 +101,22 @@ function UserDashboard() {
                     console.log("Some error occurred. Try Again Later", error)
                 }
             })
+
         if (window.innerWidth <= 768) setIsMobile(true)
         else setIsExpand(true)
     }, [])
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            const imageMap = {}
+            for (const project of projects) {
+                const url = await getDisplayPicture(project.projectOwner)
+                imageMap[project.projectOwner] = url
+            }
+            setProjectImages(imageMap)
+        }
+        fetchImages()
+    }, [projects])
 
     const filterProjects = useMemo(() => {
         if (filter.filterVal === "All") {
@@ -158,7 +177,7 @@ function UserDashboard() {
                             {latestProjects.length ? latestProjects.map(project => (
                                 <div className='bg-white m-1.5 xl:m-3 rounded-xl xl:w-[30%] lg:w-[32%] lg:w-[30%] xl:px-5 px-3 py-3 lg:py-5 xl:py-8 shadow-lg flex flex-col justify-center'>
                                     <div className='flex'>
-                                        <img src={deBonaparte} alt="deBonaparte" className='rounded-full w-[80px] h-[80px] xl:w-20 lg:w-14  lg:h-14 xl:h-20 shadow-lg' />
+                                        <img src={userImg && userImg} alt="deBonaparte" className='rounded-full w-[80px] h-[80px] xl:w-20 lg:w-14  lg:h-14 xl:h-20 shadow-lg' />
                                         <div className='p-3'>
                                             <h1 className='font-bold text-[12px] xl:text-lg'>{username}</h1>
                                             <p className='text-slate-700 text-[10px] xl:text-[12px]'>Creative Writer, Author, Director</p>
@@ -189,7 +208,7 @@ function UserDashboard() {
                                 <div className='bg-white m-3 rounded-xl px-5 py-8 shadow-lg flex lg:flex-row flex-col lg:w-auto w-[80vw] items-start justify-between'>
                                     <div>
                                         <div className='flex'>
-                                            <img src={deBonaparte} alt="deBonaparte" className='rounded-full w-20 h-20 shadow-lg' />
+                                            {projectImages[project.projectOwner] ? <img src={projectImages[project.projectOwner]} alt="profile-picture" className='rounded-full w-20 h-20 shadow-lg' /> : <ClipLoader size={20} className='m-auto' />}
                                             <div className='p-3'>
                                                 <h1 className='font-bold text-[14px] xl:text-lg'>{project.projectOwnerName}</h1>
                                                 <p className='text-slate-700 text-[10px] xl:text-[12px]'>Creative Writer, Author, Director</p>
