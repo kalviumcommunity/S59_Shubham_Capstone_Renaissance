@@ -11,9 +11,11 @@ import getUserDetails from '../../utils/getUserDetails'
 import forkIcon from '../../assets/fork-icon.png'
 import forkedIcon from '../../assets/forked.png'
 import UserInfoCard from '../UserInfoCard'
+import { showProfileImage } from '../../utils/getProfileImage'
 
 function ProjectInterface() {
     const [project, setProject] = useState(null)
+    const [projOwnerImg, setProjOwnerImg] = useState(null)
     const [chapters, setChapters] = useState([])
     const [contributers, setContributers] = useState(null)
     const [fork, setFork] = useState(false)
@@ -25,6 +27,7 @@ function ProjectInterface() {
         fetchProject(projectID)
             .then(response => {
                 setProject(response.data)
+                showProfileImage(response.data.projectOwner, setProjOwnerImg)
             })
             .catch(error => {
                 if (error.response) {
@@ -105,7 +108,7 @@ function ProjectInterface() {
             <>
                 <header className="sticky top-0 w-full flex justify-between bg-[#3F5F4F] p-3 lg:p-5 items-center shadow-lg">
                     <div className="text-white flex justify-center items-center">
-                        <img src={deBonaparte} alt="" className='w-14 lg:w-[60px] lg:h-[60px] rounded-full' />
+                        <img src={projOwnerImg && projOwnerImg} alt="" className='w-14 lg:w-[60px] lg:h-[60px] rounded-full' />
                         <h3 className='lg:block hidden ml-1.5 lg:ml-5 lg:text-base text-sm '>{project.projectOwnerName} / </h3>
                         <h3 className='lg:text-base text-[12px] lg:ml-0 ml-3'>{project.title}</h3>
                     </div>

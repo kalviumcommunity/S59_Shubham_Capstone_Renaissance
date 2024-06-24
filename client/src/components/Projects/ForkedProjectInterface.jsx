@@ -8,12 +8,14 @@ import { useCallback, useEffect, useState } from 'react'
 import Loader from '../Loaders/Loader'
 import getUserDetails from '../../utils/getUserDetails'
 import UploadChapter from '../Chapters/UploadChapter'
+import { showProfileImage } from '../../utils/getProfileImage'
 import UserInfoCard from '../UserInfoCard'
 
 function ForkedProjectInterface() {
     const { forkID } = useParams()
     const [projectID, setProjectID] = useState()
     const [forkedProject, setForkedProject] = useState(null)
+    const [projOwnerImg, setProjOwnerImg] = useState(null)
     const [originalProject, setOriginalProject] = useState(null)
     const [chapters, setChapters] = useState(null)
     const [originalChapters, setOriginalChapters] = useState(null)
@@ -26,6 +28,7 @@ function ForkedProjectInterface() {
             fetchProject(projectID)
                 .then(response => {
                     setOriginalProject(response.data)
+                    showProfileImage(response.data.projectOwner, setProjOwnerImg)
                 })
                 .catch(error => {
                     console.log("Error fetching the original project", error)
@@ -79,7 +82,7 @@ function ForkedProjectInterface() {
             <>
                 <header className="sticky top-0 w-full flex justify-between bg-[#3F5F4F] p-3 lg:p-5 items-center shadow-lg">
                     <div className="text-white flex justify-center items-center">
-                        <img src={deBonaparte} alt="" className='w-14 lg:w-[60px] lg:h-[60px] rounded-full' />
+                        <img src={projOwnerImg && projOwnerImg} alt="" className='w-14 lg:w-[60px] lg:h-[60px] rounded-full' />
                         <h3 className='lg:block hidden ml-1.5 lg:ml-5 lg:text-base text-sm'>{originalProject.projectOwnerName} / </h3>
                         <h3 className='lg:text-base text-[12px] lg:ml-0 ml-3'>{originalProject.title}</h3>
                     </div>
