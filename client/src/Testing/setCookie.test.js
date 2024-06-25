@@ -18,7 +18,7 @@ describe('setCookie', () => {
             expect(decodeURIComponent(val)).toBe(cookieVal)
         }
     })
-    
+
     test('sets cookie with no expiry provided', () => {
         const cookieName = 'testCookie'
         const cookieVal = 'cookieVal'        
@@ -26,7 +26,6 @@ describe('setCookie', () => {
         const cookie = document.cookie.split("; ").find(row => row.startsWith(cookieName + '='))
         expect(cookie).toBeDefined();
         if (cookie) {
-            console.log(cookie)
             const val = cookie.split('=')[1]
             expect(decodeURIComponent(val)).toBe(cookieVal)
             expect(cookie.includes('; expires=')).toBeFalsy()

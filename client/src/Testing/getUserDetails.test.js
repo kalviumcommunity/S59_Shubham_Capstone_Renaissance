@@ -1,7 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import getUserDetails from "../utils/getUserDetails";
 jest.mock('../utils/getCookie', () => ({
-    __esModule: true.valueOf,
+    __esModule: true,
     default: jest.fn()
 }))
 
@@ -23,7 +23,7 @@ describe('getUserDetails', () => {
         expect(getUserDetails('userID')).toBe('1234567890')
         expect(getUserDetails('userName')).toBe('Renaissance')
     })
-    
+
     test('returns null when no token passed', () => {
         const mockToken = null
         jest.requireMock('../utils/getCookie').default.mockReturnValue(mockToken)

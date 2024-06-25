@@ -14,11 +14,6 @@ describe('getCookie', () => {
     document.cookie = 'username=Renaissance'
     expect(getCookie('dateofBirth')).toBeNull()
   })
-  
-  test('returns the value of the specified cookie among multiple cookies', () => {
-    document.cookie = 'username=Renaissance; accessToken=123'
-    expect(getCookie('username')).toBe('Renaissance')
-  })
 
   test('returns the value of the specified cookie among multiple cookies', () => {
     document.cookie = 'username=Renaissance; accessToken=123'
