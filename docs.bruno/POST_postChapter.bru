@@ -1,0 +1,20 @@
+meta {
+  name: POST_postChapter
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:8080/chapter/add-chapter/664346c7613f54c75ddde2e9
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "title": "Chapter 1",
+      "content": "This is the content of chapter 1.",
+      "dateCreated": "2024-05-24T00:00:00Z",
+      "userID": "66234f93ea695965f60d2b4b"
+  }
+}

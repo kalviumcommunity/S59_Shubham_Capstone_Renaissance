@@ -11,16 +11,53 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     projects: {
-        type: Array,
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Project'
+        }],
         default: []
+    },
+    forkedProjects: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Project'
+        }],
+        default: []
+    },
+    commits: {
+        type: Array,
+        required: true
     },
     occupations: {
         type: Array,
-        required: true
+        default: ['amateur']
     },
     password: {
+        type: String
+    },
+    profileImage: {
         type: String,
-        required: true
+        default: './public/userDisplayImages/default-profile-image.png',
+        required: false
+    },
+    location: {
+        type: String,
+        required: false
+    },
+    bio: {
+        type: String,
+        required: false
+    },
+    phNumber: {
+        type: Number,
+        required: false
+    },
+    Likes: {
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user'
+        }],
+        default: []
     }
 })
 

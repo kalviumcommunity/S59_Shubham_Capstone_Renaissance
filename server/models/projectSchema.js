@@ -5,6 +5,10 @@ const projectSchema = mongoose.Schema({
         type : String,
         required : true
     },
+    dateCreated : {
+        type : Date,
+        required : true
+    },
     description : {
         type : String,
         required : true
@@ -13,9 +17,12 @@ const projectSchema = mongoose.Schema({
         type : Array,
         required : true
     },
-    contributors : {
-        type : Array,
-        required : true
+    contributors :{
+        type : [{
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'user'
+        }],
+        default : []
     },
     status : {
         type : String,
@@ -25,10 +32,21 @@ const projectSchema = mongoose.Schema({
         type : String,
         required : true
     },
+    projectOwnerName : {
+        type : String,
+        required : true
+    },
     chapters :{
         type : [{
             type : mongoose.Schema.Types.ObjectId,
             ref : 'Chapter'
+        }],
+        default : []
+    },
+    Likes :{
+        type : [{
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'project'
         }],
         default : []
     }

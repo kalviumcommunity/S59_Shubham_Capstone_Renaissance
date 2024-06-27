@@ -1,13 +1,27 @@
 import axios from 'axios'
+import setCookie from './setCookie'
+import { toast } from 'react-toastify'
 
-const registerUtil = (data) => {
-    axios.post('http://localhost:8080/user/login', data)
+const loginUtil = (data, setLoginStatus, setLogin) => {
+    axios.post(`${import.meta.env.VITE_API_USER_URI}/login`, data)
         .then(response => {
-            console.log("Login Successful: ", response.data)
+            try {
+                setCookie('accessToken', response.data.accessToken, 1)
+                toast.success("Login Successful!")
+                setLoginStatus(false)
+                setLogin(true)
+            }
+            catch (error) {
+                toast.error(response.message)
+                console.log("Error setting up the cookie", error)
+                setLoginStatus(false)
+            }
         })
         .catch(error => {
-            console.log(error.response.data)
+            error.response ? toast.error(error.response.data.message) : toast.error("Something wrong happened. Try again later")
+            console.log(error)
+            setLoginStatus(false)
         })
 }
 
-export default registerUtil
+export default loginUtil
