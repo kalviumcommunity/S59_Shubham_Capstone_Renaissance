@@ -1,6 +1,7 @@
 const express = require('express')
 const session = require("express-session")
 const passport = require("passport")
+const rateLimit = require('express-rate-limit')
 const connectToDB = require('./config/db')
 const cors = require('cors')
 const app = express()
@@ -33,6 +34,12 @@ app.use(
     saveUninitialized: false,
   })
 )
+const limiter = rateLimit({
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: 'Too many requests. Try again after an hour'
+})
+app.use('/pull/pull', limiter)
 app.use(cookieParser())
 app.use(passport.initialize())
 app.use(passport.session())
