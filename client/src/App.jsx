@@ -24,6 +24,8 @@ import getCookie from './utils/getCookie'
 import './index.css'
 import './App.css'
 import Read from './components/Explore/Read';
+import Enter from './components/ChatRoom/Enter'
+import Chat from './components/ChatRoom/Chat'
 
 function App() {
   const [isLogin, setLogin] = useState(false)
@@ -60,6 +62,8 @@ function App() {
         <Route path='/myProject/:projectID' element={<UserProjectInterface />} />
         <Route path='/Explore' element={<Explore />} />
         <Route path='/Read/:projectID' element={<Read isLogin={isLogin} />} />
+        <Route path='/EnterRoom/:roomID' element={<Enter />} />
+        <Route path='/Chats/:roomID/:userName' element={<Chat />} />
       </Routes>
       <NavBar />
       <ToastContainer />

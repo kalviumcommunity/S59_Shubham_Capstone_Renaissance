@@ -7,7 +7,7 @@ import MyProfile from './MyProfile'
 import { showProfileImage } from '../../utils/getProfileImage'
 import UserStats from '../UserStats'
 import getUserDetails from '../../utils/getUserDetails'
-
+import { Link } from 'react-router-dom'
 function Account({ setLogin, isLogin }) {
     const [isOverview, setIsOverview] = useState(true)
     const [isProjects, setIsProjects] = useState(false)
@@ -73,6 +73,7 @@ function Account({ setLogin, isLogin }) {
                         <p className='text-justify text-sm text-slate-700 mt-3'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In voluptate vel, necessitatibus cum omnis, quas ullam voluptates nemo reprehenderit suscipit similique blanditiis eos iste. Veritatis minima omnis a nemo rem?</p>
                         <h1 className='text-2xl font-bold text-slate-700 mt-8'>Statistics</h1>
                         <UserStats />
+                        {isLogin && <Link to={`/EnterRoom/667d1dbb8bd2f22267f50746`}>Join room</Link>}
                     </div>
                 }
                 {isProjects &&

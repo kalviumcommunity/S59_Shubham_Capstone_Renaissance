@@ -131,3 +131,7 @@ export const updateProject = (projectID, data) => {
 export const getArtistsOne = (artistID) => {
     return axios.get(`${import.meta.env.VITE_API_ARTIST_URI}/find-artist/${artistID}`)
 }
+
+export const getRoomName = (roomID) => {
+    return axios.get(`${import.meta.env.VITE_API_ROOM_URI}/room-name/${roomID}`)
+}
