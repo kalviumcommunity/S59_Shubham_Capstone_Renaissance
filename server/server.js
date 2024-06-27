@@ -35,7 +35,7 @@ app.use(
   })
 )
 const limiter = rateLimit({
-  max: 100,
+  max: process.env.PULL_RATE,
   windowMs: 60 * 60 * 1000,
   message: 'Too many requests. Try again after an hour'
 })
