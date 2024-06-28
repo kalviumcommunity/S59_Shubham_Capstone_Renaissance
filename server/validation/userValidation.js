@@ -6,7 +6,8 @@ const userStruc = Joi.object({
     occupations: Joi.array().items(Joi.string()).required(),
     password: Joi.string().required(),
     bio: Joi.string(),
-    location: Joi.string()
+    location: Joi.string(),
+    otp: Joi.string().required()
 })
 
 

@@ -3,6 +3,7 @@ const userModel = require('../models/userSchema')
 const projectModel = require('../models/projectSchema')
 const checkValidation = require('../validation/checkValidation')
 const userStruc = require('../validation/userValidation')
+const otpModel = require('../models/otpSchema')
 const jwt = require('jsonwebtoken')
 const path = require('path')
 require('dotenv').config({ path: '../envFiles/.env' });
@@ -19,12 +20,19 @@ const registerUser = async (req, res) => {
         console.log("Data Failed the validation")
         return res.status(400).json({ message: "Data validation failed. Please add data as per the norms" })
     }
+    const otp = req.body.otp
+    const resp = await otpModel.find({ email: req.body.email }).sort({ createdAt: -1 }).limit(1)
+    if (resp.length === 0 || resp[0].otp !== otp) {
+        console.log(resp[0], otp)
+        console.log("OTP is invalid")
+        return res.status(400).json({ message: "The OTP is invalid" })
+    }
     try {
         const newUser = new userModel({
             username: req.body.username,
             email: req.body.email,
             occupations: req.body.occupations,
-            password: req.body.password
+            password: req.body.password,
         })
         const user = await newUser.save()
         res.status(201).json(user)
