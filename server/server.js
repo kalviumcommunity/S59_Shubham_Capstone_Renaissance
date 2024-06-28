@@ -1,4 +1,5 @@
 const express = require('express')
+require('dotenv').config({ path: './envFiles/.env' })
 const session = require("express-session")
 const passport = require("passport")
 const rateLimit = require('express-rate-limit')
@@ -17,6 +18,7 @@ const forkRoutes = require('./routes/forkRoutes')
 const fileRoutes = require('./routes/fileUpload')
 const googleRoutes = require('./routes/googleRoutes')
 const socialRoutes = require('./routes/SocialRoutes')
+const otpRoutes = require('./routes/otpRoutes')
 const cookieParser = require('cookie-parser')
 
 connectToDB()
@@ -54,6 +56,7 @@ app.use('/pull', pullRoutes)
 app.use('/fork', forkRoutes)
 app.use('/google-auth', googleRoutes)
 app.use('/socials', socialRoutes)
+app.use('/otp', otpRoutes)
 
 app.listen(PORT, () => {
   console.log("Listening at Port", PORT)
