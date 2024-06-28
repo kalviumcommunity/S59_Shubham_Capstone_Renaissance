@@ -3,7 +3,7 @@ import registerUtil from '../../utils/registerUtil'
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-function Signup({ setRegStatus }) {
+function Signup({ setRegStatus, mail }) {
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
     const [traits, setTraits] = useState({ 'student': false, 'professional': false, amateur: false })
     const [traitsList, setTraitList] = useState([])
@@ -36,7 +36,7 @@ function Signup({ setRegStatus }) {
         <form
             className='flex justify-center items-centerl lg:w-[50vw] pt-[15vh] lg:p-0 lg:mx-0 mx-auto'
             onSubmit={handleSubmit((data) => {
-                registerUtil({ username: data.username, email: data.email, password: data.password, occupations: traitsList })
+                registerUtil({ username: data.username, email: mail, password: data.password, occupations: traitsList })
             })}>
 
             <div>
@@ -52,7 +52,7 @@ function Signup({ setRegStatus }) {
                             maxLength: { value: 30, message: "Name should be not more than 30 characters long" }
                         })} />
                     {errors.mail && <p className='text-[12px] lg:text-sm m-0.5 text-red-500'>{errors.mail.message}</p>}
-                    <input
+                    {/* <input
                         type="text"
                         className={`w-[300px] lg:w-[400px] bg-gray-300 py-2 px-3.5 rounded m-1.5 placeholder-slate-800 text-[12px] lg:text-sm ${errors.email ? 'bg-red-100 border border-red-700' : ''}`}
                         placeholder='Enter your mail'
@@ -60,7 +60,7 @@ function Signup({ setRegStatus }) {
                             required: "Please enter the email",
                             minLength: { value: 3, message: "Name should be of minimum 3 characters." },
                             maxLength: { value: 30, message: "Name should be not more than 30 characters long" }
-                        })} />
+                        })} /> */}
                     <p className='text-[12px] lg:text-sm mt-3 mb-1.5 w-[380px] text-center'>I love writing and I am a</p>
                     <div className='flex items-center w-[300px] lg:w-[400px] flex-wrap mb-1.5 text-[12px] lg:text-sm'>
                         <button type="button" className={getButtonClassName('student')}
