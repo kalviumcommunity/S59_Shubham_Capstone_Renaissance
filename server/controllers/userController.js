@@ -3,6 +3,7 @@ const userModel = require('../models/userSchema')
 const projectModel = require('../models/projectSchema')
 const checkValidation = require('../validation/checkValidation')
 const userStruc = require('../validation/userValidation')
+const otpModel = require('../models/otpSchema')
 const jwt = require('jsonwebtoken')
 const path = require('path')
 require('dotenv').config({ path: '../envFiles/.env' });
@@ -24,7 +25,7 @@ const registerUser = async (req, res) => {
             username: req.body.username,
             email: req.body.email,
             occupations: req.body.occupations,
-            password: req.body.password
+            password: req.body.password,
         })
         const user = await newUser.save()
         res.status(201).json(user)
