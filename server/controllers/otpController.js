@@ -35,12 +35,6 @@ const sendOTP = async (req, res) => {
 }
 
 const verifyOTP = async (req, res) => {
-    // const otp = req.body.otp
-    // const resp = await otpModel.find({ email:  }).sort({ createdAt: -1 }).limit(1)
-    // if (resp.length === 0 || resp[0].otp !== otp) {
-    //     console.log("OTP is invalid")
-    //     return res.status(400).json({ message: "The OTP is invalid" })
-    // }
     try {
         const otp = req.body.otp
         const email = req.body.email
