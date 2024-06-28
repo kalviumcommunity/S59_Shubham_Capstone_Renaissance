@@ -20,7 +20,6 @@ const socialRoutes = require('./routes/SocialRoutes')
 const roomRoutes = require('./routes/roomRoutes')
 const cookieParser = require('cookie-parser')
 const { Server } = require('socket.io')
-const http = require('http')
 
 connectToDB()
 const corsOptions = {
@@ -59,15 +58,15 @@ app.use('/google-auth', googleRoutes)
 app.use('/socials', socialRoutes)
 app.use('/room', roomRoutes)
 
-const server = http.createServer(app)
-const io = new Server(server, {
+const expressServer = app.listen(8081, () => console.log("Listening on Port", PORT))
+const io = new Server(expressServer, {
   cors: {
-    origin: CLIENT_URI,
+    origin: '*'
   }
 })
 
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log("Listening at Port", PORT)
 })
 
-module.exports = { io, server }
+module.exports = { io }
