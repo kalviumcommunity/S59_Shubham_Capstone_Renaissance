@@ -19,9 +19,14 @@ const fileRoutes = require('./routes/fileUpload')
 const googleRoutes = require('./routes/googleRoutes')
 const socialRoutes = require('./routes/SocialRoutes')
 const otpRoutes = require('./routes/otpRoutes')
+const roomRoutes = require('./routes/roomRoutes')
 const cookieParser = require('cookie-parser')
+const http = require('http')
+const { Server } = require('socket.io')
+const initChat = require('./socketRoutes.js')
 
 connectToDB()
+const server = new http.createServer(app)
 const corsOptions = {
   origin: CLIENT_URI,
   credentials: true,
@@ -57,7 +62,16 @@ app.use('/fork', forkRoutes)
 app.use('/google-auth', googleRoutes)
 app.use('/socials', socialRoutes)
 app.use('/otp', otpRoutes)
+app.use('/room', roomRoutes)
 
-app.listen(PORT, () => {
+const io = new Server(server, {
+  cors: {
+    origin: CLIENT_URI
+  }
+})
+
+server.listen(PORT, () => {
   console.log("Listening at Port", PORT)
 })
+
+initChat(io)

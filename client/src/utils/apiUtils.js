@@ -139,3 +139,7 @@ export const sendOTP = (data) => {
 export const verifyOTP = (data) => {
     return axios.post(`${import.meta.env.VITE_API_OTP_URI}/verify-otp`, data)
 }
+
+export const getRoomName = (roomID) => {
+    return axios.get(`${import.meta.env.VITE_API_ROOM_URI}/room-name/${roomID}`)
+}
