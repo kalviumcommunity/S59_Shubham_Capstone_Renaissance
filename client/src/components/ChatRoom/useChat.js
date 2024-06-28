@@ -3,53 +3,45 @@ import { getRoomName } from '../../utils/apiUtils'
 import socketIOClient from "socket.io-client"
 
 const useChat = (userName, roomID) => {
-    const socketRef = useRef();
+    const socketRef = useRef(null)
     const [roomName, setRoomName] = useState(null)
     const [messages, setMessages] = useState([])
+    const [activities, setActivities] = useState([])
 
     useEffect(() => {
-        //get the room name corresponding to the room
         getRoomName(roomID)
-            .then(result => 
-                {setRoomName(result.data.roomName)
-                    
-                })
-            .catch(error => console.log("Error getting the room name"))
-    }, [])
+            .then(result => {
+                setRoomName(result.data.roomName)
+            })
+            .catch(error => {
+                console.log("Error getting the room name:", error)
+            })
+    }, [roomID])
 
     useEffect(() => {
-        console.log(userName)
-        // Initialize the socket connection
-        socketRef.current = socketIOClient('http://localhost:8080');
+        if (!roomName) return
 
-        // Handle receiving the most recent messages
-        socketRef.current.on("MostRecentMessages", (mostRecentMessages) => {
+        socketRef.current = socketIOClient('http://localhost:8080')
+
+        socketRef.current.on("MostRecentMessages", mostRecentMessages => {
             setMessages(mostRecentMessages)
         })
 
-        //Handle receiving new messages
-        socketRef.current.on("newMessage", ({ userName, message }) => {
-            console.log("Messh")
+        socketRef.current.on('newMessage', ({ userName, message, room }) => {
             setMessages(prevMessages => [...prevMessages, { userName, message }])
         })
 
-        //Join the room
         socketRef.current.emit("enterRoom", { userName, room: roomName })
 
-        //to clean up the connection
         return () => {
-            socketRef.current.disconnect()
+            if (socketRef.current) socketRef.current.disconnect()
         }
-    }, [roomName])
+    }, [roomName, userName])
 
-    //to send a new message
     const sendMessage = (messageObj) => {
         socketRef.current.emit("newMessage", messageObj)
     }
-
-    return { messages, sendMessage }
+    return { messages, sendMessage, activities }
 }
 
 export default useChat
-
-

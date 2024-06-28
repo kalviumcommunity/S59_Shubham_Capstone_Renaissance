@@ -21,9 +21,12 @@ const socialRoutes = require('./routes/SocialRoutes')
 const otpRoutes = require('./routes/otpRoutes')
 const roomRoutes = require('./routes/roomRoutes')
 const cookieParser = require('cookie-parser')
+const http = require('http')
 const { Server } = require('socket.io')
+const initChat = require('./socketRoutes.js')
 
 connectToDB()
+const server = new http.createServer(app)
 const corsOptions = {
   origin: CLIENT_URI,
   credentials: true,
@@ -61,15 +64,14 @@ app.use('/socials', socialRoutes)
 app.use('/otp', otpRoutes)
 app.use('/room', roomRoutes)
 
-const expressServer = app.listen(8081, () => console.log("Listening on Port", PORT))
-const io = new Server(expressServer, {
+const io = new Server(server, {
   cors: {
-    origin: '*'
+    origin: CLIENT_URI
   }
 })
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log("Listening at Port", PORT)
 })
 
-module.exports = { io }
+initChat(io)
