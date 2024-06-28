@@ -21,7 +21,7 @@ const useChat = (userName, roomID) => {
     useEffect(() => {
         if (!roomName) return
 
-        socketRef.current = socketIOClient('http://localhost:8080')
+        socketRef.current = socketIOClient(import.meta.env.VITE_SOCKET_SERVER)
 
         socketRef.current.on("MostRecentMessages", mostRecentMessages => {
             setMessages(mostRecentMessages)
