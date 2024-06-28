@@ -14,8 +14,10 @@ const sendOTP = async (req, res) => {
             specialChars: false,
             digits: true,
         })
+        let maxAttempts = 5;
+        let attempts = 0;
         let result = await otpModel.findOne({ otp: otp })
-        while (result) {
+        while (result && attempts < maxAttempts) {
             otp = otpGenerator.generate(6, {
                 upperCaseAlphabets: false,
                 lowerCaseAlphabets: false,
@@ -23,6 +25,7 @@ const sendOTP = async (req, res) => {
                 digits: true,
             })
             result = await otpModel.findOne({ otp: otp })
+            attempts++;
         }
         const otpPayLoad = new otpModel({ email, otp })
         await otpPayLoad.save()
@@ -42,6 +45,11 @@ const verifyOTP = async (req, res) => {
             return res.status(400).json({ message: "Email and OTP are both required" })
         }
         const latest = await otpModel.find({ email }).sort({ createdAt: -1 }).limit(1)
+        const expTime = new Date(latest[0].createdAt.getTime() + (10 * 60 * 1000))
+        const currTime = new Date()
+        if (currTime > expTime) {
+            return res.status(401).json({ message: "OTP has expired" })
+        }
         if (!latest || latest[0].otp !== otp) {
             console.log("OTP is invalid");
             return res.status(400).json({ message: "The OTP is invalid" });
