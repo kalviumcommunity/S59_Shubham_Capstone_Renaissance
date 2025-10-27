@@ -42,7 +42,7 @@ function ChapterInterface() {
             <>
                 <header className="sticky top-0 w-full flex justify-between bg-[#3F5F4F] p-3 lg:p-5 items-center shadow-lg">
                     <div className="text-white flex justify-center items-center">
-                        <img src={deBonaparte} alt="" className='w-14 lg:w-[60px] lg:h-[60px] rounded-full' />
+                        {/* <img src={deBonaparte} alt="" className='w-14 lg:w-[60px] lg:h-[60px] rounded-full' /> */}
                         <h3 className='lg:block hidden ml-1.5 lg:ml-5 lg:text-base text-sm '>{userName} / </h3>
                         <h3 className='lg:text-base text-[12px] lg:ml-0 ml-3'>{projectName}</h3>
                     </div>

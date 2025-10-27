@@ -44,7 +44,7 @@ function Home({ isLogin }) {
                 <div className='my-5 p-5 lg:p-0 lg:pl-5 pl-10 lg:w-[850px] h-[300px] xl:w-[1100px] xl:h-[350px] bg-cover' style={{ backgroundImage: `url(${greenBg})` }}>
                     <div className='lg:mt-5'>
                         <input type="text" placeholder="Search Here" className="pl-16 lg:py-5 py-2 text-3 w-[86vw] lg:w-[50vw] my-5 absolute left-[-15px] h-[30px] rounded-3xl border-transparent" />
-                        <button className="z-[10] absolute bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] border-2 py-1.5 px-3 right-[16vw] lg:right-auto lg:left-[46vw] mt-[20px] rounded-3xl rounded-l-none" ><img src={searchIcon} className='w-[14px] lg:w-[24px]' /></button>
+                        <button className="z-[10] absolute bg-[#3F5F4F] text-slate-100 border-solid border-[#3F5F4F] border-2 py-1.5 px-3 right-[16vw] lg:right-auto lg:left-[48vw] mt-[20px] rounded-3xl rounded-l-none" ><img src={searchIcon} className='w-[14px] lg:w-[24px]' /></button>
                     </div>
                     <p className='text-center lg:text-left text-3.5 mt-[70px] lg:mt-[110px] text-[13px] lg:text-sm xl:text-base ml-2 '>I bow to thee,</p>
                     <h1 className='text-center lg:text-left text-5xl xl:text-8xl lg:text-7xl font-extrabold'>Renaissance</h1>
@@ -69,7 +69,7 @@ function Home({ isLogin }) {
             <h1 className='text-5xl font-extrabold text-center mt-[30px] lg:mt-[60px] xl:text-8xl lg:text-7xl'>Discover Personalities</h1>
             <p className='lg:text-base text-[13px] text-center mt-[10px] mb-[60px]'>In timeless verse, their ancient souls still breathe.</p>
             {imageArray && <SecondarySlider imageArray={imageArray} />}
-            <h1 className='hidden lg:block text-5xl font-extrabold text-center mt-[70px] mb-[50px] xl:text-8xl lg:text-6xl'>Exlore Some Amazing Works</h1>
+            <h1 className='hidden lg:block text-5xl font-extrabold text-center mt-[70px] mb-[50px] xl:text-8xl lg:text-6xl'>Explore Some Amazing Works</h1>
             <Suggestions title={data[1].title} desc={data[1].desc} author={data[1].author} img={data[1].img} direction={'right'} />
             <div ref={helpDeskRef}>
                 <HelpDesk />

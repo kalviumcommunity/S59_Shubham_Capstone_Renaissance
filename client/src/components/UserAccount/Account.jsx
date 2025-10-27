@@ -71,7 +71,7 @@ function Account({ setLogin, isLogin }) {
                     <div className='py-10 px-8 bg-gray-100 rounded border border-gray-300 mt-10'>
                         <h1 className='text-2xl font-bold text-slate-700'>Overview</h1>
                         <p className='text-justify text-sm text-slate-700 mt-3'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In voluptate vel, necessitatibus cum omnis, quas ullam voluptates nemo reprehenderit suscipit similique blanditiis eos iste. Veritatis minima omnis a nemo rem?</p>
-                        {isLogin && <Link to={`/EnterRoom/667d1dbb8bd2f22267f50746`} className='bg-[#97D4A6] rounded py-1.5 px-3 mt-5 text-[13px]'>Join room</Link>}
+                        {/* {isLogin && <Link to={`/EnterRoom/667d1dbb8bd2f22267f50746`} className='bg-[#97D4A6] rounded py-1.5 px-3 mt-5 text-[13px]'>Join room</Link>} */}
                         <h1 className='text-2xl font-bold text-slate-700 mt-8'>Statistics</h1>
                         <UserStats />
                     </div>

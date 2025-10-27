@@ -6,7 +6,7 @@ const userStruc = require('../validation/userValidation')
 const otpModel = require('../models/otpSchema')
 const jwt = require('jsonwebtoken')
 const path = require('path')
-require('dotenv').config({ path: '../envFiles/.env' });
+require('dotenv').config();
 
 const SECRET = process.env.SECRET
 

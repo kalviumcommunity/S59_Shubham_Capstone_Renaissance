@@ -1,5 +1,5 @@
 const express = require('express')
-require('dotenv').config({ path: './envFiles/.env' })
+require('dotenv').config()
 const session = require("express-session")
 const passport = require("passport")
 const rateLimit = require('express-rate-limit')
@@ -27,6 +27,7 @@ const initChat = require('./socketRoutes.js')
 
 connectToDB()
 const server = new http.createServer(app)
+console.log(CLIENT_URI)
 const corsOptions = {
   origin: CLIENT_URI,
   credentials: true,

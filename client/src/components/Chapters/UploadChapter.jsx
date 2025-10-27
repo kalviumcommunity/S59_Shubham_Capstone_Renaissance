@@ -30,7 +30,7 @@ function UploadChapter({ projectID, chapterID, userID, setUploadChapter, contrib
                 <h1 className='font-bold text-lg lg:text-2xl'>Upload the chapter to Original Project</h1>
                 <p className="text-gray-500 text-[11px] lg:text-[12px]">Once the owner of the project approves your submission, your work would be saved in the main project</p>
                 <hr />
-                <h1 className='font-bold text-sm lg:text-lg mt-5'>Chapter Name: <span className="text-[#3F5F4F]">The Letter</span></h1>
+                <h1 className='lg:text-base mt-5 text-sm'>for&nbsp;<span className="font-bold">{projectName}</span></h1>
                 <p className="text-gray-500 text-[11px] lg:text-[12px] mb-5">Your progress in the chapter shall be sent as a request to merge in the original project</p>
                 <RequestEditor setMessage={setMessage} className="w-full border placeholder-gray-500 text-sm" />
                 <button onClick={() => setPullRequest()} className="bg-[#3F5F4F] text-[12px] lg:text-sm text-white px-3 py-1.5 rounded lg:mt-8">Send a Request</button>

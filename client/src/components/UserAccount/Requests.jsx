@@ -27,7 +27,7 @@ function Requests() {
                 {requests && requests.map(request => (
                     <div className="white shadow rounded py-5 px-8 bg-white my-5 flex justify-between">
                         <div className='lg:flex'>
-                            <img src={deBonaparte} alt="profile-image" className='rounded-full w-14 h-14 lg:w-24 lg:h-24' />
+                            {/* <img src={deBonaparte} alt="profile-image" className='rounded-full w-14 h-14 lg:w-24 lg:h-24' /> */}
                             <div className='mt-5 lg:m-5'>
                                 <h1 className="text-lg lg:text-xl text-slate-700 font-bold ">{request.projectName}</h1>
                                 <p className="text-[12px] lg:text-[14px] text-gray-500">By: {request.contributerName}</p>

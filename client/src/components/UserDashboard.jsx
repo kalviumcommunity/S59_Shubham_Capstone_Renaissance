@@ -157,8 +157,8 @@ function UserDashboard() {
                     <Sidebar setExpand={setIsExpand} isExpand={isExpand} username={username} userProjects={userProjects} forkedProjects={forkedProjects} />
                     <div className='bg-[#F4F4F4] w-full m-0 xl:w-[81%] lg:w-[75%] xl:ml-[19%] lg:ml-[25%] p-0 px-10 pt-20'>
                         <form className='lg:shadow-xl pt-3'>
-                            <input type="text" placeholder="Search Here" className="lg:my-0 lg:pl-[70px] px-3 py-1.5 lg:pl-3 lg:py-1.5 text-[15px] w-[70vw] lg:w-[400px] lg:absolute left-[230px] rounded-3xl border-transparent" />
-                            <button className="z-[10] absolute bg-[#3F5F4F] border-solid border-[#3F5F4F] border-2 py-1.5 px-3 left-[70vw] lg:left-[600px] rounded-3xl rounded-l-none" ><img src={searchIcon} className='w-[16.5px]' /></button>
+                            <input type="text" placeholder="Search Here" className="lg:my-0 lg:pl-[80px] px-3 py-1.5 lg:pl-3 lg:py-1.5 text-[15px] w-[70vw] lg:w-[400px] lg:absolute left-[280px] rounded-3xl border-transparent" />
+                            <button className="z-[10] absolute bg-[#3F5F4F] border-solid border-[#3F5F4F] border-2 py-1.5 px-3 left-[70vw] lg:left-[650px] rounded-3xl rounded-l-none" ><img src={searchIcon} className='w-[16.5px]' /></button>
                         </form>
                         <h1 className='font-bold text-3xl lg:mt-[70px] mt-[30px]'>Dashboard</h1>
                         <p className='mt-1.5 text-sm'>Explore new projects and create your own too!</p>
@@ -177,7 +177,7 @@ function UserDashboard() {
                             {latestProjects.length ? latestProjects.map(project => (
                                 <div className='bg-white m-1.5 xl:m-3 rounded-xl xl:w-[30%] lg:w-[32%] lg:w-[30%] xl:px-5 px-3 py-3 lg:py-5 xl:py-8 shadow-lg flex flex-col justify-center'>
                                     <div className='flex'>
-                                        <img src={userImg && userImg} alt="deBonaparte" className='rounded-full w-[80px] h-[80px] xl:w-20 lg:w-14  lg:h-14 xl:h-20 shadow-lg' />
+                                        <img src={userImg && userImg} alt="user-image" className='rounded-full w-[80px] h-[80px] xl:w-20 lg:w-14  lg:h-14 xl:h-20 shadow-lg' />
                                         <div className='p-3'>
                                             <h1 className='font-bold text-[12px] xl:text-lg'>{username}</h1>
                                             <p className='text-slate-700 text-[10px] xl:text-[12px]'>Creative Writer, Author, Director</p>
