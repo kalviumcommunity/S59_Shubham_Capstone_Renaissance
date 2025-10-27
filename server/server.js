@@ -35,17 +35,17 @@ const corsOptions = {
   allowedHeaders: 'Content-Type,Authorization'
 };
 app.use(cors(corsOptions))
-app.use(
-  session({
+app.use(session({
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-    secure: true, 
-    sameSite: 'none'
-   }
-  })
-)
+        secure: true,       
+        httpOnly: true,     
+        sameSite: 'none',   
+        maxAge: 6 * 60 * 60 * 1000
+    }
+}));
 const limiter = rateLimit({
   max: process.env.PULL_RATE,
   windowMs: 60 * 60 * 1000,
