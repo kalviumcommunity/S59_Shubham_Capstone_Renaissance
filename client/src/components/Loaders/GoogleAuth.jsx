@@ -1,24 +1,25 @@
 import { PropagateLoader } from 'react-spinners'
-import { fetchDataFromGoogleAuth } from '../../utils/apiUtils'
 import { useEffect } from 'react'
-import setCookie from '../../utils/setCookie'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import setCookie from '../../utils/setCookie'
 
-function GoogleAuth({ setLogin, isLogin }) {
-    const navigate = useNavigate(null)
+function GoogleAuth({ setLogin }) {
+    const navigate = useNavigate()
+
     useEffect(() => {
-        fetchDataFromGoogleAuth()
-            .then(response => {
-                setCookie('accessToken', response.data.accessToken, 1)
-                setLogin(true)
-                toast.success("Login Successful!")
-                navigate('/Dashboard')
-            })
-            .catch(error => {
-                toast.error("Login Failed. Try again later.")
-                console.log(error)
-            })
+        const params = new URLSearchParams(window.location.search)
+        const token = params.get('token')
+
+        if (token) {
+            setCookie('accessToken', token, 1) 
+            setLogin(true)
+            toast.success("Login Successful!")
+            navigate('/Dashboard')
+        } else {
+            toast.error("Login Failed. Try again later.")
+            navigate('/login')
+        }
     }, [])
 
     return (
