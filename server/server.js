@@ -40,6 +40,10 @@ app.use(
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+    secure: true, 
+    sameSite: 'none'
+   }
   })
 )
 const limiter = rateLimit({
