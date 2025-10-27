@@ -58,7 +58,27 @@ passport.deserializeUser(async (id, callback) => {
 })
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: `${CLIENT_URI}/register`, successRedirect: `${CLIENT_URI}/success` }))
+// router.get('/google/callback', passport.authenticate('google', { failureRedirect: `${CLIENT_URI}/register`, successRedirect: `${CLIENT_URI}/success` }))
+router.get('/google/callback', (req, res, next) => {
+    passport.authenticate('google', (err, user, info) => {
+        if (err) {
+            console.log("Authentication error:", err);
+            return res.redirect(`${CLIENT_URI}/register?error=${encodeURIComponent(err.message)}`);
+        }
+        if (!user) {
+            console.log("No user returned during authentication:", info);
+            return res.redirect(`${CLIENT_URI}/register?error=User not authenticated`);
+        }
+        req.logIn(user, (loginErr) => {
+            if (loginErr) {
+                console.log("Login error:", loginErr);
+                return res.redirect(`${CLIENT_URI}/register?error=${encodeURIComponent(loginErr.message)}`);
+            }
+            res.redirect(`${CLIENT_URI}/success`);
+        });
+    })(req, res, next);
+});
+
 router.get('/google/session', async (req, res) => {
     if (req.session.passport) {
         const userID = req.session.passport.user
